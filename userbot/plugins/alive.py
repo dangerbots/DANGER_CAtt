@@ -10,8 +10,10 @@ from userbot import ALIVE_NAME, CMD_HELP, StartTime, catdef, catversion
 
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
 CAT_IMG = Config.ALIVE_PIC
+SURCAT = str(Config.CUSTOM_ALIVE_TEXT) if Config.CUSTOM_ALIVE_TEXT else "✮ MY BOT IS RUNNING SUCCESFULLY ✮"
+EMOJI = str(Config.CUSTOM_ALIVE_EMOJI) if Config.CUSTOM_ALIVE_EMOJI else "✧✧"
 
 
 @borg.on(admin_cmd(outgoing=True, pattern="alive$"))
@@ -26,27 +28,29 @@ async def amireallyalive(alive):
     if alive.reply_to_msg_id:
         reply_to_id = await alive.get_reply_message()
     if CAT_IMG:
-        cat_caption = f"**✮ MY BOT IS RUNNING SUCCESFULLY ✮**\n\n"
-        cat_caption += f"**✧ Database :** `{check_sgnirts}`\n"
-        cat_caption += f"**✧ Telethon version :** `{version.__version__}\n`"
-        cat_caption += f"**✧ Catuserbot Version :** `{catversion}`\n"
-        cat_caption += f"**✧ Python Version :** `{python_version()}\n`"
-        cat_caption += f"**✧ Uptime :** `{uptime}\n`"
-        cat_caption += f"**✧ My Master:** [{DEFAULTUSER}](tg://user?id={hmm})\n"
+        cat_caption = f"**{SURCAT}**\n\n"
+        cat_caption += f"**{EMOJI} Database :** `{check_sgnirts}`\n"
+        cat_caption += f"**{EMOJI} Telethon version :** `{version.__version__}\n`"
+        cat_caption += f"**{EMOJI} Catuserbot Version :** `{catversion}`\n"
+        cat_caption += f"**{EMOJI} Python Version :** `{python_version()}\n`"
+        cat_caption += f"**{EMOJI} Uptime :** `{uptime}\n`"
+        cat_caption += f"**{EMOJI} My Master:** [{DEFAULTUSER}](tg://user?id={hmm})\n"
+        cat_caption += "    <a href = https://github.com/sandy1709/catuserbot><b>GoodCat</b></a> | <a href = https://github.com/Sur-vivor/CatUserbot><b>SurCat</b></a> | <a href = https://t.me/catuserbot_support><b>Support</b></a>"
         await borg.send_file(
-            alive.chat_id, CAT_IMG, caption=cat_caption, reply_to=reply_to_id
+            alive.chat_id, CAT_IMG, caption=cat_caption, reply_to=reply_to_id, link_preview=False, parse_mode="html"
         )
         await alive.delete()
     else:
         await edit_or_reply(
             alive,
-            f"**✮ MY BOT IS RUNNING SUCCESFULLY ✮**\n\n"
-            f"**✧ Database :** `{check_sgnirts}`\n"
-            f"**✧ Telethon Version :** `{version.__version__}\n`"
-            f"**✧ Catuserbot Version :** `{catversion}`\n"
-            f"**✧ Python Version :** `{python_version()}\n`"
-            f"**✧ Uptime :** `{uptime}\n`"
-            f"**✧ My Master:** [{DEFAULTUSER}](tg://user?id={hmm})\n",
+            f"**{SURCAT}**\n\n"
+            f"**{EMOJI} Database :** `{check_sgnirts}`\n"
+            f"**{EMOJI} Telethon Version :** `{version.__version__}\n`"
+            f"**{EMOJI} Catuserbot Version :** `{catversion}`\n"
+            f"**{EMOJI} Python Version :** `{python_version()}\n`"
+            f"**{EMOJI} Uptime :** `{uptime}\n`"
+            f"**{EMOJI} My Master:** [{DEFAULTUSER}](tg://user?id={hmm})\n",
+            "   **[GoodCat]**(https://github.com/sandy1709/catuserbot) | **[SurCat]**(https://github.com/Sur-vivor/CatUserbot) | **[Support]**(https://t.me/catuserbot_support) ",
         )
 
 
@@ -60,7 +64,7 @@ async def amireallyalive(alive):
     if alive.reply_to_msg_id:
         reply_to_id = await alive.get_reply_message()
     hmm = bot.uid
-    cat_caption = f"**Catuserbot is Up and Running**\n"
+    cat_caption = f"**CatUserbot is Up and Running**\n"
     cat_caption += f"**  -Telethon version :** `{version.__version__}\n`"
     cat_caption += f"**  -Catuserbot Version :** `{catversion}`\n"
     cat_caption += f"**  -Python Version :** `{python_version()}\n`"
