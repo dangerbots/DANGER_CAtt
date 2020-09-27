@@ -9,6 +9,8 @@ import os
 from userbot.utils import admin_cmd
 
 G_BAN_LOGGER_GROUP = os.environ.get("G_BAN_LOGGER_GROUP", None)
+if G_BAN_LOGGER_GROUP:
+        G_BAN_LOGGER_GROUP = int(G_BAN_LOGGER_GROUP)
 
 
 @borg.on(admin_cmd(pattern="bgban ?(.*)"))
