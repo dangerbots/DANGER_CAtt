@@ -39,14 +39,13 @@ async def amireallyalive(alive):
         cat_caption += f"**{EMOJI} Python Version :** `{python_version()}\n`"
         cat_caption += f"**{EMOJI} Uptime :** `{uptime}\n`"
         cat_caption += f"**{EMOJI} My Master:** [{DEFAULTUSER}](tg://user?id={hmm})\n"
-        cat_caption += "    <a href = https://github.com/sandy1709/catuserbot><b>GoodCat</b></a> | <a href = https://github.com/Sur-vivor/CatUserbot><b>SurCat</b></a> | <a href = https://t.me/catuserbot_support><b>Support</b></a>"
+        cat_caption += "   **[GoodCat]**(https://github.com/sandy1709/catuserbot) | **[SurCat]**(https://github.com/Sur-vivor/CatUserbot) | **[Support]**(https://t.me/catuserbot_support) ",
         await borg.send_file(
             alive.chat_id,
             CAT_IMG,
             caption=cat_caption,
             reply_to=reply_to_id,
             link_preview=False,
-            parse_mode="html",
         )
         await alive.delete()
     else:
