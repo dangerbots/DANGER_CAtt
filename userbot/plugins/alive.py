@@ -12,7 +12,11 @@ from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
 CAT_IMG = Config.ALIVE_PIC
-SURCAT = str(Config.CUSTOM_ALIVE_TEXT) if Config.CUSTOM_ALIVE_TEXT else "✮ MY BOT IS RUNNING SUCCESFULLY ✮"
+SURCAT = (
+    str(Config.CUSTOM_ALIVE_TEXT)
+    if Config.CUSTOM_ALIVE_TEXT
+    else "✮ MY BOT IS RUNNING SUCCESFULLY ✮"
+)
 EMOJI = str(Config.CUSTOM_ALIVE_EMOJI) if Config.CUSTOM_ALIVE_EMOJI else "✧✧"
 
 
@@ -53,7 +57,7 @@ async def amireallyalive(alive):
             f"**{EMOJI} Python Version :** `{python_version()}\n`"
             f"**{EMOJI} Uptime :** `{uptime}\n`"
             f"**{EMOJI} My Master:** [{DEFAULTUSER}](tg://user?id={hmm})\n"
-            "   **[GoodCat]**(https://github.com/sandy1709/catuserbot) | **[SurCat]**(https://github.com/Sur-vivor/CatUserbot) | **[Support]**(https://t.me/catuserbot_support) "
+            "   **[GoodCat]**(https://github.com/sandy1709/catuserbot) | **[SurCat]**(https://github.com/Sur-vivor/CatUserbot) | **[Support]**(https://t.me/catuserbot_support) ",
         )
 
 
