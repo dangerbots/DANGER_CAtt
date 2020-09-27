@@ -19,12 +19,11 @@ import os
 import pybase64
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
-from .. import CMD_HELP, ALIVE_NAME
+from .. import ALIVE_NAME, CMD_HELP
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 from . import catmusic, catmusicvideo
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
-
 
 
 @borg.on(admin_cmd(pattern="song( (.*)|$)"))
