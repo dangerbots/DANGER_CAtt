@@ -17,7 +17,7 @@ SURCAT = (
     if Config.CUSTOM_ALIVE_TEXT
     else "✮ MY BOT IS RUNNING SUCCESFULLY ✮"
 )
-EMOJI = str(Config.CUSTOM_ALIVE_EMOJI) if Config.CUSTOM_ALIVE_EMOJI else "✧✧"
+EMOJI = str(Config.CUSTOM_ALIVE_EMOJI) if Config.CUSTOM_ALIVE_EMOJI else "✧"
 
 
 @borg.on(admin_cmd(outgoing=True, pattern="alive$"))
