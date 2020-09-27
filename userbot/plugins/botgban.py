@@ -4,9 +4,11 @@ Available Commands:
 .gban REASON
 .ungban REASON"""
 import os
+
 from userbot.utils import admin_cmd
 
 G_BAN_LOGGER_GROUP = os.environ.get("G_BAN_LOGGER_GROUP", None)
+
 
 @borg.on(admin_cmd(pattern="bgban ?(.*)"))
 async def _(event):
