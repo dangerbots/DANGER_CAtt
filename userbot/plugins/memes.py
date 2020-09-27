@@ -375,6 +375,7 @@ async def payf(event):
     )
     await event.edit(pay)
 
+
 @borg.on(admin_cmd(pattern="g1 ?(.*)"))
 async def payf(event):
     paytext = event.pattern_match.group(1)
@@ -527,6 +528,7 @@ async def _(event):
     for i in animation_ttl:
         await asyncio.sleep(animation_interval)
         await event.edit(animation_chars[i % 13])
+
 
 @borg.on(admin_cmd(pattern="f (.*)"))
 async def payf(e):
