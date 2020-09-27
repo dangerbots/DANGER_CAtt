@@ -3,8 +3,8 @@ Group Administrations bots where you are SUDO
 Available Commands:
 .gban REASON
 .ungban REASON"""
-import os
 
+import os
 from userbot.utils import admin_cmd
 
 G_BAN_LOGGER_GROUP = os.environ.get("G_BAN_LOGGER_GROUP", None)
@@ -12,7 +12,7 @@ G_BAN_LOGGER_GROUP = os.environ.get("G_BAN_LOGGER_GROUP", None)
 
 @borg.on(admin_cmd(pattern="bgban ?(.*)"))
 async def _(event):
-    if Config.G_BAN_LOGGER_GROUP is None:
+    if G_BAN_LOGGER_GROUP is None:
         await event.edit("ENV VAR is not set. This module will not work.")
         return
     if event.fwd_from:
@@ -25,7 +25,7 @@ async def _(event):
         else:
             r_from_id = r.from_id
         await borg.send_message(
-            Config.G_BAN_LOGGER_GROUP,
+            G_BAN_LOGGER_GROUP,
             "/gban [user](tg://user?id={}) {}".format(r_from_id, reason),
         )
     await event.delete()
@@ -33,7 +33,7 @@ async def _(event):
 
 @borg.on(admin_cmd(pattern="bungban ?(.*)"))
 async def _(event):
-    if Config.G_BAN_LOGGER_GROUP is None:
+    if G_BAN_LOGGER_GROUP is None:
         await event.edit("ENV VAR is not set. This module will not work.")
         return
     if event.fwd_from:
@@ -43,7 +43,7 @@ async def _(event):
         r = await event.get_reply_message()
         r_from_id = r.from_id
         await borg.send_message(
-            Config.G_BAN_LOGGER_GROUP,
+            G_BAN_LOGGER_GROUP,
             "/ungban [user](tg://user?id={}) {}".format(r_from_id, reason),
         )
     await event.delete()
