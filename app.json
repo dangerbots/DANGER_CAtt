@@ -104,11 +104,7 @@
     "LYDIA_API_KEY": {
       "description": "Needed for Lydia AI. Follow https://telegra.ph/Lydia-09-05 to get your API.",
       "value": "",
-      "required": false
-    },
-    "G_BAN_LOGGER_GROUP": {	
-      "description": "Gban log channel, include the hyphen too: ex: -123456",
-      "value": "-100"  
+      "required": false  
     },
     "UB_BLACK_LIST_CHAT": {
       "description": "set blacklist_chats where you do not want userbot features",
