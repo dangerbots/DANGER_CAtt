@@ -173,6 +173,7 @@ async def give(event):
     await asyncio.sleep(sleepValue)
     await event.edit(lp + lp + lp + lp + lp + lp + lp + lp + lp)
 
+
 @borg.on(admin_cmd(pattern="lcry$"))
 async def _(event):
     if event.fwd_from:
@@ -181,61 +182,88 @@ async def _(event):
     animation_ttl = range(0, 36)
     await event.edit("crying")
     animation_chars = [
-            ";__",
-            ";___",
-            ";____",
-            ";_____",
-            ";______",
-            ";_______",
-            ";________",
-            ";__________",
-            ";____________",
-            ";______________",
-            ";________________",
-            ";__________________",
-            ";____________________",
-            ";______________________",
-            ";________________________",
-            ";_________________________",
-            ";_________________________",
-            ";________________________",
-            ";_______________________",
-            ";______________________",
-            ";_____________________",
-            ";____________________",
-            ";___________________",
-            ";__________________",
-            ";_________________",
-            ";________________",
-            ";_______________",
-            ";_____________",
-            ";___________",
-            ";_________",
-            ";_______",
-            ";_____",
-            ";____",
-            ";___",
-            ";__",
-            ";You made me `CRY`"
-        ]
+        ";__",
+        ";___",
+        ";____",
+        ";_____",
+        ";______",
+        ";_______",
+        ";________",
+        ";__________",
+        ";____________",
+        ";______________",
+        ";________________",
+        ";__________________",
+        ";____________________",
+        ";______________________",
+        ";________________________",
+        ";_________________________",
+        ";_________________________",
+        ";________________________",
+        ";_______________________",
+        ";______________________",
+        ";_____________________",
+        ";____________________",
+        ";___________________",
+        ";__________________",
+        ";_________________",
+        ";________________",
+        ";_______________",
+        ";_____________",
+        ";___________",
+        ";_________",
+        ";_______",
+        ";_____",
+        ";____",
+        ";___",
+        ";__",
+        ";You made me `CRY`",
+    ]
     for i in animation_ttl:
         await asyncio.sleep(animation_interval)
         await event.edit(animation_chars[i % 36])
 
+
 @borg.on(admin_cmd(pattern="flower"))
 async def flower(event):
     if event.fwd_from:
-        return   
-    flower =" 🌹"
+        return
+    flower = " 🌹"
     sleepValue = 5
-           
-    await event.edit(flower+"        ")
-    await event.edit(flower+flower+"       ")
-    await event.edit(flower+flower+flower+"      ")
-    await event.edit(flower+flower+flower+flower+"     ")
-    await event.edit(flower+flower+flower+flower+flower+"    ")
-    await event.edit(flower+flower+flower+flower+flower+flower+flower+"   ")
-    await event.edit(flower+flower+flower+flower+flower+flower+flower+flower+"  ")
-    await event.edit(flower+flower+flower+flower+flower+flower+flower+flower+flower+" ")
-    await event.edit(flower+flower+flower+flower+flower+flower+flower+flower+flower+flower)
-    await asyncio.sleep(sleepValue)    
+
+    await event.edit(flower + "        ")
+    await event.edit(flower + flower + "       ")
+    await event.edit(flower + flower + flower + "      ")
+    await event.edit(flower + flower + flower + flower + "     ")
+    await event.edit(flower + flower + flower + flower + flower + "    ")
+    await event.edit(
+        flower + flower + flower + flower + flower + flower + flower + "   "
+    )
+    await event.edit(
+        flower + flower + flower + flower + flower + flower + flower + flower + "  "
+    )
+    await event.edit(
+        flower
+        + flower
+        + flower
+        + flower
+        + flower
+        + flower
+        + flower
+        + flower
+        + flower
+        + " "
+    )
+    await event.edit(
+        flower
+        + flower
+        + flower
+        + flower
+        + flower
+        + flower
+        + flower
+        + flower
+        + flower
+        + flower
+    )
+    await asyncio.sleep(sleepValue)
