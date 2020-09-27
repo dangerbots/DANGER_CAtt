@@ -39,7 +39,9 @@ async def amireallyalive(alive):
         cat_caption += f"**{EMOJI} Python Version :** `{python_version()}\n`"
         cat_caption += f"**{EMOJI} Uptime :** `{uptime}\n`"
         cat_caption += f"**{EMOJI} My Master:** [{DEFAULTUSER}](tg://user?id={hmm})\n"
-        cat_caption += "   **[GoodCat]**(https://github.com/sandy1709/catuserbot) | **[SurCat]**(https://github.com/Sur-vivor/CatUserbot) | **[Support]**(https://t.me/catuserbot_support) ",
+        cat_caption += (
+            "   **[GoodCat]**(https://github.com/sandy1709/catuserbot) | **[SurCat]**(https://github.com/Sur-vivor/CatUserbot) | **[Support]**(https://t.me/catuserbot_support) ",
+        )
         await borg.send_file(
             alive.chat_id,
             CAT_IMG,
