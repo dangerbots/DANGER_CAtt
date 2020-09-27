@@ -4,9 +4,10 @@ from datetime import datetime
 
 from userbot import StartTime, catdef
 
-from .. import CMD_HELP
+from .. import CMD_HELP, ALIVE_NAME
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
 
 @borg.on(admin_cmd(pattern="ping$"))
 @borg.on(sudo_cmd(pattern="ping$", allow_sudo=True))
@@ -19,7 +20,7 @@ async def _(event):
     ms = (end - start).microseconds / 1000
     uptime = await catdef.get_readable_time((time.time() - StartTime))
     await event.edit(
-        f"__**☞ Pong!__**\n➥__**Ping Speed**__ {ms}\n➥__**Uptime**__ {uptime}\n➥ __**Bot**__ __**of**__ [{DEFAULTUSER}]({USERNAME})"
+        f"__**☞ Pong!__**\n➥__**Ping Speed**__ {ms}\n➥__**Uptime**__ {uptime}\n➥ __**Bot**__ __**of**__ {DEFAULTUSER}"
     )
 
 
