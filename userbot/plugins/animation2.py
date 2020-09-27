@@ -32,7 +32,7 @@ async def _(event):
     event = await edit_or_reply(event, "Odra")
     deq = deque(list("🚶🏃🚶🏃🚶🏃🚶🏃"))
     for _ in range(48):
-        await asyncio.sleep(0.4)
+        await asyncio.sleep(0.1)
         await event.edit("".join(deq))
         deq.rotate(1)
 
