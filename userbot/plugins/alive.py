@@ -12,7 +12,11 @@ from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
 CAT_IMG = Config.ALIVE_PIC
-SURCAT = str(Config.CUSTOM_ALIVE_TEXT) if Config.CUSTOM_ALIVE_TEXT else "✮ MY BOT IS RUNNING SUCCESFULLY ✮"
+SURCAT = (
+    str(Config.CUSTOM_ALIVE_TEXT)
+    if Config.CUSTOM_ALIVE_TEXT
+    else "✮ MY BOT IS RUNNING SUCCESFULLY ✮"
+)
 EMOJI = str(Config.CUSTOM_ALIVE_EMOJI) if Config.CUSTOM_ALIVE_EMOJI else "✧✧"
 
 
@@ -37,7 +41,12 @@ async def amireallyalive(alive):
         cat_caption += f"**{EMOJI} My Master:** [{DEFAULTUSER}](tg://user?id={hmm})\n"
         cat_caption += "    <a href = https://github.com/sandy1709/catuserbot><b>GoodCat</b></a> | <a href = https://github.com/Sur-vivor/CatUserbot><b>SurCat</b></a> | <a href = https://t.me/catuserbot_support><b>Support</b></a>"
         await borg.send_file(
-            alive.chat_id, CAT_IMG, caption=cat_caption, reply_to=reply_to_id, link_preview=False, parse_mode="html"
+            alive.chat_id,
+            CAT_IMG,
+            caption=cat_caption,
+            reply_to=reply_to_id,
+            link_preview=False,
+            parse_mode="html",
         )
         await alive.delete()
     else:
