@@ -1,14 +1,12 @@
-#Fban Userlist by @Sur_vivor
-from telethon import events
-from telethon.tl.types import ChannelParticipantsAdmins, ChannelParticipantAdmin, ChannelParticipantCreator
-from userbot.utils import admin_cmd
-from telethon.errors.rpcerrorlist import (UserIdInvalidError,
-                                          MessageTooLongError)
+# Fban Userlist by @Sur_vivor
+from telethon.errors.rpcerrorlist import MessageTooLongError
 
+from userbot.utils import admin_cmd
 
 BOTLOG = True
 BOTLOG_CHATID = Config.PRIVATE_GROUP_BOT_API_ID
-                                          
+
+
 @borg.on(admin_cmd(pattern=r"plist ?(.*)", outgoing=True))
 async def get_users(show):
     await show.delete()
@@ -28,7 +26,9 @@ async def get_users(show):
                         mentions += f"\n{user.id},⚠️Porn / Porn Group Member//AntiPornFed #Massban🔞🛑"
             else:
                 searchq = show.pattern_match.group(1)
-                async for user in show.client.iter_participants(show.chat_id, search=f'{searchq}'):
+                async for user in show.client.iter_participants(
+                    show.chat_id, search=f"{searchq}"
+                ):
                     if not user.deleted:
                         mentions += f"\n{user.id},⚠️Porn / Porn Group Member//AntiPornFed #Massban🔞🛑"
                     else:
@@ -44,10 +44,9 @@ async def get_users(show):
             await show.client.send_file(
                 BOTLOG_CHATID,
                 "userslist.csv",
-                caption='Group Members in {}'.format(title),
+                caption="Group Members in {}".format(title),
                 reply_to=show.id,
             )
-            
 
 
 @borg.on(admin_cmd(pattern=r"blist ?(.*)", outgoing=True))
@@ -69,7 +68,9 @@ async def get_users(show):
                         mentions += f"\n{user.id},⚠️Suspicious/Btc Scammer/Fraudulent activities #Massban🛑"
             else:
                 searchq = show.pattern_match.group(1)
-                async for user in show.client.iter_participants(show.chat_id, search=f'{searchq}'):
+                async for user in show.client.iter_participants(
+                    show.chat_id, search=f"{searchq}"
+                ):
                     if not user.deleted:
                         mentions += f"\n{user.id},⚠️Suspicious/Btc Scammer/Fraudulent activities #Massban🛑"
                     else:
@@ -85,6 +86,6 @@ async def get_users(show):
             await show.client.send_file(
                 BOTLOG_CHATID,
                 "userslist.csv",
-                caption='Group members in {}'.format(title),
+                caption="Group members in {}".format(title),
                 reply_to=show.id,
             )
