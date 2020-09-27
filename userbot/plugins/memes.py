@@ -140,7 +140,7 @@ async def slap(replied_user, event):
     hit = random.choice(memes.HIT)
     throw = random.choice(memes.THROW)
     where = random.choice(memes.WHERE)
-    caption = "..." + temp.format(
+    caption = temp.format(
         user1=DEFAULTUSER,
         victim=slapped,
         item=item,
