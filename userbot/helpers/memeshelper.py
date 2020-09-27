@@ -479,7 +479,7 @@ SLAP_TEMPLATES = [
     "{user1} put {victim} in check-mate.",
     "{user1} RSA-encrypted {victim} and deleted the private key.",
     "{user1} put {victim} in the friendzone.",
-    "{user1} slaps {victim} with a DMCA takedown request!"
+    "{user1} slaps {victim} with a DMCA takedown request!",
 ]
 
 
