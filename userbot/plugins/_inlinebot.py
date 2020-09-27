@@ -17,11 +17,11 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
         builder = event.builder
         result = None
         query = event.text
-        if query.startswith("**Catuserbot") and event.query.user_id == bot.uid:
+        if query.startswith("**CatUserbot") and event.query.user_id == bot.uid:
             buttons = [
                 (
                     custom.Button.inline("Stats", data="stats"),
-                    Button.url("Repo", "https://github.com/sandy1709/catuserbot"),
+                    Button.url("Repo", "https://github.com/Sur-vivor/CatUserbot"),
                 )
             ]
             result = builder.article(
