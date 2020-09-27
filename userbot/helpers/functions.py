@@ -177,7 +177,7 @@ async def waifutxt(text, chat_id, reply_to_id, bot, borg):
         60,
         61,
         62,
-        63,       
+        63,
     ]
     sticcers = await bot.inline_query("stickerizerbot", f"#{choice(animus)}{text}")
     cat = await sticcers[0].click("me", hide_via=True)
