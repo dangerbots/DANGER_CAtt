@@ -24,7 +24,7 @@ from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 from . import catmusic, catmusicvideo
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
-
+USERNAME = str(Config.LIVE_USERNAME) if Config.LIVE_USERNAME else "@Surv_ivor"
 
 @borg.on(admin_cmd(pattern="song( (.*)|$)"))
 @borg.on(sudo_cmd(pattern="song( (.*)|$)", allow_sudo=True))
@@ -66,7 +66,7 @@ async def _(event):
         loa,
         force_document=False,
         allow_cache=False,
-        caption=f"`Song`: {query}\n`Uploaded by`: {DEFAULTUSER}",
+        caption=f"➥ __**Song :- {query}**__\n__**➥ Uploaded by :-**__ [{DEFAULTUSER}]({USERNAME})",
         thumb=catthumb,
         supports_streaming=True,
         reply_to=reply_to_id,
@@ -117,7 +117,7 @@ async def _(event):
         loa,
         force_document=False,
         allow_cache=False,
-        caption=f"`Song`: {query}\n`Uploaded by`: {DEFAULTUSER}",
+        caption=f"➥ __**Song :- {query}**__\n__**➥ Uploaded by :-**__ [{DEFAULTUSER}]({USERNAME})",
         thumb=catthumb,
         supports_streaming=True,
         reply_to=reply_to_id,
@@ -167,7 +167,7 @@ async def _(event):
         event.chat_id,
         loa,
         thumb=catthumb,
-        caption=f"`Song`: {query}\n`Uploaded by`: {DEFAULTUSER}",
+        caption=f"➥ __**Song :- {query}**__\n__**➥ Uploaded by :-**__ [{DEFAULTUSER}]({USERNAME})",
         supports_streaming=True,
         reply_to=reply_to_id,
     )
@@ -179,7 +179,10 @@ async def _(event):
 
 CMD_HELP.update(
     {
-        "getmusic": "`.song` query or `.song` reply to song name :\
-    \nUSAGE:finds the song you entered in query and sends it"
+        "getsongs": "__**PLUGIN NAME :** Get Songs__\
+    \n\n📌** CMD ➥** `.song` query or `.song` reply to song name :\
+    \n**USAGE   ➥  **Finds the song you entered in query and sends it\
+    \n\n📌** CMD ➥** `.vsong` query or `.vsong` reply to song name :\
+    \n**USAGE   ➥  **Finds the video song you entered in query and sends it"
     }
 )
