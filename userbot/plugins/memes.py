@@ -16,7 +16,9 @@ from telethon.tl.types import MessageEntityMentionName
 from userbot import ALIVE_NAME, CMD_HELP, memes
 from userbot.utils import admin_cmd, register
 
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
+USERNAME = str(Config.USERNAME) if Config.USERNAME else "@Surv_ivor"
+
 if Config.PRIVATE_GROUP_BOT_API_ID is None:
     BOTLOG = False
 else:
@@ -147,6 +149,7 @@ async def slap(replied_user, event):
         hits=hit,
         throws=throw,
         where=where,
+        USERNAME=USERNAME,
     )
     return caption
 
