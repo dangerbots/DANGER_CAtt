@@ -14,21 +14,22 @@ telegraph = Telegraph()
 r = telegraph.create_account(short_name=Config.TELEGRAPH_SHORT_NAME)
 auth_url = r["auth_url"]
 
-if Config.PRIVATE_GROUP_BOT_API_ID is None:
-    BOTLOG = False
-else:
-    BOTLOG = True
-    BOTLOG_CHATID = Config.PRIVATE_GROUP_BOT_API_ID
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
+USERNAME = str(Config.USERNAME) if Config.USERNAME else "@Surv_ivor"
 
 
 @borg.on(admin_cmd(pattern="telegraph (media|text) ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return
+    if Config.PRIVATE_GROUP_BOT_API_ID is None:
+        await event.edit(
+            "Please set the required environment variable `PRIVATE_GROUP_BOT_API_ID` for this plugin to work"
+        )
+        return
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
-    if BOTLOG:
-        await borg.send_message(
+    await borg.send_message(
             Config.PRIVATE_GROUP_BOT_API_ID,
             "Created New Telegraph account {} for the current session. \n**Do not give this url to anyone, even if they say they are from Telegram!**".format(
                 auth_url
@@ -53,6 +54,7 @@ async def _(event):
             try:
                 start = datetime.now()
                 media_urls = upload_file(downloaded_file_name)
+                survivor = "https://telegra.ph{}".format(media_urls[0])
             except exceptions.TelegraphException as exc:
                 await event.edit("ERROR: " + str(exc))
                 os.remove(downloaded_file_name)
@@ -61,9 +63,7 @@ async def _(event):
                 ms_two = (end - start).seconds
                 os.remove(downloaded_file_name)
                 await event.edit(
-                    "Uploaded to https://telegra.ph{} in {} seconds.".format(
-                        media_urls[0], (ms + ms_two)
-                    ),
+                    f"__**➥ Uploaded to :-**__ **[Telegraph]**({survivor})\n__**➥ Uploaded in {ms + ms_two} seconds .**__\n__**➥ Uploaded by :-**__ [{DEFAULTUSER}]({USERNAME})",
                     link_preview=True,
                 )
         elif input_str == "text":
@@ -87,12 +87,11 @@ async def _(event):
                 os.remove(downloaded_file_name)
             page_content = page_content.replace("\n", "<br>")
             response = telegraph.create_page(title_of_page, html_content=page_content)
+            surcat = "https://telegra.ph/{}".format(response["path"])
             end = datetime.now()
             ms = (end - start).seconds
             await event.edit(
-                "Pasted to https://telegra.ph/{} in {} seconds.".format(
-                    response["path"], ms
-                ),
+                f"__**➥ Pasted to :-**__ **[Telegraph]**({surcat})\n__**➥ Pasted in {ms} seconds .**__",
                 link_preview=True,
             )
     else:
