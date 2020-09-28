@@ -205,7 +205,7 @@ async def slap(replied_user, event):
 
     temp = random.choice(SLAP_TEMPLATES)
 
-    caption = temp.format(user1=DEFAULTUSER, victim=slapped)
+    caption = temp.format(user1=DEFAULTUSER, victim=slapped, USERNAME=USERNAME)
 
     return caption
 
