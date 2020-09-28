@@ -120,11 +120,27 @@ SLAP_TEMPLATES = [
     "{user1} {victim} നെ കോഴിയാണെന്ന് കരുതി കൂട്ടിലടച്ചു 🤭🤭😜",
 ]
 
-
+HATE_STRINGS = [
+    "🐓🐓🐓🐓🐓🐓🐓🐓🐓🐓🐓🐓🐓🐓കോഴി 🐓🐓🐓🐓🐓🐓🐓🐓🐓🐓🐓കോഴി 🐓🐓🐓🐓🐓🐓കോഴി 🐓🐓🐓🐓🐓🐓🐓🐓🐓🐓🐓കോഴി 🐓🐓🐓🐓🐓🐓", 
+    "എടാ കള്ള കോയീ.... 🐓🐓🐓🐓🐓🐓", 
+    "കൊക്കര കോ കോ.... 🐓🐓🐓🐓🐓🐓", 
+    "ബ  ബ്ബ ബ്ബാ കോയി ബാ  ബാ... 🐓🐓", 
+    "ഡേയ്  കള്ള കാട്ടുകോഴീ... 🐓🐓🐓🐓",
+    "നിക്കെടാ കോഴീ അവിടെ... 🐓🐓🐓🐓", 
+    "ശ്ശോ പോ കോഴീ... 🐓🐓🐓🐓", 
+    "കുണുക്കിട്ട കോഴീ കുളക്കോഴീ.... 🎶🐓🐓🐓", 
+    "ബാ ബാ ബ്ബാ  കോഴീ വന്ന് കൂട്ടിൽ കേറ്... 🐓🐓🐓", 
+    ]
 # ===========================================
 
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "@Sur_vivor"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
+USERNAME = str(Config.USERNAME) if Config.USERNAME else "@Surv_ivor"
 
+@borg.on(admin_cmd(outgoing=True, pattern="kozhi"))
+async def hating (hated):
+        index = random.randint(0, len(HATE_STRINGS) - 1)
+        reply_text = HATE_STRINGS[index]
+        await hated.edit(reply_text)
 
 @borg.on(admin_cmd(pattern="mslap ?(.*)"))
 async def who(event):
@@ -187,7 +203,7 @@ async def slap(replied_user, event):
 
     temp = random.choice(SLAP_TEMPLATES)
 
-    caption = temp.format(user1=DEFAULTUSER, victim=slapped)
+    caption = temp.format(user1=[{DEFAULTUSER}]({USERNAME}), victim=slapped)
 
     return caption
 
