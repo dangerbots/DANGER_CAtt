@@ -235,7 +235,7 @@ async def fuckedd(abusehard):
     reply_text = memes.ABUSEHARD_STRING[index]
     await abusehard.edit(reply_text)
 
-                      
+
 @borg.on(admin_cmd(outgoing=True, pattern="abuse$"))
 async def abusing(abused):
     index = random.randint(0, len(memes.ABUSE_STRINGS) - 1)
