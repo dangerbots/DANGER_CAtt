@@ -464,7 +464,7 @@ SLAP_TEMPLATES = [
     "{user1} picks up a {item} and {hits} {victim} with it.",
     "{user1} ties {victim} to a chair and {throws} a {item} at them.",
     "{user1} {hits} {victim} {where} with a {item}.",
-    "{user1} ties {victim} to a pole and whips them {where} with a {item}."
+    "{user1} ties {victim} to a pole and whips them {where} with a {item}.",
     "{user1} gave a friendly push to help {victim} learn to swim in lava.",
     "{user1} sent {victim} to /dev/null.",
     "{user1} sent {victim} down the memory hole.",
