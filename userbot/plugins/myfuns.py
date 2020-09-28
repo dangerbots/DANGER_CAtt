@@ -136,6 +136,7 @@ HATE_STRINGS = [
 ]
 # ===========================================
 
+
 @borg.on(admin_cmd(outgoing=True, pattern="kozhi"))
 async def hating(hated):
     index = random.randint(0, len(HATE_STRINGS) - 1)
