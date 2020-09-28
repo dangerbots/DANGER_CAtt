@@ -181,9 +181,9 @@ async def _(event):
 CMD_HELP.update(
     {
         "getsongs": "__**PLUGIN NAME :** Get Songs__\
-    \n\n📌** CMD ➥** `.song` query or `.song` reply to song name :\
-    \n**USAGE   ➥  **Finds the song you entered in query and sends it\
-    \n\n📌** CMD ➥** `.vsong` query or `.vsong` reply to song name :\
-    \n**USAGE   ➥  **Finds the video song you entered in query and sends it"
+    \n\n**➥CMD :** `.song` query or `.song` reply to song name :\
+    \n**USAGE :**Finds the song you entered in query and sends it\
+    \n\n**➥CMD :** `.vsong` query or `.vsong` reply to song name :\
+    \n**USAGE :**Finds the video song you entered in query and sends it"
     }
 )
