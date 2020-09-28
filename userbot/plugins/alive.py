@@ -17,7 +17,7 @@ SURCAT = (
     if Config.CUSTOM_ALIVE_TEXT
     else "✮ MY BOT IS RUNNING SUCCESFULLY ✮"
 )
-EMOJI = str(Config.CUSTOM_ALIVE_EMOJI) if Config.CUSTOM_ALIVE_EMOJI else "✧"
+EMOJI = str(Config.CUSTOM_ALIVE_EMOJI) if Config.CUSTOM_ALIVE_EMOJI else "✰"
 
 
 @borg.on(admin_cmd(outgoing=True, pattern="alive$"))
@@ -33,12 +33,12 @@ async def amireallyalive(alive):
         reply_to_id = await alive.get_reply_message()
     if CAT_IMG:
         cat_caption = f"**{SURCAT}**\n\n"
-        cat_caption += f"**{EMOJI} Database :** `{check_sgnirts}`\n"
+        cat_caption += f"**{EMOJI} My Master:** ✨[{DEFAULTUSER}](tg://user?id={hmm})✨\n"
+        cat_caption += f"**{EMOJI} Uptime :** `{uptime}\n`"
+        cat_caption += f"**{EMOJI} Python Version :** `{python_version()}\n`"
         cat_caption += f"**{EMOJI} Telethon version :** `{version.__version__}\n`"
         cat_caption += f"**{EMOJI} Catuserbot Version :** `{catversion}`\n"
-        cat_caption += f"**{EMOJI} Python Version :** `{python_version()}\n`"
-        cat_caption += f"**{EMOJI} Uptime :** `{uptime}\n`"
-        cat_caption += f"**{EMOJI} My Master:** [{DEFAULTUSER}](tg://user?id={hmm})\n"
+        cat_caption += f"**{EMOJI} Database :** `{check_sgnirts}`\n\n"        
         cat_caption += "   **[SurCat]**(https://github.com/Sur-vivor/CatUserbot)  |  **[GoodCat]**(https://github.com/sandy1709/catuserbot)  |  **[Support]**(https://t.me/catuserbot_support)  "
         await borg.send_file(
             alive.chat_id,
@@ -51,12 +51,12 @@ async def amireallyalive(alive):
         await edit_or_reply(
             alive,
             f"**{SURCAT}**\n\n"
-            f"**{EMOJI} Database :** `{check_sgnirts}`\n"
+            f"**{EMOJI} My Master:** [{DEFAULTUSER}](tg://user?id={hmm})\n"
+            f"**{EMOJI} Uptime :** `{uptime}\n`"
+            f"**{EMOJI} Python Version :** `{python_version()}\n`"
             f"**{EMOJI} Telethon Version :** `{version.__version__}\n`"
             f"**{EMOJI} Catuserbot Version :** `{catversion}`\n"
-            f"**{EMOJI} Python Version :** `{python_version()}\n`"
-            f"**{EMOJI} Uptime :** `{uptime}\n`"
-            f"**{EMOJI} My Master:** [{DEFAULTUSER}](tg://user?id={hmm})\n"
+            f"**{EMOJI} Database :** `{check_sgnirts}`\n\n"           
             "   **[SurCat]**(https://github.com/Sur-vivor/CatUserbot)  |  **[GoodCat]**(https://github.com/sandy1709/catuserbot)  |  **[Support]**(https://t.me/catuserbot_support)  ",
         )
 
