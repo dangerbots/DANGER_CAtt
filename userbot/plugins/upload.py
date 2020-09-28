@@ -14,6 +14,7 @@ from ..utils import admin_cmd, edit_or_reply, progress, sudo_cmd
 
 thumb_image_path = Config.TMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
+USERNAME = str(Config.USERNAME) if Config.USERNAME else "@Surv_ivor"
 
 
 async def catlst_of_files(path):
@@ -129,7 +130,7 @@ async def _(event):
         ms = (end - start).seconds
         await mone.delete()
         await caat.edit(
-            f"__**➥ Uploaded in {ms} seconds.**__\n__**➥ Uploaded by :-**__ {DEFAULTUSER}"
+            f"__**➥ Uploaded in {ms} seconds.**__\n__**➥ Uploaded by :-**__ [{DEFAULTUSER}]({USERNAME})"
         )
     else:
         await mone.edit("404: File Not Found")
