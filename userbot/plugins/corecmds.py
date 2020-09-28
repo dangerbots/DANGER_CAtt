@@ -12,7 +12,6 @@ DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
 USERNAME = str(Config.USERNAME) if Config.USERNAME else "@Surv_ivor"
 
 
-
 @borg.on(admin_cmd(pattern="install$"))
 @borg.on(sudo_cmd(pattern="install$", allow_sudo=True))
 async def install(event):
