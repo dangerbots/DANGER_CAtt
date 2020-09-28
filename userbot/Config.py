@@ -164,6 +164,8 @@ class Config(object):
     SPAMWATCH_API = os.environ.get("SPAMWATCH_API", None)
     # SpamWatch, CAS, SpamProtection ban Needed or not
     ANTISPAMBOT_BAN = os.environ.get("ANTISPAMBOT_BAN", False)
+    # username to be displayed in .ialive
+    USERNAME = os.environ.get("USERNAME", None)
     CUSTOM_ALIVE_TEXT = os.environ.get("CUSTOM_ALIVE_TEXT", None)
     CUSTOM_ALIVE_EMOJI = os.environ.get("CUSTOM_ALIVE_EMOJI", None)
 
