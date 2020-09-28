@@ -9,6 +9,7 @@ from PIL import Image
 from telegraph import Telegraph, exceptions, upload_file
 
 from userbot.utils import admin_cmd
+from userbot import ALIVE_NAME
 
 telegraph = Telegraph()
 r = telegraph.create_account(short_name=Config.TELEGRAPH_SHORT_NAME)
