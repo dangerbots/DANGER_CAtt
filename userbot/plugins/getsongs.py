@@ -24,7 +24,7 @@ from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 from . import catmusic, catmusicvideo
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
-USERNAME = str(Config.LIVE_USERNAME) if Config.LIVE_USERNAME else "@Surv_ivor"
+USERNAME = str(Config.USERNAME) if Config.USERNAME else "@Surv_ivor"
 
 
 @borg.on(admin_cmd(pattern="song( (.*)|$)"))
