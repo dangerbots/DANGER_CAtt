@@ -9,6 +9,8 @@ from ..utils import admin_cmd, edit_or_reply, load_module, remove_plugin, sudo_c
 DELETE_TIMEOUT = 5
 thumb_image_path = Config.TMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
+USERNAME = str(Config.USERNAME) if Config.USERNAME else "@Surv_ivor"
+
 
 
 @borg.on(admin_cmd(pattern="install$"))
@@ -73,7 +75,7 @@ async def send(event):
         ms = (end - start).seconds
         await event.delete()
         await caat.edit(
-            f"__**➥ Plugin Name:- {input_str} .**__\n__**➥ Uploaded in {ms} seconds.**__\n__**➥ Uploaded by :-**__ {DEFAULTUSER}"
+            f"__**➥ Plugin Name:- {input_str} .**__\n__**➥ Uploaded in {ms} seconds.**__\n__**➥ Uploaded by :-**__ [{DEFAULTUSER}]({USERNAME})"
         )
     else:
         await edit_or_reply(event, "404: File Not Found")
