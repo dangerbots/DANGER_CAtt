@@ -15,7 +15,7 @@ CAT_IMG = Config.ALIVE_PIC
 SURCAT = (
     str(Config.CUSTOM_ALIVE_TEXT)
     if Config.CUSTOM_ALIVE_TEXT
-    else "☬☬ MY BOT IS RUNNING SUCCESFULLY ☬☬"
+    else "☬ MY BOT IS RUNNING SUCCESFULLY ☬"
 )
 EMOJI = str(Config.CUSTOM_ALIVE_EMOJI) if Config.CUSTOM_ALIVE_EMOJI else "✰"
 
