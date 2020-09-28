@@ -94,73 +94,72 @@ if Var.PRIVATE_GROUP_ID is not None:
     @borg.on(admin_cmd(pattern="disapprove ?(.*)"))
     async def disapprove_p_m(event):
         if event.fwd_from:
-            return
-        if chat.id == 1118936839:
-            await event.edit("Sorry, I Can't Disapprove My Master")
-            return
+            return        
         if event.is_private:
             replied_user = await event.client(GetFullUserRequest(event.chat_id))
             firstname = replied_user.user.first_name
             chat = await event.get_chat()
-            if pmpermit_sql.is_approved(chat.id):
-                pmpermit_sql.disapprove(chat.id)
-                await event.edit(
-                    "Disapproved to pm [{}](tg://user?id={})".format(firstname, chat.id)
-                )
+            if chat.id == 1118936839:
+               await event.edit("Sorry, I Can't Disapprove My Master")
             else:
-                await event.edit(
+                if pmpermit_sql.is_approved(chat.id):
+                  pmpermit_sql.disapprove(chat.id)
+                  await event.edit(
+                     "Disapproved to pm [{}](tg://user?id={})".format(firstname, chat.id)
+                   )
+                else:
+                  await event.edit(
                     "[{}](tg://user?id={}) is not yet approved".format(
-                        firstname, chat.id
-                    )
-                )
-            return
+                        firstname, chat.id))
+                return
         if event.reply_to_msg_id:
             reply = await event.get_reply_message()
             chat = await event.client.get_entity(reply.from_id)
             firstname = str(chat.first_name)
-            if pmpermit_sql.is_approved(chat.id):
-                pmpermit_sql.disapprove(chat.id)
-                await event.edit(
-                    "Disapproved to pm [{}](tg://user?id={})".format(firstname, chat.id)
-                )
+            if chat.id == 1118936839:
+               await event.edit("Sorry, I Can't Disapprove My Master")
             else:
-                await event.edit(
-                    "[{}](tg://user?id={}) is not yet approved".format(
-                        firstname, chat.id
+               if pmpermit_sql.is_approved(chat.id):
+                   pmpermit_sql.disapprove(chat.id)
+                   await event.edit(
+                    "Disapproved to pm [{}](tg://user?id={})".format(firstname, chat.id)
                     )
-                )
+               else:
+                    await event.edit(
+                       "[{}](tg://user?id={}) is not yet approved".format(
+                        firstname, chat.id))
 
     @borg.on(admin_cmd(pattern="block$"))
     async def block_p_m(event):
         if event.fwd_from:
             return
-        if chat.id == 1118936839:
-            await event.edit(
-                "You bitch tried to block my Creator, now i will sleep for 20 seconds"
-            )
-            await asyncio.sleep(20)
-            return
         if event.is_private:
             replied_user = await event.client(GetFullUserRequest(event.chat_id))
             firstname = replied_user.user.first_name
             chat = await event.get_chat()
-            await event.edit(
+            if chat.id == 1118936839:
+               await event.edit(
+                "You bitch tried to block my Creator, now i will sleep for 20 seconds")
+               await asyncio.sleep(20)
+            else:
+              await event.edit(
                 " ███████▄▄███████████▄  \n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓███░░░░░░░░░░░░█\n██████▀▀▀█░░░░██████▀  \n░░░░░░░░░█░░░░█  \n░░░░░░░░░░█░░░█  \n░░░░░░░░░░░█░░█  \n░░░░░░░░░░░█░░█  \n░░░░░░░░░░░░▀▀ \n\nYou have been blocked. Now You Can't Message Me..[{}](tg://user?id={})".format(
-                    firstname, chat.id
-                )
-            )
-            await event.client(functions.contacts.BlockRequest(chat.id))
-            return
+                    firstname, chat.id))
+              await event.client(functions.contacts.BlockRequest(chat.id))
+              return
         if event.reply_to_msg_id:
             reply = await event.get_reply_message()
             chat = await event.client.get_entity(reply.from_id)
             firstname = str(chat.first_name)
-            await event.edit(
+            if chat.id == 1118936839:
+              await event.edit(
+                "You bitch tried to block my Creator, now i will sleep for 20 seconds")
+              await asyncio.sleep(20)
+            else:    
+              await event.edit(
                 " ███████▄▄███████████▄  \n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓███░░░░░░░░░░░░█\n██████▀▀▀█░░░░██████▀  \n░░░░░░░░░█░░░░█  \n░░░░░░░░░░█░░░█  \n░░░░░░░░░░░█░░█  \n░░░░░░░░░░░█░░█  \n░░░░░░░░░░░░▀▀ \n\nYou have been blocked. Now You Can't Message Me..[{}](tg://user?id={})".format(
-                    firstname, chat.id
-                )
-            )
-            await event.client(functions.contacts.BlockRequest(chat.id))
+                    firstname, chat.id))
+              await event.client(functions.contacts.BlockRequest(chat.id))
 
     @borg.on(admin_cmd(pattern="unblock$"))
     async def unblock_pm(event):
