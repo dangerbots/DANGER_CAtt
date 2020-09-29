@@ -37,6 +37,7 @@ async def _(event):
     if photo:
         file = await event.client.upload_file(photo)
         try:
+            await borg(functions.photos.DeletePhotosRequest(await event.client.get_profile_photos("me", limit=1)))
             await borg(functions.photos.UploadProfilePhotoRequest(file))
         except Exception as e:  # pylint:disable=C0103,W0703
             await event.edit(str(e))
@@ -49,6 +50,10 @@ async def _(event):
     last_name = user.first_name
     first_name = OFFLINE_TAG
     try:
+        await borg(
+        functions.photos.DeletePhotosRequest(
+            await event.client.get_profile_photos("me", limit=1)
+        )
         await borg(
             functions.account.UpdateProfileRequest(  # pylint:disable=E0602
                 last_name=last_name, first_name=first_name
@@ -78,6 +83,7 @@ async def _(event):
     if photo:
         file = await event.client.upload_file(photo)
         try:
+            await borg(functions.photos.DeletePhotosRequest(await event.client.get_profile_photos("me", limit=1)))
             await borg(functions.photos.UploadProfilePhotoRequest(file))
         except Exception as e:  # pylint:disable=C0103,W0703
             await event.edit(str(e))
