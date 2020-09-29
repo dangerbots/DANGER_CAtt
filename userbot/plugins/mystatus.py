@@ -10,7 +10,7 @@ import os
 import urllib
 
 from telethon.tl import functions
-from uniborg.util import admin_cmd
+from userbot.utils import admin_cmd
 
 OFFLINE_TAG = "[OFFLINE]"
 PROFILE_IMAGE = os.environ.get(
@@ -50,10 +50,6 @@ async def _(event):
     last_name = user.first_name
     first_name = OFFLINE_TAG
     try:
-        await borg(
-        functions.photos.DeletePhotosRequest(
-            await event.client.get_profile_photos("me", limit=1)
-        )
         await borg(
             functions.account.UpdateProfileRequest(  # pylint:disable=E0602
                 last_name=last_name, first_name=first_name
