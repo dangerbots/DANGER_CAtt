@@ -284,21 +284,21 @@ async def survivor(ckmkb):
     await ckmkb.edit(K)
 
 
-@borg.on(admin_cmd(pattern=r"pikachu"))
+@borg.on(admin_cmd(pattern=r"pikachu$"))
 async def survivor(pikachu):
     await pikachu.edit(A)
 
 
-@borg.on(admin_cmd(pattern=r"shit"))
+@borg.on(admin_cmd(pattern=r"shit$"))
 async def survivor(shit):
     await shit.edit(B)
 
 
-@borg.on(admin_cmd(pattern=r"saxy"))
+@borg.on(admin_cmd(pattern=r"saxy$"))
 async def survivor(saxy):
     await saxy.edit(C)
 
 
-@borg.on(admin_cmd(pattern=r"pornhub"))
+@borg.on(admin_cmd(pattern=r"pornhub$"))
 async def survivor(pornhub):
     await pornhub.edit(D)
