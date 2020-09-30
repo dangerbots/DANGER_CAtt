@@ -1,6 +1,7 @@
 # Created by @jisan7509 & @Sur_vivor
 
 import asyncio
+
 from userbot import ALIVE_NAME
 from userbot.utils import admin_cmd
 
@@ -304,7 +305,7 @@ async def survivor(saxy):
 async def survivor(pornhub):
     await pornhub.edit(D)
 
-    
+
 @borg.on(admin_cmd(pattern=r"ohnoo"))
 async def survivor(bsdk):
     if bsdk.fwd_from:
@@ -350,4 +351,4 @@ async def survivor(baby):
         "     (      ).            ( |    | \n"
         "      |    /                \    |\n"
         "      👞.                  👞"
-    )    
+    )
