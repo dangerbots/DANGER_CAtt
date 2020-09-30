@@ -20,7 +20,7 @@ from datetime import datetime
 from PIL import Image, ImageDraw, ImageFont
 from pySmartDL import SmartDL
 from telethon.tl import functions
-
+from telethon.errors import FloodWaitError
 from userbot.utils import admin_cmd
 
 FONT_FILE_TO_USE = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
@@ -150,3 +150,30 @@ async def autopic(event):
             await asyncio.sleep(90)
         except:
             return
+
+        
+@borg.on(admin_cmd(pattern="cname"))  # pylint:disable=E0602
+async def _(event):
+    if event.fwd_from:
+        return
+    while True:
+        DMY = time.strftime("%d.%m.%y")
+        HM = time.strftime("%H:%M")
+        name = f"{HM}🔥Տմɾѵíѵօɾ🔥{DMY}"
+        logger.info(name)
+        try:
+            await borg(
+                functions.account.UpdateProfileRequest(  # pylint:disable=E0602
+                    last_name=name
+                )
+            )
+        except FloodWaitError as ex:
+            logger.warning(str(e))
+            await asyncio.sleep(ex.seconds)
+        # else:
+        # logger.info(r.stringify())
+        # await borg.send_message(  # pylint:disable=E0602
+        #     Config.PRIVATE_GROUP_BOT_API_ID,  # pylint:disable=E0602
+        #     "Changed Profile Picture"
+        # )
+        await asyncio.sleep(60)    
