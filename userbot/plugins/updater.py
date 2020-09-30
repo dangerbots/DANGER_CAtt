@@ -205,7 +205,7 @@ async def upstream(event):
     if changelog == "" and not force_update:
         await event.edit(
             "\n`CATUSERBOT is`  **up-to-date**  `with`  "
-            f"**{UPSTREAM_REPO_BRANCH}**\n"
+            f"**[{UPSTREAM_REPO_BRANCH}]({UPSTREAM_REPO_URL})**\n"
         )
         return repo.__del__()
     if conf == "" and force_update is False:
