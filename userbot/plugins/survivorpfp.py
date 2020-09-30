@@ -24,6 +24,7 @@ from telethon.tl import functions
 from userbot.utils import admin_cmd
 
 FONT_FILE_TO_USE = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+FONT_FILE_TO_USEE = "userbot/helpers/styles/digital.ttf"
 
 # Add telegraph media links of profile pics that are to be used
 TELEGRAPH_MEDIA_LINKS = [
@@ -43,6 +44,13 @@ TELEGRAPH_MEDIA_LINKS = [
     "https://telegra.ph/file/69f19acd13b1eaf3fc120.jpg",
 ]
 
+TELEGRAPH_MEDIA_LINKSS = [
+    "https://telegra.ph/file/b2cea1712ebaca603e6f4.jpg",
+]
+
+TELEGRAPH_MEDIA_LINKSSS = [
+    "https://telegra.ph/file/b20273be27aeea4e8fcac.jpg",
+]
 
 @borg.on(admin_cmd(pattern="survivorpfp ?(.*)"))
 async def autopic(event):
@@ -76,3 +84,67 @@ async def autopic(event):
             await asyncio.sleep(30)
         except:
             return
+        
+        
+@borg.on(admin_cmd(pattern="alandp ?(.*)"))
+async def autopic(event):
+    while True:
+        piclink = random.randint(0, len(TELEGRAPH_MEDIA_LINKSS) - 1)
+        AUTOPP = TELEGRAPH_MEDIA_LINKSS[piclink]
+        downloaded_file_name = "./userbot/original_pic.png"
+        downloader = SmartDL(AUTOPP, downloaded_file_name, progress_bar=True)
+        downloader.start(blocking=False)
+        photo = "photo_pfp.png"
+        while not downloader.isFinished():
+            pass
+        shutil.copy(downloaded_file_name, photo)
+        Image.open(photo)
+        current_time = datetime.now().strftime("@Sur_vivor \n\n  %H:%M:%S \n %d/%m/%y")
+        img = Image.open(photo)
+        drawn_text = ImageDraw.Draw(img)
+        fnt = ImageFont.truetype(FONT_FILE_TO_USEE, 35)
+        drawn_text.text((10, 40), current_time, font=fnt, fill=(255, 0, 0))
+        img.save(photo)
+        file = await event.client.upload_file(photo)  # pylint:disable=E0602
+        try:
+            await event.client(
+                functions.photos.UploadProfilePhotoRequest(file)  # pylint:disable=E0602
+            )
+            os.remove(photo)
+
+            await asyncio.sleep(90)
+        except:
+            return
+        
+@borg.on(admin_cmd(pattern="epp ?(.*)"))
+async def autopic(event):
+    while True:
+        piclink = random.randint(0, len(TELEGRAPH_MEDIA_LINKSSS) - 1)
+        AUTOPP = TELEGRAPH_MEDIA_LINKSSS[piclink]
+        downloaded_file_name = "./userbot/original_pic.png"
+        downloader = SmartDL(AUTOPP, downloaded_file_name, progress_bar=True)
+        downloader.start(blocking=False)
+        photo = "photo_pfp.png"
+        while not downloader.isFinished():
+            pass
+
+        shutil.copy(downloaded_file_name, photo)
+        Image.open(photo)
+        current_time = datetime.now().strftime(
+            "@Sur_vivor \n \nTime: %H:%M:%S \nDate: %d/%m/%y"
+        )
+        img = Image.open(photo)
+        drawn_text = ImageDraw.Draw(img)
+        fnt = ImageFont.truetype(FONT_FILE_TO_USE, 23)
+        drawn_text.text((50, 600), current_time, font=fnt, fill=(230, 230, 250))
+        img.save(photo)
+        file = await event.client.upload_file(photo)  # pylint:disable=E0602
+        try:
+            await event.client(
+                functions.photos.UploadProfilePhotoRequest(file)  # pylint:disable=E0602
+            )
+            os.remove(photo)
+
+            await asyncio.sleep(90)
+        except:
+            return        
