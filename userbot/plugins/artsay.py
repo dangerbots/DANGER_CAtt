@@ -112,7 +112,7 @@ D = (
 )
 
 
-@borg.on(admin_cmd(pattern="athink (.*)"))
+@borg.on(admin_cmd(pattern="sthink (.*)"))
 async def survivor(think):
     name = think.pattern_match.group(1)
     E = (
@@ -136,7 +136,7 @@ async def survivor(think):
     await think.edit(n + E)
 
 
-@borg.on(admin_cmd(pattern="xdick (.*)"))
+@borg.on(admin_cmd(pattern="sdick (.*)"))
 async def survivor(dicksay):
     name = dicksay.pattern_match.group(1)
     F = (
