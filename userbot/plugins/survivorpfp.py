@@ -1,6 +1,6 @@
 """
 Time In Profile Pic.....
-Command: `.survivorpfp`
+Command: `.survivorpfp`,.alandp,.epp
 
 Custom / Modified Plugin for some magical effects by this Legendary Guy @Sur_vivor
 
