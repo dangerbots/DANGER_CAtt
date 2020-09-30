@@ -4,9 +4,11 @@
 # By @Surv_ivor
 
 import os
+
+from telethon.errors.rpcerrorlist import YouBlockedUserError
+
 from userbot import ALIVE_NAME
 from userbot.utils import admin_cmd
-from telethon.errors.rpcerrorlist import YouBlockedUserError
 
 naam = str(ALIVE_NAME)
 
@@ -18,6 +20,7 @@ BOTLOG_CHATID = Config.PRIVATE_GROUP_BOT_API_ID
 G_BAN_LOGGER_GROUP = os.environ.get("G_BAN_LOGGER_GROUP", None)
 if G_BAN_LOGGER_GROUP:
     G_BAN_LOGGER_GROUP = int(G_BAN_LOGGER_GROUP)
+
 
 @borg.on(admin_cmd("fstat ?(.*)"))
 async def _(event):
@@ -57,7 +60,8 @@ async def _(event):
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
-                
+
+
 @borg.on(admin_cmd(pattern=r"plist ?(.*)", outgoing=True))
 async def get_users(show):
     await show.delete()
@@ -139,7 +143,8 @@ async def get_users(show):
                 "userslist.csv",
                 caption="Group members in {}".format(title),
                 reply_to=show.id,
-            )                
+            )
+
 
 @borg.on(admin_cmd(pattern="bgban ?(.*)"))
 async def _(event):
@@ -177,4 +182,4 @@ async def _(event):
             G_BAN_LOGGER_GROUP,
             "/ungban [user](tg://user?id={}) {}".format(r_from_id, reason),
         )
-    await event.delete()            
+    await event.delete()
