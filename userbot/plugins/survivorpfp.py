@@ -19,8 +19,9 @@ from datetime import datetime
 
 from PIL import Image, ImageDraw, ImageFont
 from pySmartDL import SmartDL
-from telethon.tl import functions
 from telethon.errors import FloodWaitError
+from telethon.tl import functions
+
 from userbot.utils import admin_cmd
 
 FONT_FILE_TO_USE = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
@@ -151,7 +152,7 @@ async def autopic(event):
         except:
             return
 
-        
+
 @borg.on(admin_cmd(pattern="cname"))  # pylint:disable=E0602
 async def _(event):
     if event.fwd_from:
@@ -176,4 +177,4 @@ async def _(event):
         #     Config.PRIVATE_GROUP_BOT_API_ID,  # pylint:disable=E0602
         #     "Changed Profile Picture"
         # )
-        await asyncio.sleep(60)    
+        await asyncio.sleep(60)
