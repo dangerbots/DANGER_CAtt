@@ -300,7 +300,7 @@ async def metoo(hahayes):
     await hahayes.edit(choice(METOOSTR))
 
 
-@borg.on(admin_cmd(pattern=f"gdnoon$", outgoing=True))
+@borg.on(admin_cmd(pattern=f"gnoon$", outgoing=True))
 async def noon(noon):
     await noon.edit(choice(GDNOON))
 
@@ -320,16 +320,16 @@ async def hoi(hello):
     await hello.edit(choice(HELLOSTR))
 
 
-@borg.on(admin_cmd(pattern=f"gdbye$", outgoing=True))
+@borg.on(admin_cmd(pattern=f"gbye$", outgoing=True))
 async def bhago(bhagobc):
     await bhagobc.edit(choice(BYESTR))
 
 
-@borg.on(admin_cmd(pattern=f"gdnyt$", outgoing=True))
+@borg.on(admin_cmd(pattern=f"gn$", outgoing=True))
 async def night(night):
     await night.edit(choice(GDNIGHT))
 
 
-@borg.on(admin_cmd(pattern=f"gdmng$", outgoing=True))
+@borg.on(admin_cmd(pattern=f"gm$", outgoing=True))
 async def morning(morning):
     await morning.edit(choice(GDMORNING))
