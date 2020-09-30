@@ -61,6 +61,7 @@ async def _(event):
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
 
+
 @borg.on(admin_cmd("roseinfo ?(.*)"))
 async def _(event):
     if event.fwd_from:
@@ -99,7 +100,8 @@ async def _(event):
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
-                
+
+
 @borg.on(admin_cmd(pattern=r"plist ?(.*)", outgoing=True))
 async def get_users(show):
     await show.delete()
