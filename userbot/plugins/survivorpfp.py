@@ -52,6 +52,7 @@ TELEGRAPH_MEDIA_LINKSSS = [
     "https://telegra.ph/file/b20273be27aeea4e8fcac.jpg",
 ]
 
+
 @borg.on(admin_cmd(pattern="survivorpfp ?(.*)"))
 async def autopic(event):
     while True:
@@ -84,8 +85,8 @@ async def autopic(event):
             await asyncio.sleep(30)
         except:
             return
-        
-        
+
+
 @borg.on(admin_cmd(pattern="alandp ?(.*)"))
 async def autopic(event):
     while True:
@@ -115,7 +116,8 @@ async def autopic(event):
             await asyncio.sleep(90)
         except:
             return
-        
+
+
 @borg.on(admin_cmd(pattern="epp ?(.*)"))
 async def autopic(event):
     while True:
@@ -147,4 +149,4 @@ async def autopic(event):
 
             await asyncio.sleep(90)
         except:
-            return        
+            return
