@@ -244,6 +244,7 @@ async def proo(pros):
     reply_text = PRO_STRINGS[index]
     await pros.edit(reply_text)
 
+
 @borg.on(admin_cmd(pattern=r"foryou$", outgoing=True))
 async def _(event):
     if event.fwd_from:
@@ -445,4 +446,4 @@ async def _(event):
 
         await event.edit(
             "എന്റെ ഹൃദയത്തിൽ ചുവന്ന റോസാപുഷ്പ്പങ്ങൾ വളരുന്നുണ്ട്. പക്ഷെ, അവ ഒരിക്കലും കൊഴിയാറില്ല. കാരണം, ഞാൻ നിന്റെ പുഞ്ചിരി കാണുമ്പോഴും നിന്നെ കുറിച്ച് ചിന്തിക്കുമ്പോഴുമെല്ലാം അവ വിടരുന്നു☺️☺️.."
-        )    
+        )
