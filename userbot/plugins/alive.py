@@ -61,7 +61,7 @@ async def amireallyalive(alive):
         )
 
 
-@borg.on(admin_cmd(outgoing=True, pattern="ialive$"))
+@borg.on(admin_cmd(outgoing=True, pattern="(ialive|live)$"))
 @borg.on(sudo_cmd(pattern="ialive$", allow_sudo=True))
 async def amireallyalive(alive):
     if alive.fwd_from:
