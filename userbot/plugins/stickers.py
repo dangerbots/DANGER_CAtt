@@ -39,16 +39,16 @@ KANGING_STR = [
 @borg.on(admin_cmd(pattern="kang ?(.*)"))
 async def kang(args):
     """ For .kang command, kangs stickers or creates new ones. """
-    user = await bot.get_me()    
+    user = await bot.get_me()
     if not user.username:
         try:
             user.first_name.encode("utf-8").decode("ascii")
             user.username = user.first_name
         except UnicodeDecodeError:
             user.username = f"cat_{user.id}"
-    userfirstname = user.first_name.encode("utf-8").decode("ascii")       
+    userfirstname = user.first_name.encode("utf-8").decode("ascii")
     if not userfirstname:
-        userfirstname = user.id        
+        userfirstname = user.id
     message = await args.get_reply_message()
     photo = None
     emojibypass = False
