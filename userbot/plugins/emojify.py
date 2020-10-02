@@ -13,10 +13,11 @@ from . import fonts as emojify
 @borg.on(sudo_cmd(pattern="emoji(?: |$)(.*)", allow_sudo=True))
 async def itachi(event):
     args = event.pattern_match.group(1)
-    get = await event.get_reply_message()
+    else:
+        try:
+          get = await event.get_reply_message()
+          args = get.text
     if not args:
-        args = get.text
-    if not args or get:
         await edit_or_reply(
             event, "`What am I Supposed to do with this nibba/nibbi, Give me a text. `"
         )
