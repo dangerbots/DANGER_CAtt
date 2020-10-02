@@ -19,18 +19,15 @@ async def itachi(event):
         args = get.text
     if not args:
         await edit_or_reply(
-            event, "`What am I Supposed to do with this stupid, Give me a text. `"
+            event, "`What am I Supposed to do with this nibba/nibbi, Give me a text. `"
         )
         return
-    result = ""
-    for a in args:
-        a = a.lower()
-        if a in emojify.kakashitext:
-            char = emojify.kakashiemoji[emojify.kakashitext.index(a)]
-            result += char
-        else:
-            result += a
-    await edit_or_reply(event, result)
+    string = "  ".join(args).lower()
+    for chutiya in string:
+        if chutiya in emojify.kakashitext:
+            bsdk = emojify.kakashiemoji[emojify.kakashitext.index(chutiya)]
+            string = string.replace(chutiya, bsdk)
+    await edit_or_reply(event, string)
 
 
 @borg.on(admin_cmd(pattern="cmoji(?: |$)(.*)"))
@@ -42,30 +39,18 @@ async def itachi(event):
         args = get.text
     if not args:
         await edit_or_reply(
-            event, "`What am I Supposed to do with this stupid, Give me a text. `"
+            event, "`What am I Supposed to do with this nibba/nibbi, Give me a text. `"
         )
         return
-    try:
-        emoji, arg = args.split(" ", 1)
-    except:
-        arg = args
-        emoji = "😺"
-    if not char_is_emoji(emoji):
-        arg = args
-        emoji = "😺"
-    result = ""
-    for a in arg:
-        a = a.lower()
-        if a in emojify.kakashitext:
-            char = emojify.itachiemoji[emojify.kakashitext.index(a)].format(cj=emoji)
-            result += char
-        else:
-            result += a
-    await edit_or_reply(event, result)
-
-
-def char_is_emoji(character):
-    return character in emoji.UNICODE_EMOJI
+    emoji, args = args.split(" ", 1)
+    string = "  ".join(args).lower()
+    for chutiya in string:
+        if chutiya in emojify.kakashitext:
+            bsdk = emojify.itachiemoji[emojify.kakashitext.index(chutiya)].format(
+                cj=emoji
+            )
+            string = string.replace(chutiya, bsdk)
+    await edit_or_reply(event, string)
 
 
 CMD_HELP.update(
