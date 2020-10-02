@@ -7,7 +7,7 @@ from .. import CMD_HELP, CMD_LIST, SUDO_LIST
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
-USERNAME = str(Config.USERNAME) if Config.USERNAME else "@Surv_ivor"
+SURID = bot.uid
 
 
 @borg.on(admin_cmd(pattern="help ?(.*)"))
@@ -52,7 +52,7 @@ async def cmd_list(event):
             else:
                 await event.edit(input_str + " is not a valid plugin!")
         else:
-            help_string = f"Userbot Helper.. Provided by [{DEFAULTUSER}]({USERNAME})\
+            help_string = f"Userbot Helper.. Provided by [{DEFAULTUSER}](tg://user?id={SURID})\
                           \nUserbot Helper to reveal all the plugin names\
                           \n__Do__ `.help` __plugin_name for commands, in case popup doesn't appear.__\
                           \nDo `.info` plugin_name for usage"
