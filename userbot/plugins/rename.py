@@ -46,7 +46,8 @@ def get_video_thumb(file, output=None, width=90):
         return output
 
 
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
+USERNAME = str(Config.USERNAME) if Config.USERNAME else "@Surv_ivor"
 
 
 @borg.on(admin_cmd(pattern="rename (.*)"))
@@ -77,7 +78,7 @@ async def _(event):
         ms = (end - start).seconds
         if os.path.exists(downloaded_file_name):
             await event.edit(
-                f"__**➥ Downloaded in {ms} seconds.**__\n__**➥ Downloaded to :- **__ `{downloaded_file_name}`\n__**➥ Downloaded by :-**__ {DEFAULTUSER}"
+                f"__**➥ Downloaded in {ms} seconds.**__\n__**➥ Downloaded to :- **__ `{downloaded_file_name}`\n__**➥ Downloaded by :-**__ [{DEFAULTUSER}]({USERNAME})"
             )
         else:
             await event.edit("Error Occurred\n {}".format(input_str))
@@ -133,7 +134,7 @@ async def _(event):
             ms_two = (end_two - end).seconds
             await event.delete()
             await caat.edit(
-                f"__**➥ Downloaded in {ms_one} seconds.**__\n__**➥ Uploaded in {ms_two} seconds.**__\n__**➥ Uploaded by :-**__ {DEFAULTUSER}"
+                f"__**➥ Downloaded in {ms_one} seconds.**__\n__**➥ Uploaded in {ms_two} seconds.**__\n__**➥ Uploaded by :-**__ [{DEFAULTUSER}]({USERNAME})"
             )
         else:
             await event.edit("File Not Found {}".format(input_str))
@@ -189,7 +190,7 @@ async def _(event):
             ms_two = (end_two - end).seconds
             await event.delete()
             await caat.reply(
-                f"__**➥ Downloaded in {ms_one} seconds.**__\n__**➥ Uploaded in {ms_two} seconds.**__\n__**➥ Uploaded by :-**__ {DEFAULTUSER}"
+                f"__**➥ Downloaded in {ms_one} seconds.**__\n__**➥ Uploaded in {ms_two} seconds.**__\n__**➥ Uploaded by :-**__ [{DEFAULTUSER}]({USERNAME})"
             )
         else:
             await event.reply("File Not Found {}".format(input_str))
@@ -280,7 +281,7 @@ async def _(event):
                 ms_two = (end - end_one).seconds
                 await event.delete()
                 await caat.edit(
-                    f"__**➥ Downloaded in {ms_one} seconds.**__\n__**➥ Uploaded in {ms_two} seconds.**__\n__**➥ Uploaded by :-**__ {DEFAULTUSER}"
+                    f"__**➥ Downloaded in {ms_one} seconds.**__\n__**➥ Uploaded in {ms_two} seconds.**__\n__**➥ Uploaded by :-**__ [{DEFAULTUSER}]({USERNAME})"
                 )
         else:
             await event.edit("File Not Found {}".format(input_str))
@@ -366,7 +367,7 @@ async def _(event):
             ms_two = (end_two - end).seconds
             await event.delete()
             await caat.edit(
-                f"__**➥ Downloaded in {ms_dl} seconds.**__\n__**➥ Uploaded in {ms_two} seconds.**__\n__**➥ Uploaded by :-**__ {DEFAULTUSER}"
+                f"__**➥ Downloaded in {ms_dl} seconds.**__\n__**➥ Uploaded in {ms_two} seconds.**__\n__**➥ Uploaded by :-**__ [{DEFAULTUSER}]({USERNAME})"
             )
         else:
             await event.edit("File Not Found {}".format(input_str))
