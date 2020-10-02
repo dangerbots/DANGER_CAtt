@@ -3,7 +3,6 @@ Created by @Jisan7509
 modified by  @mrconfused
 Userbot plugin for CatUserbot
 """
-import emoji
 
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 from . import CMD_HELP
