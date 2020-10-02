@@ -15,14 +15,14 @@ DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
 async def _(event):
     if event.fwd_from:
         return
-    hmm = bot.uid
+    SURID = bot.uid
     start = datetime.now()
     event = await edit_or_reply(event, "__**☞ Pong!__**")
     end = datetime.now()
     ms = (end - start).microseconds / 1000
     uptime = await catdef.get_readable_time((time.time() - StartTime))
     await event.edit(
-        f"__**☞ Pong!__**\n➥__**Ping Speed**__ {ms}\n➥__**Uptime**__ {uptime}\n➥ __**Bot**__ __**of**__ [{DEFAULTUSER}](tg://user?id={hmm})"
+        f"__**☞ Pong!__**\n➥__**Ping Speed**__ {ms}\n➥__**Uptime**__ {uptime}\n➥ __**Bot**__ __**of**__ [{DEFAULTUSER}](tg://user?id={SURID})"
     )
 
 
