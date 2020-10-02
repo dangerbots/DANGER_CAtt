@@ -24,8 +24,7 @@ from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 from . import catmusic, catmusicvideo
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
-USERNAME = str(Config.USERNAME) if Config.USERNAME else "@Surv_ivor"
-
+hmm = bot.uid
 
 @borg.on(admin_cmd(pattern="song( (.*)|$)"))
 @borg.on(sudo_cmd(pattern="song( (.*)|$)", allow_sudo=True))
@@ -67,7 +66,7 @@ async def _(event):
         loa,
         force_document=False,
         allow_cache=False,
-        caption=f"➥ __**Song :- {query}**__\n__**➥ Uploaded by :-**__ [{DEFAULTUSER}]({USERNAME})",
+        caption=f"➥ __**Song :- {query}**__\n__**➥ Uploaded by :-**__ [{DEFAULTUSER}](tg://user?id={hmm})",
         thumb=catthumb,
         supports_streaming=True,
         reply_to=reply_to_id,
@@ -118,7 +117,7 @@ async def _(event):
         loa,
         force_document=False,
         allow_cache=False,
-        caption=f"➥ __**Song :- {query}**__\n__**➥ Uploaded by :-**__ [{DEFAULTUSER}]({USERNAME})",
+        caption=f"➥ __**Song :- {query}**__\n__**➥ Uploaded by :-**__ [{DEFAULTUSER}](tg://user?id={hmm})",
         thumb=catthumb,
         supports_streaming=True,
         reply_to=reply_to_id,
@@ -168,7 +167,7 @@ async def _(event):
         event.chat_id,
         loa,
         thumb=catthumb,
-        caption=f"➥ __**Song :- {query}**__\n__**➥ Uploaded by :-**__ [{DEFAULTUSER}]({USERNAME})",
+        caption=f"➥ __**Song :- {query}**__\n__**➥ Uploaded by :-**__ [{DEFAULTUSER}](tg://user?id={hmm})",
         supports_streaming=True,
         reply_to=reply_to_id,
     )
