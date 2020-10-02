@@ -39,15 +39,16 @@ KANGING_STR = [
 @borg.on(admin_cmd(pattern="kang ?(.*)"))
 async def kang(args):
     """ For .kang command, kangs stickers or creates new ones. """
-    user = await bot.get_me()
-    if not user.first_name:
-        user.first_name = user.id
+    user = await bot.get_me()    
     if not user.username:
         try:
             user.first_name.encode("utf-8").decode("ascii")
             user.username = user.first_name
         except UnicodeDecodeError:
             user.username = f"cat_{user.id}"
+    userfirstname = user.first_name.encode("utf-8").decode("ascii")       
+    if not userfirstname:
+        userfirstname = user.id        
     message = await args.get_reply_message()
     photo = None
     emojibypass = False
@@ -109,7 +110,7 @@ async def kang(args):
                 emoji = splat[1]
             else:
                 pack = splat[1]
-        packname = f"{user.first_name}_@{user.username}_{pack}"
+        packname = f"{userfirstname}_@{user.username}_{pack}"
         packnick = f"@{user.username}'s_{pack}"
         cmd = "/newpack"
         file = io.BytesIO()
@@ -146,10 +147,10 @@ async def kang(args):
                     except ValueError:
                         pack = 1
                     if not is_anim:
-                        packname = f"{user.first_name}_@{user.username}_{pack}"
+                        packname = f"{userfirstname}_@{user.username}_{pack}"
                         packnick = f"@{user.username}'s_{pack}"
                     else:
-                        packname = f"{user.first_name}_@{user.username}_{pack}_anim"
+                        packname = f"{userfirstname}_@{user.username}_{pack}_anim"
                         packnick = f"@{user.username}'s_{pack} (Animated)"
                     await args.edit(
                         "`Switching to Pack "
