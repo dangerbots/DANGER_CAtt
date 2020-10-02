@@ -8,21 +8,20 @@ from .. import ALIVE_NAME, CMD_HELP
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
-USERNAME = str(Config.USERNAME) if Config.USERNAME else "@Surv_ivor"
-
 
 @borg.on(admin_cmd(pattern="ping$"))
 @borg.on(sudo_cmd(pattern="ping$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
+    hmm = bot.uid
     start = datetime.now()
     event = await edit_or_reply(event, "__**☞ Pong!__**")
     end = datetime.now()
     ms = (end - start).microseconds / 1000
     uptime = await catdef.get_readable_time((time.time() - StartTime))
     await event.edit(
-        f"__**☞ Pong!__**\n➥__**Ping Speed**__ {ms}\n➥__**Uptime**__ {uptime}\n➥ __**Bot**__ __**of**__ [{DEFAULTUSER}]({USERNAME})"
+        f"__**☞ Pong!__**\n➥__**Ping Speed**__ {ms}\n➥__**Uptime**__ {uptime}\n➥ __**Bot**__ __**of**__ [{DEFAULTUSER}](tg://user?id={hmm})"
     )
 
 
