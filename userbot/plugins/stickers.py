@@ -46,9 +46,6 @@ async def kang(args):
             user.username = user.first_name
         except UnicodeDecodeError:
             user.username = f"cat_{user.id}"
-    userfirstname = user.first_name.encode("utf-8").decode("ascii")
-    if not userfirstname:
-        userfirstname = user.id
     message = await args.get_reply_message()
     photo = None
     emojibypass = False
@@ -110,7 +107,7 @@ async def kang(args):
                 emoji = splat[1]
             else:
                 pack = splat[1]
-        packname = f"{userfirstname}_@{user.username}_{pack}"
+        packname = f"{user.username}_{pack}"
         packnick = f"@{user.username}'s_{pack}"
         cmd = "/newpack"
         file = io.BytesIO()
@@ -147,10 +144,10 @@ async def kang(args):
                     except ValueError:
                         pack = 1
                     if not is_anim:
-                        packname = f"{userfirstname}_@{user.username}_{pack}"
+                        packname = f"{user.username}_{pack}"
                         packnick = f"@{user.username}'s_{pack}"
                     else:
-                        packname = f"{userfirstname}_@{user.username}_{pack}_anim"
+                        packname = f"{user.username}_{pack}_anim"
                         packnick = f"@{user.username}'s_{pack} (Animated)"
                     await args.edit(
                         "`Switching to Pack "
@@ -208,7 +205,7 @@ async def kang(args):
                         await args.edit(
                             f"Sticker added in a Different Pack !\
                             \nThis Pack is Newly created!\
-                            \nYour pack can be found [⚡️Here⚡️](t.me/addstickers/{packname}) and emoji of the sticker added is {emoji}",
+                            \nYour pack can be found [⚡Here⚡](t.me/addstickers/{packname}) and emoji of the sticker added is {emoji}",
                             parse_mode="md",
                         )
                         return
@@ -285,7 +282,7 @@ async def kang(args):
                 await bot.send_read_acknowledge(conv.chat_id)
         await args.edit(
             f"Sticker kanged successfully!\
-            \nPack can be found [⚡️Here⚡️](t.me/addstickers/{packname}) and emoji of the sticker is {emoji}",
+            \nPack can be found [⚡Here⚡](t.me/addstickers/{packname}) and emoji of the sticker is {emoji}",
             parse_mode="md",
         )
 
