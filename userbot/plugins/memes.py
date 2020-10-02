@@ -17,7 +17,7 @@ from userbot import ALIVE_NAME, CMD_HELP, memes
 from userbot.utils import admin_cmd, register
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
-USERNAME = str(Config.USERNAME) if Config.USERNAME else "@Surv_ivor"
+SURID = bot.uid
 
 if Config.PRIVATE_GROUP_BOT_API_ID is None:
     BOTLOG = False
