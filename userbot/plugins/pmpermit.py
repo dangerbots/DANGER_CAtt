@@ -14,7 +14,6 @@ PREV_REPLY_MESSAGE = {}
 CACHE = {}
 PMPERMIT_PIC = Config.PMPERMIT_PIC
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
-USERNAME = str(Config.USERNAME) if Config.USERNAME else "@Surv_ivor"
 hmm = bot.uid
 USER_BOT_WARN_ZERO = "`You were spamming my peru master's inbox, henceforth you are blocked by my master's userbot.` **Now GTFO, i'm playing minecraft** "
 
