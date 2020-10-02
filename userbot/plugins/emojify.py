@@ -14,7 +14,7 @@ from . import fonts as emojify
 async def itachi(event):
     args = event.pattern_match.group(1)
     get = await event.get_reply_message()
-    if not args:     
+    if not args:
         args = get.text
     if not args or get:
         await edit_or_reply(
