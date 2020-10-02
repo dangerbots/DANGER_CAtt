@@ -9,6 +9,7 @@ from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
 
+
 @borg.on(admin_cmd(pattern="ping$"))
 @borg.on(sudo_cmd(pattern="ping$", allow_sudo=True))
 async def _(event):
