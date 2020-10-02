@@ -26,6 +26,7 @@ from . import catmusic, catmusicvideo
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
 hmm = bot.uid
 
+
 @borg.on(admin_cmd(pattern="song( (.*)|$)"))
 @borg.on(sudo_cmd(pattern="song( (.*)|$)", allow_sudo=True))
 async def _(event):
