@@ -16,7 +16,7 @@ r = telegraph.create_account(short_name=Config.TELEGRAPH_SHORT_NAME)
 auth_url = r["auth_url"]
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
-hmm = bot.uid
+SURID = bot.uid
 
 
 @borg.on(admin_cmd(pattern="telegraph (media|text) ?(.*)"))
@@ -64,7 +64,7 @@ async def _(event):
                 ms_two = (end - start).seconds
                 os.remove(downloaded_file_name)
                 await event.edit(
-                    f"__**➥ Uploaded to :-**__ **[Telegraph]**({survivor})\n__**➥ Uploaded in {ms + ms_two} seconds .**__\n__**➥ Uploaded by :-**__ [{DEFAULTUSER}](tg://user?id={hmm})",
+                    f"__**➥ Uploaded to :-**__ **[Telegraph]**({survivor})\n__**➥ Uploaded in {ms + ms_two} seconds .**__\n__**➥ Uploaded by :-**__ [{DEFAULTUSER}](tg://user?id={SURID})",
                     link_preview=True,
                 )
         elif input_str == "text":
