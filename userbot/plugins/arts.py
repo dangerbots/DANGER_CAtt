@@ -469,131 +469,131 @@ Z = (
 )
 
 
-@borg.on(admin_cmd(pattern=r"monster"))
+@borg.on(admin_cmd(pattern=r"monster$"))
 async def bluedevilmonster(monster):
     await monster.edit(A)
 
 
-@borg.on(admin_cmd(pattern=r"pig"))
+@borg.on(admin_cmd(pattern=r"pig$"))
 async def bluedevilpig(pig):
     await pig.edit(B)
 
 
-@borg.on(admin_cmd(pattern=r"kiler"))
+@borg.on(admin_cmd(pattern=r"kiler$"))
 async def bluedevilkiller(kiler):
     await kiler.edit(C)
 
 
-@borg.on(admin_cmd(pattern=r"gun"))
+@borg.on(admin_cmd(pattern=r"gun$"))
 async def bluedevilgun(gun):
     await gun.edit(D)
 
 
-@borg.on(admin_cmd(pattern=r"dog"))
+@borg.on(admin_cmd(pattern=r"dog$"))
 async def bluedevildog(dog):
     await dog.edit(E)
 
 
-@borg.on(admin_cmd(pattern=r"hello"))
+@borg.on(admin_cmd(pattern=r"hello$"))
 async def bluedevilhello(hello):
     await hello.edit(F)
 
 
-@borg.on(admin_cmd(pattern=r"hmf"))
+@borg.on(admin_cmd(pattern=r"hmf$"))
 async def bluedevilhmf(hmf):
     await hmf.edit(G)
 
 
-@borg.on(admin_cmd(pattern=r"couple"))
+@borg.on(admin_cmd(pattern=r"couple$"))
 async def bluedevilcouple(couple):
     await couple.edit(H)
 
 
-@borg.on(admin_cmd(pattern=r"sup"))
+@borg.on(admin_cmd(pattern=r"sup$"))
 async def bluedevilsupreme(supreme):
     await supreme.edit(I)
 
 
-@borg.on(admin_cmd(pattern=r"india"))
+@borg.on(admin_cmd(pattern=r"india$"))
 async def bluedevilindia(india):
     await india.edit(J)
 
 
-@borg.on(admin_cmd(pattern=r"wc"))
+@borg.on(admin_cmd(pattern=r"wc$"))
 async def bluedevilwelcome(welcome):
     await welcome.edit(K)
 
 
-@borg.on(admin_cmd(pattern=r"snk"))
+@borg.on(admin_cmd(pattern=r"snk$"))
 async def bluedevilsnake(snake):
     await snake.edit(L)
 
 
-@borg.on(admin_cmd(pattern=r"bye"))
+@borg.on(admin_cmd(pattern=r"bye$"))
 async def bluedevilbye(bye):
     await bye.edit(M)
 
 
-@borg.on(admin_cmd(pattern=r"dislike"))
+@borg.on(admin_cmd(pattern=r"dislike$"))
 async def bluedevildislike(dislike):
     await dislike.edit(N)
 
 
-@borg.on(admin_cmd(pattern=r"shitos"))
+@borg.on(admin_cmd(pattern=r"shitos$"))
 async def bluedevilshitos(shitos):
     await shitos.edit(O)
 
 
-@borg.on(admin_cmd(pattern=r"chess"))
+@borg.on(admin_cmd(pattern=r"chess$"))
 async def bluedevilchess(chess):
     await chess.edit(P)
 
 
-@borg.on(admin_cmd(pattern=r"demon"))
+@borg.on(admin_cmd(pattern=r"demon$"))
 async def bluedevildemon(demon):
     await demon.edit(Q)
 
 
-@borg.on(admin_cmd(pattern=r"hy"))
+@borg.on(admin_cmd(pattern=r"hy$"))
 async def bluedevilhy(hy):
     await hy.edit(R)
 
 
-@borg.on(admin_cmd(pattern=r"baby"))
+@borg.on(admin_cmd(pattern=r"baby$"))
 async def bluedevilbaby(baby):
     await baby.edit(S)
 
 
-@borg.on(admin_cmd(pattern=r"muusic"))
+@borg.on(admin_cmd(pattern=r"muusic$"))
 async def bluedevilmuusic(muusic):
     await muusic.edit(T)
 
 
-@borg.on(admin_cmd(pattern=r"goodn"))
+@borg.on(admin_cmd(pattern=r"goodn$"))
 async def bluedevilgoodn(goodn):
     await goodn.edit(U)
 
 
-@borg.on(admin_cmd(pattern=r"hbd"))
+@borg.on(admin_cmd(pattern=r"hbd$"))
 async def bluedevilhbd(hbd):
     await hbd.edit(V)
 
 
-@borg.on(admin_cmd(pattern=r"goodm"))
+@borg.on(admin_cmd(pattern=r"goodm$"))
 async def bluedevilgoodm(goodm):
     await goodm.edit(W)
 
 
-@borg.on(admin_cmd(pattern=r"tnk"))
+@borg.on(admin_cmd(pattern=r"tnk$"))
 async def bluedeviltnk(tnk):
     await tnk.edit(X)
 
 
-@borg.on(admin_cmd(pattern=r"fooku"))
+@borg.on(admin_cmd(pattern=r"fooku$"))
 async def bluedevilfooku(fooku):
     await fooku.edit(Y)
 
 
-@borg.on(admin_cmd(pattern=r"noice"))
+@borg.on(admin_cmd(pattern=r"noice$"))
 async def bluedevilnoice(noice):
     await noice.edit(Z)
