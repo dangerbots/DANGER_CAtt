@@ -5,7 +5,7 @@ from userbot.utils import admin_cmd
 n = str(ALIVE_NAME) if ALIVE_NAME else "Survivor"
 
 
-@borg.on(admin_cmd(pattern=r"ded"))
+@borg.on(admin_cmd(pattern=r"ded$"))
 async def bluedevilded(ded):
     await ded.edit(
         n + " ==             |\n　　　　　|"
