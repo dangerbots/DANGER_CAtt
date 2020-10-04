@@ -9,6 +9,7 @@ from telethon.tl.types import Channel, Chat, User
 from ..utils import admin_cmd
 from . import CMD_HELP
 
+
 @borg.on(admin_cmd(pattern="stat"))
 async def stats(
     event: NewMessage.Event,
@@ -98,8 +99,11 @@ def user_full_name(user):
     names = [i for i in list(names) if i]
     return " ".join(names)
 
-CMD_HELP.update({
-    "stat":"**Plugin : **`stat`\
-        \n\n**Syntax : **`.stat`
-        \n**Usage : **Shows you the count of  your groups, channels, private chats...etc"
-})
+
+CMD_HELP.update(
+    {
+        "stat": "**Plugin : **`stat`\
+    \n\n**Syntax : **`.stat`\
+    \n**Usage : **Shows you the count of  your groups, channels, private chats...etc"
+    }
+)
