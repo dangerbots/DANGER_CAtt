@@ -25,7 +25,6 @@ async def _(event):
         await event.edit("".join(deq))
         deq.rotate(1)
 
-
 @borg.on(admin_cmd(pattern=r"run$"))
 @borg.on(sudo_cmd(pattern="run$", allow_sudo=True))
 async def _(event):
@@ -35,8 +34,7 @@ async def _(event):
         await asyncio.sleep(0.1)
         await event.edit("".join(deq))
         deq.rotate(1)
-
-
+        
 @borg.on(admin_cmd(pattern=r"nothappy$"))
 @borg.on(sudo_cmd(pattern="noathappy$", allow_sudo=True))
 async def _(event):
@@ -119,7 +117,7 @@ async def _(event):
 async def _(event):
     event = await edit_or_reply(event, "smoon")
     animation_interval = 0.1
-    animation_ttl = range(0, 101)
+    animation_ttl = range(101)
     await event.edit("smoon..")
     animation_chars = [
         "🌗🌗🌗🌗🌗\n🌓🌓🌓🌓🌓\n🌗🌗🌗🌗🌗\n🌓🌓🌓🌓🌓\n🌗🌗🌗🌗🌗",
@@ -141,7 +139,7 @@ async def _(event):
 async def _(event):
     event = await edit_or_reply(event, "tmoon")
     animation_interval = 0.1
-    animation_ttl = range(0, 117)
+    animation_ttl = range(117)
     await event.edit("tmoon")
     animation_chars = [
         "🌗",
