@@ -1,4 +1,4 @@
-# pm and tagged messages logger
+# pm and tagged messages logger for catuserbot by @mrconfused (@sandy1709)
 import asyncio
 import logging
 
@@ -71,12 +71,6 @@ async def log(log_text):
     await log_text.delete()
 
 
-@borg.on(admin_cmd(outgoing=True, pattern="kickme$"))
-async def kickme(leave):
-    await leave.edit("Nope, no, no, I go away")
-    await leave.client.kick_participant(leave.chat_id, "me")
-
-
 @borg.on(admin_cmd(pattern="log$"))
 async def set_no_log_p_m(event):
     if Config.PM_LOGGR_BOT_API_ID is not None:
@@ -100,11 +94,10 @@ CMD_HELP.update(
         "log_chats": "**Plugin : **`log_chats`\
         \n\n**Syntax : **`.save` :\
         \n**Usage : ** saves taged message in private group .\
-        \n\n**Syntax : **`.kickme`:\
-        \n**Usage : ** kicks you from the chat where you used this\
         \n\n**Syntax : **`.log`:\
         \n**Usage : **By default will log all private chat messages if you use .nolog and want to log again then you need to use this\
         \n\n**Syntax : **`.nolog`:\
-        \n**Usage : **to stops logging from a private chat "
+        \n**Usage : **to stops logging from a private chat \
+        \n\n**Note : **these resets after restart soon will try to add database so wont reset after restart"
     }
 )
