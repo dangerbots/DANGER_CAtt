@@ -1,5 +1,6 @@
 """ Spotify / Deezer downloader plugin by @Sur_vivor | Syntax: .dzd link"""
 import asyncio
+
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 
@@ -61,7 +62,8 @@ async def WooMai(netase):
         await bot.send_file(netase.chat_id, respond)
     await netase.client.delete_messages(conv.chat_id, [msg.id, response.id, respond.id])
     await netase.delete()
-    
+
+
 @borg.on(admin_cmd(outgoing=True, pattern="spd(?: |$)(.*)"))
 async def _(event):
     if event.fwd_from:
@@ -91,4 +93,4 @@ async def _(event):
             return
         await bot.forward_messages(event.chat_id, respond.message)
     await event.client.delete_messages(conv.chat_id, [msg.id, r.id, respond.id])
-    await event.delete()    
+    await event.delete()

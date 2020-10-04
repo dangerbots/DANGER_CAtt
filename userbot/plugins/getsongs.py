@@ -7,16 +7,24 @@ import os
 from pathlib import Path
 
 import pybase64
-from telethon import events
-from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 from validators.url import url
 
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import ALIVE_NAME, CMD_HELP, name_dl, runcmd, song_dl, thumb_dl, video_dl, yt_search
+from . import (
+    ALIVE_NAME,
+    CMD_HELP,
+    name_dl,
+    runcmd,
+    song_dl,
+    thumb_dl,
+    video_dl,
+    yt_search,
+)
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
 SURID = bot.uid
+
 
 @bot.on(admin_cmd(pattern="(song|song320)($| (.*))"))
 @bot.on(sudo_cmd(pattern="(song|song320)($| (.*))", allow_sudo=True))
