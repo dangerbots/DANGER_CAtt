@@ -16,6 +16,7 @@ auth_url = r["auth_url"]
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
 SURID = bot.uid
 
+
 @borg.on(admin_cmd(pattern="telegraph (media|text) ?(.*)"))
 @borg.on(sudo_cmd(pattern="telegraph (media|text) ?(.*)", allow_sudo=True))
 async def _(event):
