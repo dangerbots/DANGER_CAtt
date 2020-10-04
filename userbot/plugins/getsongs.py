@@ -7,27 +7,19 @@ import os
 from pathlib import Path
 
 import pybase64
+from telethon import events
+from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 from validators.url import url
 
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import (
-    ALIVE_NAME,
-    CMD_HELP,
-    name_dl,
-    runcmd,
-    song_dl,
-    thumb_dl,
-    video_dl,
-    yt_search,
-)
+from . import ALIVE_NAME, CMD_HELP, name_dl, runcmd, song_dl, thumb_dl, video_dl, yt_search
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
 SURID = bot.uid
 
-
-@borg.on(admin_cmd(pattern="(song|song320)($| (.*))"))
-@borg.on(sudo_cmd(pattern="(song|song320)($| (.*))", allow_sudo=True))
+@bot.on(admin_cmd(pattern="(song|song320)($| (.*))"))
+@bot.on(sudo_cmd(pattern="(song|song320)($| (.*))", allow_sudo=True))
 async def _(event):
     reply_to_id = None
     if event.from_id != bot.uid:
@@ -100,8 +92,8 @@ async def _(event):
             os.remove(files)
 
 
-@borg.on(admin_cmd(pattern="vsong( (.*)|$)"))
-@borg.on(sudo_cmd(pattern="vsong( (.*)|$)", allow_sudo=True))
+@bot.on(admin_cmd(pattern="vsong( (.*)|$)"))
+@bot.on(sudo_cmd(pattern="vsong( (.*)|$)", allow_sudo=True))
 async def _(event):
     reply_to_id = None
     if event.from_id != bot.uid:
