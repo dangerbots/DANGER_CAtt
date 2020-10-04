@@ -2,7 +2,6 @@
 #
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
-#
 
 from asyncio import sleep
 from pylast import User, WSError
@@ -17,22 +16,19 @@ from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import User as Userbot
 from telethon.errors.rpcerrorlist import FloodWaitError
 
-from userbot import CMD_HELP, DEFAULT_BIO, BIO_PREFIX, LASTFM_USERNAME, bot,LASTFM_API, LASTFM_SECRET, LASTFM_PASSWORD_PLAIN
-from userbot.utils import admin_cmd
+from . import CMD_HELP, DEFAULT_BIO, BIO_PREFIX, LASTFM_USERNAME, bot,LASTFM_API, LASTFM_SECRET, LASTFM_PASSWORD_PLAIN,BOTLOG,BOTLOG_CHATID
+from ..utils import admin_cmd
 from pylast import LastFMNetwork, md5
 
 
 LASTFM_PASS = md5(LASTFM_PASSWORD_PLAIN)
 if LASTFM_API and LASTFM_SECRET and LASTFM_USERNAME and LASTFM_PASS:
-        lastfm = LastFMNetwork(api_key=LASTFM_API,
-                               api_secret=LASTFM_SECRET,
-                               username=LASTFM_USERNAME,
-                               password_hash=LASTFM_PASS)
+    lastfm = LastFMNetwork(api_key=LASTFM_API,
+                            api_secret=LASTFM_SECRET,
+                            username=LASTFM_USERNAME,
+                            password_hash=LASTFM_PASS)
 else:
-        lastfm = None
-        
-BOTLOG_CHATID = Config.PRIVATE_GROUP_BOT_API_ID
-BOTLOG = True
+    lastfm = None
 
 # =================== CONSTANT ===================
 LFM_BIO_ENABLED = "```last.fm current music to bio is now enabled.```"
@@ -48,11 +44,7 @@ ARTIST = 0
 SONG = 0
 USER_ID = 0
 
-if BIO_PREFIX:
-    BIOPREFIX = BIO_PREFIX
-else:
-    BIOPREFIX = None
-
+BIOPREFIX = BIO_PREFIX if BIO_PREFIX else None
 LASTFMCHECK = False
 RUNNING = False
 LastLog = False
@@ -61,7 +53,7 @@ LastLog = False
 
 @borg.on(admin_cmd(outgoing=True, pattern="lastfm$"))
 async def last_fm(lastFM):
-    """ For .lastfm command, fetch scrobble data from last.fm. """
+    # For .lastfm command, fetch scrobble data from last.fm.
     await lastFM.edit("Processing...")
     preview = None
     playing = User(LASTFM_USERNAME, lastfm).get_now_playing()
@@ -72,7 +64,6 @@ async def last_fm(lastFM):
                          lastfm).get_now_playing().get_cover_image()
         except IndexError:
             image = None
-            pass
         tags = await gettags(isNowPlaying=True, playing=playing)
         rectrack = parse.quote(f"{playing}")
         rectrack = sub("^", "https://open.spotify.com/search/",
@@ -160,13 +151,12 @@ async def get_curr_track(lfmbio):
                 except AboutTooLongError:
                     short_bio = f"🎧: {SONG}"
                     await bot(UpdateProfileRequest(about=short_bio))
-            else:
-                if playing is None and user_info.about != DEFAULT_BIO:
-                    await sleep(6)
-                    await bot(UpdateProfileRequest(about=DEFAULT_BIO))
-                    if BOTLOG and LastLog:
-                        await bot.send_message(
-                            BOTLOG_CHATID, f"Reset bio back to\n{DEFAULT_BIO}")
+            if playing is None and user_info.about != DEFAULT_BIO:
+                await sleep(6)
+                await bot(UpdateProfileRequest(about=DEFAULT_BIO))
+                if BOTLOG and LastLog:
+                    await bot.send_message(
+                        BOTLOG_CHATID, f"Reset bio back to\n{DEFAULT_BIO}")
         except AttributeError:
             try:
                 if user_info.about != DEFAULT_BIO:
@@ -181,12 +171,10 @@ async def get_curr_track(lfmbio):
                                            f"Error changing bio:\n{err}")
         except FloodWaitError as err:
             if BOTLOG and LastLog:
-                await bot.send_message(BOTLOG_CHATID,
-                                       f"Error changing bio:\n{err}")
+                await bot.send_message(BOTLOG_CHATID, f'Error changing bio:\n{err}')
         except WSError as err:
             if BOTLOG and LastLog:
-                await bot.send_message(BOTLOG_CHATID,
-                                       f"Error changing bio:\n{err}")
+                await bot.send_message(BOTLOG_CHATID, f'Error changing bio:\n{err}')
         await sleep(2)
     RUNNING = False
 
@@ -232,10 +220,11 @@ async def lastlog(lstlog):
 
 CMD_HELP.update({
     'lastfm':
-    ".lastfm\
-    \nUsage: Shows currently scrobbling track or most recent scrobbles if nothing is playing.\
-    \n\nlastbio: .lastbio <on/off>\
-    \nUsage: Enables/Disables last.fm current playing to bio.\
-    \n\nlastlog: .lastlog <on/off>\
-    \nUsage: Enable/Disable last.fm bio logging in the bot-log group."
+    "**Plugin : **`lastfm`\
+    \n\n**Syntax : **`.lastfm`\
+    \n**Usage : **Shows currently scrobbling track or most recent scrobbles if nothing is playing.\
+    \n\n**Syntax : **`.lastbio <on/off>`\
+    \n**Usage : **Enables/Disables last.fm current playing to bio.\
+    \n\n**Syntax : **`.lastlog <on/off>`\
+    \n**Usage : **Enable/Disable last.fm bio logging in the bot-log group."
 })
