@@ -1,27 +1,22 @@
 # reverse search and google search  plugin for cat
+import io
 import os
+import re
+import urllib
 from datetime import datetime
 
 import requests
 from bs4 import BeautifulSoup
 from googlesearch import search
-import io
-import os
-import re
-import urllib
-
-import requests
-from bs4 import BeautifulSoup
 from PIL import Image
 
- errors_handler
-
-from ..utils import admin_cmd, edit_or_reply, sudo_cmd, errors_handler
+from ..utils import admin_cmd, edit_or_reply, errors_handler, sudo_cmd
 from . import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
 
 opener = urllib.request.build_opener()
 useragent = "Mozilla/5.0 (Linux; Android 9; SM-G960F Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/74.0.3729.157 Mobile Safari/537.36"
 opener.addheaders = [("User-agent", useragent)]
+
 
 @borg.on(admin_cmd(outgoing=True, pattern=r"gs(?: |$)(\d*)? ?(.*)"))
 @borg.on(sudo_cmd(allow_sudo=True, pattern=r"gs(?: |$)(\d*)? ?(.*)"))
@@ -57,6 +52,7 @@ async def gsearch(event):
             BOTLOG_CHATID,
             "Google Search query `" + query + "` was executed successfully",
         )
+
 
 @borg.on(admin_cmd(pattern="grs$"))
 @borg.on(sudo_cmd(pattern="grs$", allow_sudo=True))
@@ -110,10 +106,12 @@ async def _(event):
         img_size = img_size_div.find_all("div")
         end = datetime.now()
         ms = (end - start).seconds
-        OUTPUT_STR = "{img_size}\
-                     \n<b>Possible Related Search : </b> <a href="{prs_url}">{prs_text}</a>\
-                     \n<b>More Info : </b> Open this <a href="{the_location}">Link</a>\
-                     \n<i>fetched in {ms} seconds</i>".format(**locals())
+        OUTPUT_STR = """{img_size}
+<b>Possible Related Search : </b> <a href="{prs_url}">{prs_text}</a>\
+<b>More Info : </b> Open this <a href="{the_location}">Link</a>\
+<i>fetched in {ms} seconds</i>""".format(
+            **locals()
+        )
     await catevent.edit(OUTPUT_STR, parse_mode="HTML", link_preview=False)
 
 
@@ -128,10 +126,10 @@ async def _(img):
         photo = io.BytesIO()
         await bot.download_media(message, photo)
     else:
-        await edit_or_reply(img , "`Reply to photo or sticker nigger.`")
+        await edit_or_reply(img, "`Reply to photo or sticker nigger.`")
         return
     if photo:
-        catevent = await edit_or_reply(img , "`Processing...`")
+        catevent = await edit_or_reply(img, "`Processing...`")
         try:
             image = Image.open(photo)
         except OSError:
@@ -163,10 +161,7 @@ async def _(img):
             await catevent.edit("`Can't find this piece of shit.`")
             return
 
-        if img.pattern_match.group(1):
-            lim = img.pattern_match.group(1)
-        else:
-            lim = 3
+        lim = img.pattern_match.group(1) if img.pattern_match.group(1) else 3
         images = await scam(match, lim)
         yeet = []
         for i in images:
@@ -218,10 +213,12 @@ async def scam(results, lim):
             break
     return imglinks
 
+
 def google_scrape(url):
     thepage = (requests.get(url)).text
     soup = BeautifulSoup(thepage, "html.parser")
     return soup.title.text
+
 
 """@borg.on(admin_cmd(outgoing=True, pattern=r"gs (.*)"))
 async def gsearch(q_event):
@@ -263,6 +260,5 @@ CMD_HELP.update(
         \n**Usage : **will google reverse search the image and shows you the result.\
         \n\n**Syntax : **`.reverse limit`\
         \n**Usage : **Reply to a pic/sticker to revers-search it on Google Images !!"
-        "
     }
 )
