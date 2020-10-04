@@ -1,15 +1,13 @@
-"""@telegraph Utilities
-Available Commands:
-.telegraph media as reply to a media
-.telegraph text as reply to a large text"""
+# telegraph utils for catuserbot
+
 import os
 from datetime import datetime
 
 from PIL import Image
 from telegraph import Telegraph, exceptions, upload_file
 
-from userbot import ALIVE_NAME
-from userbot.utils import admin_cmd
+from ..utils import admin_cmd, edit_or_reply, sudo_cmd
+from . import BOTLOG, BOTLOG_CHATID, CMD_HELP
 
 telegraph = Telegraph()
 r = telegraph.create_account(short_name=Config.TELEGRAPH_SHORT_NAME)
@@ -18,24 +16,21 @@ auth_url = r["auth_url"]
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
 SURID = bot.uid
 
-
 @borg.on(admin_cmd(pattern="telegraph (media|text) ?(.*)"))
+@borg.on(sudo_cmd(pattern="telegraph (media|text) ?(.*)", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
-    if Config.PRIVATE_GROUP_BOT_API_ID is None:
-        await event.edit(
-            "Please set the required environment variable `PRIVATE_GROUP_BOT_API_ID` for this plugin to work"
-        )
-        return
+    catevent = await edit_or_reply(event, "`processing........`")
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
-    await borg.send_message(
-        Config.PRIVATE_GROUP_BOT_API_ID,
-        "Created New Telegraph account {} for the current session. \n**Do not give this url to anyone, even if they say they are from Telegram!**".format(
-            auth_url
-        ),
-    )
+    if BOTLOG:
+        await borg.send_message(
+            BOTLOG_CHATID,
+            "Created New Telegraph account {} for the current session. \n**Do not give this url to anyone, even if they say they are from Telegram!**".format(
+                auth_url
+            ),
+        )
     optional_title = event.pattern_match.group(2)
     if event.reply_to_msg_id:
         start = datetime.now()
@@ -47,8 +42,8 @@ async def _(event):
             )
             end = datetime.now()
             ms = (end - start).seconds
-            await event.edit(
-                "Downloaded to {} in {} seconds.".format(downloaded_file_name, ms)
+            await catevent.edit(
+                "Downloaded to {} in {} seconds.".format(downloaded_file_name, ms),
             )
             if downloaded_file_name.endswith((".webp")):
                 resize_image(downloaded_file_name)
@@ -57,13 +52,13 @@ async def _(event):
                 media_urls = upload_file(downloaded_file_name)
                 survivor = "https://telegra.ph{}".format(media_urls[0])
             except exceptions.TelegraphException as exc:
-                await event.edit("ERROR: " + str(exc))
+                await catevent.edit("**Error : **" + str(exc))
                 os.remove(downloaded_file_name)
             else:
                 end = datetime.now()
                 ms_two = (end - start).seconds
                 os.remove(downloaded_file_name)
-                await event.edit(
+                await catevent.edit(
                     f"__**➥ Uploaded to :-**__ **[Telegraph]**({survivor})\n__**➥ Uploaded in {ms + ms_two} seconds .**__\n__**➥ Uploaded by :-**__ [{DEFAULTUSER}](tg://user?id={SURID})",
                     link_preview=True,
                 )
@@ -88,19 +83,31 @@ async def _(event):
                 os.remove(downloaded_file_name)
             page_content = page_content.replace("\n", "<br>")
             response = telegraph.create_page(title_of_page, html_content=page_content)
-            surcat = "https://telegra.ph/{}".format(response["path"])
             end = datetime.now()
             ms = (end - start).seconds
-            await event.edit(
-                f"__**➥ Pasted to :-**__ **[Telegraph]**({surcat})\n__**➥ Pasted in {ms} seconds .**__",
+            cat = f"https://telegra.ph/{response['path']}"
+            await catevent.edit(
+                f"__**➥ Pasted to :-**__ **[Telegraph]**({cat})\n__**➥ Pasted in {ms} seconds .**__",
                 link_preview=True,
             )
     else:
-        await event.edit(
-            "Reply to a message to get a permanent telegra.ph link. (Inspired by @ControllerBot)"
+        await catevent.edit(
+            "`Reply to a message to get a permanent telegra.ph link. (Inspired by @ControllerBot)`",
         )
 
 
 def resize_image(image):
     im = Image.open(image)
     im.save(image, "PNG")
+
+
+CMD_HELP.update(
+    {
+        "telegraph": "**Plugin :**`telegraph`\
+     \n\n**Syntax :** `.telegraph media`\
+     \n**Usage :** Reply to any image or video to upload it to telgraph(video must be less than 5mb)\
+     \n\n**Syntax :** `.telegraph text`\
+     \n**Usage :** reply to any text file or any message to paste it to telegraph\
+    "
+    }
+)
