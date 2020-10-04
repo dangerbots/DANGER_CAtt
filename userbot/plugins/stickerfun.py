@@ -29,12 +29,12 @@ async def waifu(animu):
         if animu.is_reply:
             text = (await animu.get_reply_message()).message
         else:
-            catevent = await edit_or_reply(
+            await edit_or_reply(
                 animu, "`You haven't written any article, Waifu is going away.`"
             )
             return
     text = deEmojify(text)
-    await catevent.delete()
+    await animu.delete()
     await waifutxt(text, animu.chat_id, reply_to_id, bot, borg)
 
 
