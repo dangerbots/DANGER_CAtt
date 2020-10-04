@@ -1,16 +1,14 @@
 # Thumbnail Utilities ported from uniborg
 # credits @spechide
 
-import asyncio
 import os
-import time
 
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from PIL import Image
 
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import CMD_HELP, await, take_screen_shot
+from . import CMD_HELP, take_screen_shot
 
 thumb_image_path = Config.TMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
 
