@@ -6,7 +6,6 @@
 import os
 
 from telethon.errors.rpcerrorlist import (
-    ChatAdminRequiredError,
     MessageTooLongError,
     YouBlockedUserError,
 )
