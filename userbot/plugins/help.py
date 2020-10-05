@@ -10,13 +10,13 @@ DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
 SURID = bot.uid
 
 
+
 @borg.on(admin_cmd(pattern="help ?(.*)"))
 async def cmd_list(event):
     reply_to_id = None
     if event.reply_to_msg_id:
         reply_to_id = event.reply_to_msg_id
     input_str = event.pattern_match.group(1)
-    tgbotusername = Var.TG_BOT_USER_NAME_BF_HER
     if input_str == "text":
         string = ""
         for i in sorted(CMD_LIST):
@@ -41,38 +41,29 @@ async def cmd_list(event):
             return
         await event.edit(string)
         return
-    if Config.HELP_INLINETYPE is None:
-        if input_str:
-            if input_str in CMD_LIST:
-                string = "Commands found in {}:\n".format(input_str)
-                for i in CMD_LIST[input_str]:
-                    string += "    " + i
-                    string += "\n"
-                await event.edit(string)
-            else:
-                await event.edit(input_str + " is not a valid plugin!")
+    if input_str:
+        if input_str in CMD_LIST:
+            string = "Commands found in {}:\n".format(input_str)
+            for i in CMD_LIST[input_str]:
+                string += "    " + i
+                string += "\n"
+            await event.edit(string)
         else:
-            help_string = f"Userbot Helper.. Provided by [{DEFAULTUSER}](tg://user?id={SURID})\
+            await event.edit(input_str + " is not a valid plugin!")
+    else:
+        if Config.HELP_INLINETYPE is None:
+            help_string = f"Userbot Helper.. Provided by ✨[{DEFAULTUSER}](tg://user?id={SURID})✨\
                           \nUserbot Helper to reveal all the plugin names\
                           \n__Do__ `.help` __plugin_name for commands, in case popup doesn't appear.__\
                           \nDo `.info` plugin_name for usage"
+            tgbotusername = Var.TG_BOT_USER_NAME_BF_HER
             results = await bot.inline_query(  # pylint:disable=E0602
                 tgbotusername, help_string
             )
             await results[0].click(event.chat_id, reply_to=reply_to_id, hide_via=True)
             await event.delete()
-    else:
-        if input_str:
-            if input_str in CMD_LIST:
-                string = "Commands found in {}:\n".format(input_str)
-                for i in CMD_LIST[input_str]:
-                    string += "    " + i
-                    string += "\n"
-                await event.edit(string)
-            else:
-                await event.edit(input_str + " is not a valid plugin!")
         else:
-            string = f"**Userbot Helper.. Provided by [{DEFAULTUSER}]({USERNAME})\nUserbot Helper to reveal all the plugin names\n\n**Do `.help` plugin_name for commands\nDo `.info` plugin_name for usage\n\n"
+            string = f"**Userbot Helper.. Provided by ✨[{DEFAULTUSER}](tg://user?id={SURID})✨\nUserbot Helper to reveal all the plugin names\n\n**Do `.help` plugin_name for commands\nDo `.info` plugin_name for usage\n\n"
             for i in sorted(CMD_LIST):
                 string += "◆`" + str(i)
                 string += "`   "
