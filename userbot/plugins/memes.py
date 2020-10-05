@@ -348,6 +348,7 @@ async def payf(event):
     )
     await event.edit(pay)
 
+
 @borg.on(admin_cmd(pattern="g1 ?(.*)"))
 async def payf(event):
     paytext = event.pattern_match.group(1)
@@ -515,7 +516,8 @@ async def payf(e):
         paytext * 1,
     )
     await e.edit(pay)
-                      
+
+
 @borg.on(admin_cmd(pattern=f"react ?(.*)", outgoing=True))
 async def _(event):
     if event.fwd_from:
