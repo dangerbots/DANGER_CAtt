@@ -5,20 +5,19 @@
 
 import os
 
-from telethon.errors import (
-    ChannelInvalidError,
-    ChannelPrivateError,
-    ChannelPublicGroupNaError,
-    ChatAdminRequiredError,
-    UserAdminInvalidError,
-)
+from telethon.errors.rpcerrorlist import (UserIdInvalidError,
+                                          MessageTooLongError,
+                                          YouBlockedUserError)
+from telethon.errors import ChatAdminRequiredError
 
 from userbot import ALIVE_NAME
 from userbot.utils import admin_cmd
 
 naam = str(ALIVE_NAME)
 
-bot = "@MissRose_bot"
+bots = "@MissRose_bot"
+
+BOTLOG_CHATID = Config.PRIVATE_GROUP_BOT_API_ID
 
 G_BAN_LOGGER_GROUP = os.environ.get("G_BAN_LOGGER_GROUP", None)
 if G_BAN_LOGGER_GROUP:
@@ -31,7 +30,7 @@ async def _(event):
         return
     sysarg = event.pattern_match.group(1)
     if sysarg == "":
-        async with borg.conversation(bot) as conv:
+        async with borg.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
@@ -42,7 +41,7 @@ async def _(event):
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_bot `and retry!")
     elif "@" in sysarg:
-        async with borg.conversation(bot) as conv:
+        async with borg.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
@@ -53,7 +52,7 @@ async def _(event):
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
     elif "" in sysarg:
-        async with borg.conversation(bot) as conv:
+        async with borg.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
@@ -71,7 +70,7 @@ async def _(event):
         return
     sysarg = event.pattern_match.group(1)
     if sysarg == "":
-        async with borg.conversation(bot) as conv:
+        async with borg.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
@@ -82,7 +81,7 @@ async def _(event):
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_bot `and retry!")
     elif "@" in sysarg:
-        async with borg.conversation(bot) as conv:
+        async with borg.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
@@ -93,7 +92,7 @@ async def _(event):
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
     elif "" in sysarg:
-        async with borg.conversation(bot) as conv:
+        async with borg.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
@@ -131,18 +130,18 @@ async def get_users(show):
                         mentions += f"\n{user.id},⚠️Porn / Porn Group Member//AntiPornFed #Massban🔞🛑"
                     else:
                         mentions += f"\n{user.id},⚠️Porn / Porn Group Member//AntiPornFed #Massban🔞🛑"
-        except Exception as e:
-            mentions += " " + str(e) + "\n"
+        except ChatAdminRequiredError as err:
+            mentions += " " + str(err) + "\n"
         try:
-            await bot.send_message(Config.PRIVATE_GROUP_BOT_API_ID, mentions)
-        elif len(mentions) > 4095:
+            await bot.send_message(BOTLOG_CHATID, mentions)
+        except MessageTooLongError:
             file = open("userslist.csv", "w+")
             file.write(mentions)
             file.close()
             await show.client.send_file(
-                Config.PRIVATE_GROUP_BOT_API_ID,
+                BOTLOG_CHATID,
                 "userslist.csv",
-                caption="Group Members in {}".format(title),
+                caption='Group Members in {}'.format(title),
                 reply_to=show.id,
             )
 
@@ -173,18 +172,18 @@ async def get_users(show):
                         mentions += f"\n{user.id},⚠️Suspicious/Btc Scammer/Fraudulent activities #Massban🛑"
                     else:
                         mentions += f"\n{user.id},⚠️Suspicious/Btc Scammer/Fraudulent activities #Massban🛑"
-        except Exception as e:
-            mentions += " " + str(e) + "\n"
+        except ChatAdminRequiredError as err:
+            mentions += " " + str(err) + "\n"
         try:
-            await bot.send_message(Config.PRIVATE_GROUP_BOT_API_ID, mentions)
-        elif len(mentions) > 4095:
+            await bot.send_message(BOTLOG_CHATID, mentions)
+        except MessageTooLongError:
             file = open("userslist.csv", "w+")
             file.write(mentions)
             file.close()
             await show.client.send_file(
-                Config.PRIVATE_GROUP_BOT_API_ID,
+                BOTLOG_CHATID,
                 "userslist.csv",
-                caption="Group Members in {}".format(title),
+                caption='Group Members in {}'.format(title),
                 reply_to=show.id,
             )
 
