@@ -3,7 +3,6 @@ Torrent Search Plugin for Userbot. //torrentdownloads.me
 cmd: .search search_string
 Note: Number of results are currently limited to 15
 By:-@Zero_cool7870
-
 """
 from datetime import datetime
 
@@ -23,7 +22,7 @@ def dogbin(magnets):
         r = requests.post(url, data=message.encode("UTF-8")).json()
         url = f"https://del.dog/{r['key']}"
         urls.append(url)
-        counter = counter + 1
+        counter += 1
     return urls
 
 
@@ -68,7 +67,7 @@ async def tor_search(event):
             pass
         if counter == 15:
             break
-        counter = counter + 1
+        counter += 1
     if not urls:
         await event.edit("Either the Keyword was restricted or not found..")
         return
@@ -97,7 +96,7 @@ async def tor_search(event):
             + "({})".format(shorted_links[counter])
             + "\n\n"
         )
-        counter = counter + 1
+        counter += 1
     await event.edit(msg, link_preview=False)
 
 
@@ -138,7 +137,7 @@ async def _(event):
         )
         message_text += "===\r\n"
         output_str += message_text
-        i = i + 1
+        i += 1
     end = datetime.now()
     ms = (end - start).seconds
     await event.edit(
