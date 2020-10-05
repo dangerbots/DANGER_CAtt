@@ -220,7 +220,7 @@ async def fetch_info(replied_user, event):
     )
     username = "@{}".format(username) if username else ("This User has no Username")
     user_bio = "This User has no About" if not user_bio else user_bio
-    caption = "<b>USER INFO from SurCat's database :</b>\n\n"
+    caption = "<b>USER INFO from druv's database :</b>\n\n"
     caption += f"👤First Name: {first_name} {last_name}\n"
     caption += f"🤵Username: {username}\n"
     caption += f"🔖ID: <code>{user_id}</code>\n"
@@ -256,7 +256,7 @@ async def get_user_from_event(event):
     """ Get the user from argument or replied message. """
     args = event.pattern_match.group(1).split(":", 1)
     extra = None
-    if event.reply_to_msg_id and not len(args) == 2:
+    if event.reply_to_msg_id and len(args) != 2:
         previous_message = await event.get_reply_message()
         user_obj = await event.client.get_entity(previous_message.from_id)
         extra = event.pattern_match.group(1)
