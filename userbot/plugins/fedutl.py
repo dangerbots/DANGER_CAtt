@@ -5,10 +5,8 @@
 
 import os
 
-from telethon.errors.rpcerrorlist import (UserIdInvalidError,
-                                          MessageTooLongError,
-                                          YouBlockedUserError)
 from telethon.errors import ChatAdminRequiredError
+from telethon.errors.rpcerrorlist import MessageTooLongError, YouBlockedUserError
 
 from userbot import ALIVE_NAME
 from userbot.utils import admin_cmd
@@ -141,7 +139,7 @@ async def get_users(show):
             await show.client.send_file(
                 BOTLOG_CHATID,
                 "userslist.csv",
-                caption='Group Members in {}'.format(title),
+                caption="Group Members in {}".format(title),
                 reply_to=show.id,
             )
 
@@ -183,7 +181,7 @@ async def get_users(show):
             await show.client.send_file(
                 BOTLOG_CHATID,
                 "userslist.csv",
-                caption='Group Members in {}'.format(title),
+                caption="Group Members in {}".format(title),
                 reply_to=show.id,
             )
 
