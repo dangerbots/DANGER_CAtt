@@ -177,7 +177,7 @@ async def get_users(show):
             mentions += " " + str(e) + "\n"
         try:
             await bot.send_message(Config.PRIVATE_GROUP_BOT_API_ID, mentions)
-        if len(mentions) > 4095:
+        elif len(mentions) > 4095:
             file = open("userslist.csv", "w+")
             file.write(mentions)
             file.close()
