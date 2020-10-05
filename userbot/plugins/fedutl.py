@@ -5,7 +5,13 @@
 
 import os
 
-from telethon.errors.rpcerrorlist import MessageTooLongError, YouBlockedUserError
+from telethon.errors import (
+    ChannelInvalidError,
+    ChannelPrivateError,
+    ChannelPublicGroupNaError,
+    ChatAdminRequiredError,
+    UserAdminInvalidError,
+)
 
 from userbot import ALIVE_NAME
 from userbot.utils import admin_cmd
@@ -125,11 +131,11 @@ async def get_users(show):
                         mentions += f"\n{user.id},⚠️Porn / Porn Group Member//AntiPornFed #Massban🔞🛑"
                     else:
                         mentions += f"\n{user.id},⚠️Porn / Porn Group Member//AntiPornFed #Massban🔞🛑"
-        except ChatAdminRequiredError as err:
-            mentions += " " + str(err) + "\n"
+        except Exception as e:
+            mentions += " " + str(e) + "\n"
         try:
             await bot.send_message(Config.PRIVATE_GROUP_BOT_API_ID, mentions)
-        except MessageTooLongError:
+        if len(mentions) > 4095:
             file = open("userslist.csv", "w+")
             file.write(mentions)
             file.close()
@@ -167,18 +173,18 @@ async def get_users(show):
                         mentions += f"\n{user.id},⚠️Suspicious/Btc Scammer/Fraudulent activities #Massban🛑"
                     else:
                         mentions += f"\n{user.id},⚠️Suspicious/Btc Scammer/Fraudulent activities #Massban🛑"
-        except ChatAdminRequiredError as err:
-            mentions += " " + str(err) + "\n"
+        except Exception as e:
+            mentions += " " + str(e) + "\n"
         try:
             await bot.send_message(Config.PRIVATE_GROUP_BOT_API_ID, mentions)
-        except MessageTooLongError:
+        if len(mentions) > 4095:
             file = open("userslist.csv", "w+")
             file.write(mentions)
             file.close()
             await show.client.send_file(
                 Config.PRIVATE_GROUP_BOT_API_ID,
                 "userslist.csv",
-                caption="Group members in {}".format(title),
+                caption="Group Members in {}".format(title),
                 reply_to=show.id,
             )
 
