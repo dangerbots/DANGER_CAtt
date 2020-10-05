@@ -10,7 +10,6 @@ DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
 SURID = bot.uid
 
 
-
 @borg.on(admin_cmd(pattern="help ?(.*)"))
 async def cmd_list(event):
     reply_to_id = None
