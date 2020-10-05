@@ -5,7 +5,11 @@
 
 import os
 
-from telethon.errors.rpcerrorlist import YouBlockedUserError, MessageTooLongError, ChatAdminRequiredError
+from telethon.errors.rpcerrorlist import (
+    ChatAdminRequiredError,
+    MessageTooLongError,
+    YouBlockedUserError,
+)
 
 from userbot import ALIVE_NAME
 from userbot.utils import admin_cmd
