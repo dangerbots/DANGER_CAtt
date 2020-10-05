@@ -18,9 +18,6 @@ naam = str(ALIVE_NAME)
 
 bot = "@MissRose_bot"
 
-BOTLOG = True
-BOTLOG_CHATID = Config.PRIVATE_GROUP_BOT_API_ID
-
 G_BAN_LOGGER_GROUP = os.environ.get("G_BAN_LOGGER_GROUP", None)
 if G_BAN_LOGGER_GROUP:
     G_BAN_LOGGER_GROUP = int(G_BAN_LOGGER_GROUP)
@@ -135,13 +132,13 @@ async def get_users(show):
         except ChatAdminRequiredError as err:
             mentions += " " + str(err) + "\n"
         try:
-            await bot.send_message(BOTLOG_CHATID, mentions)
+            await bot.send_message(Config.PRIVATE_GROUP_BOT_API_ID, mentions)
         except MessageTooLongError:
             file = open("userslist.csv", "w+")
             file.write(mentions)
             file.close()
             await show.client.send_file(
-                BOTLOG_CHATID,
+                Config.PRIVATE_GROUP_BOT_API_ID,
                 "userslist.csv",
                 caption="Group Members in {}".format(title),
                 reply_to=show.id,
@@ -177,13 +174,13 @@ async def get_users(show):
         except ChatAdminRequiredError as err:
             mentions += " " + str(err) + "\n"
         try:
-            await bot.send_message(BOTLOG_CHATID, mentions)
+            await bot.send_message(Config.PRIVATE_GROUP_BOT_API_ID, mentions)
         except MessageTooLongError:
             file = open("userslist.csv", "w+")
             file.write(mentions)
             file.close()
             await show.client.send_file(
-                BOTLOG_CHATID,
+                Config.PRIVATE_GROUP_BOT_API_ID,
                 "userslist.csv",
                 caption="Group members in {}".format(title),
                 reply_to=show.id,
