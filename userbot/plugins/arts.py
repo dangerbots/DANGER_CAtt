@@ -1,6 +1,7 @@
 # arts added by @Sur_vivor/ @Surv_ivor
 from userbot import ALIVE_NAME
 from userbot.utils import admin_cmd
+import asyncio
 
 n = str(ALIVE_NAME) if ALIVE_NAME else "Survivor"
 
@@ -597,3 +598,40 @@ async def bluedevilfooku(fooku):
 @borg.on(admin_cmd(pattern=r"noice$"))
 async def bluedevilnoice(noice):
     await noice.edit(Z)
+    
+@borg.on(admin_cmd(pattern="fku"))
+async def _(event):       
+        await event.edit("🄶🄾")
+        await asyncio.sleep(1)
+        await event.edit("🄵🅄🄲🄺")
+        await asyncio.sleep(1)
+        await event.edit("🅈🄾🅄🅁🅂🄴🄻🄵")
+        await asyncio.sleep(1)
+        await event.edit("😒")
+        await asyncio.sleep(1)
+        await event.edit(""
+    "                        /¯ )\n"
+    "                      /¯  /\n"
+    "                    /    /\n"
+    "              /´¯/'   '/´¯¯`•¸\n"
+    "          /'/   /    /       /¨¯\ \n"
+    "        ('(   (   (   (  ¯~/'  ')\n"
+    "         \                        /\n"
+    "          \                _.•´\n"
+    "            \              (\n"
+    "              \  \n""")
+     
+        await asyncio.sleep(1)
+        await event.edit(""
+    "🄶🄾 🄵🅄🄲🄺 🅈🄾🅄🅁🅂🄴🄻🄵 😒\n"   
+    "                        /¯ )\n"
+    "                      /¯  /\n"
+    "                    /    /\n"
+    "              /´¯/'   '/´¯¯`•¸\n"
+    "          /'/   /    /       /¨¯\ \n"
+    "        ('(   (   (   (  ¯~/'  ')\n"
+    "         \                        /\n"
+    "          \                _.•´\n"
+    "            \              (\n"
+    "              \  \n"""    
+    
