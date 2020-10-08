@@ -383,7 +383,7 @@ async def survivor(carry):
 
 @borg.on(admin_cmd(pattern=f"hnd$", outgoing=True))
 async def _(event):
-    #by Surv_ivor
+    # by Surv_ivor
     name = event.pattern_match.group(1)
     if event.fwd_from:
         return
