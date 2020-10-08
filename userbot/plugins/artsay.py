@@ -385,7 +385,7 @@ async def survivor(carry):
 async def _(event):
     if event.fwd_from:
         return
-    name = forefig.pattern_match.group(1)
+    name = event.pattern_match.group(1)
     animation_interval = 2
     animation_ttl = range(6)
     animation_chars = [
