@@ -381,11 +381,12 @@ async def survivor(carry):
     )
 
 
-@borg.on(admin_cmd(pattern=f"forefig$", outgoing=True))
+@borg.on(admin_cmd(pattern=f"hnd$", outgoing=True))
 async def _(event):
+    #by Surv_ivor
+    name = event.pattern_match.group(1)
     if event.fwd_from:
         return
-    # name = event.pattern_match.group(1)
     animation_interval = 0.5
     animation_ttl = range(6)
     animation_chars = [
@@ -393,8 +394,8 @@ async def _(event):
         "👇🏾👇🏾👇🏾👇🏾👇🏾👇🏾👇🏾👇🏾👇🏾\n👉🏾                                  👈🏾\n👉🏾                                  👈🏾\n👉🏾                                  👈🏾\n👉🏾                                  👈🏾\n👉🏾                                  👈🏾\n👉🏾                                  👈🏾\n👉🏾                                  👈🏾\n👆🏾👆🏾👆🏾👆🏾👆🏾👆🏾👆🏾👆🏾👆🏾",
         "👇🏽👇🏽👇🏽👇🏽👇🏽👇🏽👇🏽\n👉🏽                        👈🏽\n👉🏽                        👈🏽\n👉🏽                        👈🏽\n👉🏽                        👈🏽\n👉🏽                        👈🏽\n👆🏽👆🏽👆🏽👆🏽👆🏽👆🏽👆🏽",
         "👇🏼👇🏼👇🏼👇🏼👇🏼\n👉🏼              👈🏼\n👉🏼              👈🏼\n👉🏼              👈🏼\n👆🏼👆🏼👆🏼👆🏼👆🏼",
-        "👇🏻👇🏻👇🏻\nSURCAT\n👆🏻👆🏻👆🏻",
-        "👇🏿👇🏿👇🏿👇🏿👇🏿👇🏿👇🏿👇🏿👇🏿👇🏿👇🏿\n👉🏿👇🏾👇🏾👇🏾👇🏾👇🏾👇🏾👇🏾👇🏾👇🏾👈🏿\n👉🏿👉🏾👇🏽👇🏽👇🏽👇🏽👇🏽👇🏽👇🏽👈🏾👈🏿\n👉🏿👉🏾👉🏽👇🏼👇🏼👇🏼👇🏼👇🏼👈🏽👈🏾👈🏿\n👉🏿👉🏾👉🏽👉🏼👇🏻👇🏻👇🏻👈🏼👈🏽👈🏾👈🏿\n👉🏿👉🏾👉🏽👉🏼SURCAT👈🏼👈🏽👈🏾👈🏿\n👉🏿👉🏾👉🏽👉🏼👆🏻👆🏻👆🏻👈🏼👈🏽👈🏾👈🏿\n👉🏿👉🏾👉🏽👆🏼👆🏼👆🏼👆🏼👆🏼👈🏽👈🏾👈🏿\n👉🏿👉🏾👆🏽👆🏽👆🏽👆🏽👆🏽👆🏽👆🏽👈🏾👈🏿\n👉🏿👆🏾👆🏾👆🏾👆🏾👆🏾👆🏾👆🏾👆🏾👆🏾👈🏿\n👉🏿👆🏿👆🏿👆🏿👆🏿👆🏿👆🏿👆🏿👆🏿👆🏿👈🏿",
+        f"👇🏻👇🏻👇🏻\n{name}\n👆🏻👆🏻👆🏻",
+        f"👇🏿👇🏿👇🏿👇🏿👇🏿👇🏿👇🏿👇🏿👇🏿👇🏿👇🏿\n👉🏿👇🏾👇🏾👇🏾👇🏾👇🏾👇🏾👇🏾👇🏾👇🏾👈🏿\n👉🏿👉🏾👇🏽👇🏽👇🏽👇🏽👇🏽👇🏽👇🏽👈🏾👈🏿\n👉🏿👉🏾👉🏽👇🏼👇🏼👇🏼👇🏼👇🏼👈🏽👈🏾👈🏿\n👉🏿👉🏾👉🏽👉🏼👇🏻👇🏻👇🏻👈🏼👈🏽👈🏾👈🏿\n👉🏿👉🏾👉🏽👉🏼{name}👈🏼👈🏽👈🏾👈🏿\n👉🏿👉🏾👉🏽👉🏼👆🏻👆🏻👆🏻👈🏼👈🏽👈🏾👈🏿\n👉🏿👉🏾👉🏽👆🏼👆🏼👆🏼👆🏼👆🏼👈🏽👈🏾👈🏿\n👉🏿👉🏾👆🏽👆🏽👆🏽👆🏽👆🏽👆🏽👆🏽👈🏾👈🏿\n👉🏿👆🏾👆🏾👆🏾👆🏾👆🏾👆🏾👆🏾👆🏾👆🏾👈🏿\n👉🏿👆🏿👆🏿👆🏿👆🏿👆🏿👆🏿👆🏿👆🏿👆🏿👈🏿",
     ]
     for i in animation_ttl:
         await asyncio.sleep(animation_interval)
