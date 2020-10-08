@@ -611,7 +611,8 @@ async def _(event):
     await asyncio.sleep(1)
     await event.edit("😒")
     await asyncio.sleep(1)
-    await event.edit(""
+    await event.edit(
+        ""
         " .                       /¯ )\n"
         "                      /¯  /\n"
         "                    /    /\n"
@@ -621,7 +622,9 @@ async def _(event):
         "         \                        /\n"
         "          \                _.•´\n"
         "            \              (\n"
-        "              \  \n""")
+        "              \  \n"
+        ""
+    )
 
     await asyncio.sleep(1)
     await event.edit(
