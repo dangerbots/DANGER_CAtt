@@ -240,7 +240,7 @@ if Var.PRIVATE_GROUP_ID is not None:
         message_text = event.message.message
         chat_id = event.from_id
         USER_BOT_NO_WARN = (
-            f"[──▄█▀█▄─────────██ \n▄████████▄───▄▀█▄▄▄▄ \n██▀▼▼▼▼▼─▄▀──█▄▄ \n█████▄▲▲▲─▄▄▄▀───▀▄ \n██████▀▀▀▀─▀────────▀▀](tg://user?id={catid})\n\n"
+            f"[──▄█▀█▄─────────██ \n▄████████▄───▄▀█▄▄▄▄ \n██▀▼▼▼▼▼─▄▀──█▄▄ \n█████▄▲▲▲─▄▄▄▀───▀▄ \n██████▀▀▀▀─▀────────▀▀](tg://user?id={chat_id})\n\n"
             "This is Auto generated Message from SurCat Security Service⚠️\n\n"
             f"Hi buddy my master [{DEFAULTUSER}](tg://user?id={SURID})❤️ haven't approved you yet. so ,"
             "Leave your name,reason and 10k$ and hopefully you'll get a reply within 2 light years🔥.\n\n"
@@ -296,7 +296,6 @@ if Var.PRIVATE_GROUP_ID is not None:
                 return
             except BaseException:
                 return
-        catid = chat_id
         if PMPERMIT_PIC:
             if Config.CUSTOM_PMPERMIT_TEXT:
                 USER_BOT_NO_WARN = (
@@ -321,7 +320,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                 )
             else:
                 USER_BOT_NO_WARN = (
-                    f"[──▄█▀█▄─────────██ \n▄████████▄───▄▀█▄▄▄▄ \n██▀▼▼▼▼▼─▄▀──█▄▄ \n█████▄▲▲▲─▄▄▄▀───▀▄ \n██████▀▀▀▀─▀────────▀▀](tg://user?id={catid})\n\n"
+                    f"[──▄█▀█▄─────────██ \n▄████████▄───▄▀█▄▄▄▄ \n██▀▼▼▼▼▼─▄▀──█▄▄ \n█████▄▲▲▲─▄▄▄▀───▀▄ \n██████▀▀▀▀─▀────────▀▀](tg://user?id={chat_id})\n\n"
                     "This is Auto generated Message from SurCat Security Service⚠️\n\n"
                     f"Hi buddy my master [{DEFAULTUSER}](tg://user?id={SURID})❤️ haven't approved you yet. so ,"
                     "Leave your name,reason and 10k$ and hopefully you'll get a reply within 2 light years🔥.\n\n"
