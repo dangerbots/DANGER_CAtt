@@ -7,24 +7,16 @@ import os
 from pathlib import Path
 
 import pybase64
+from telethon import events
+from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 from validators.url import url
 
-from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import (
-    ALIVE_NAME,
-    CMD_HELP,
-    name_dl,
-    runcmd,
-    song_dl,
-    thumb_dl,
-    video_dl,
-    yt_search,
-)
+from ..utils import admin_cmd, edit_or_reply, sudo_cmd, ALIVE_NAME
+from . import CMD_HELP, name_dl, runcmd, song_dl, video_dl, yt_search
 
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
+DEFAULTUSER = str(ALIVE_NAME) if  else "SurCat"
 SURID = bot.uid
-
 
 @bot.on(admin_cmd(pattern="(song|song320)($| (.*))"))
 @bot.on(sudo_cmd(pattern="(song|song320)($| (.*))", allow_sudo=True))
@@ -56,7 +48,7 @@ async def _(event):
     elif cmd == "song320":
         q = "320k"
     song_cmd = song_dl.format(QUALITY=q, video_link=video_link)
-    thumb_cmd = thumb_dl.format(video_link=video_link)
+    # thumb_cmd = thumb_dl.format(video_link=video_link)
     name_cmd = name_dl.format(video_link=video_link)
     try:
         cat = Get(cat)
@@ -69,10 +61,10 @@ async def _(event):
     catname, stderr = (await runcmd(name_cmd))[:2]
     if stderr:
         return await catevent.edit(f"**Error :** `{stderr}`")
-    stderr = (await runcmd(thumb_cmd))[1]
+    # stderr = (await runcmd(thumb_cmd))[1]
     catname = os.path.splitext(catname)[0]
-    if stderr:
-        return await catevent.edit(f"**Error :** `{stderr}`")
+    # if stderr:
+    #    return await catevent.edit(f"**Error :** `{stderr}`")
     song_file = Path(f"{catname}.mp3")
     if not os.path.exists(song_file):
         return await catevent.edit(
@@ -124,7 +116,7 @@ async def _(event):
         return await catevent.edit(
             f"Sorry!. I can't find any related video/audio for `{query}`"
         )
-    thumb_cmd = thumb_dl.format(video_link=video_link)
+    # thumb_cmd = thumb_dl.format(video_link=video_link)
     name_cmd = name_dl.format(video_link=video_link)
     video_cmd = video_dl.format(video_link=video_link)
     stderr = (await runcmd(video_cmd))[1]
@@ -133,14 +125,14 @@ async def _(event):
     catname, stderr = (await runcmd(name_cmd))[:2]
     if stderr:
         return await catevent.edit(f"**Error :** `{stderr}`")
-    stderr = (await runcmd(thumb_cmd))[1]
+    # stderr = (await runcmd(thumb_cmd))[1]
     try:
         cat = Get(cat)
         await event.client(cat)
     except BaseException:
         pass
-    if stderr:
-        return await catevent.edit(f"**Error :** `{stderr}`")
+    # if stderr:
+    #    return await catevent.edit(f"**Error :** `{stderr}`")
     catname = os.path.splitext(catname)[0]
     vsong_file = Path(f"{catname}.mp4")
     if not os.path.exists(vsong_file):
@@ -170,6 +162,29 @@ async def _(event):
             os.remove(files)
 
 
+@bot.on(admin_cmd(outgoing=True, pattern="spd(?: |$)(.*)"))
+@bot.on(sudo_cmd(outgoing=True, pattern="spd(?: |$)(.*)", allow_sudo=True))
+async def _(event):
+    if event.fwd_from:
+        return
+    input_str = event.pattern_match.group(1)
+    chat = "@SpotifyMusicDownloaderBot"
+    catevent = await edit_or_reply(event, "`wi8..! I am finding your song....`")
+    async with event.client.conversation(chat) as conv:
+        try:
+            response = conv.wait_event(
+                events.NewMessage(incoming=True, from_users=752979930)
+            )
+            await event.client.send_message(chat, input_str)
+            respond = await response
+        except YouBlockedUserError:
+            await catevent.edit("` unblock` @SpotifyMusicDownloaderBot `and try again`")
+            return
+        await event.delete()
+        await event.client.forward_messages(event.chat_id, respond.message)
+        await event.client.send_read_acknowledge(conv.chat_id)
+
+
 CMD_HELP.update(
     {
         "getsongs": "**Plugin : **`getsongs`\
@@ -178,6 +193,8 @@ CMD_HELP.update(
         \n\n**Syntax : **`.song320 query` or `.song320 reply to song name`\
         \n**Usage : **searches the song you entered in query and sends it quality of it is 320k\
         \n\n**Syntax : **`.vsong query` or `.vsong reply to song name`\
-        \n**Usage : **Searches the video song you entered in query and sends it"
+        \n**Usage : **Searches the video song you entered in query and sends it\
+        \n\n**Syntax : **`.spd song`\
+        \n**Usage : **Searches the song from the bot @SpotifyMusicDownloaderBot  and sends you"
     }
 )
