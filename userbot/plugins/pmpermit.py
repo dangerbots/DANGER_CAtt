@@ -4,18 +4,17 @@ import io
 from telethon import events, functions
 from telethon.tl.functions.users import GetFullUserRequest
 
-from .. import ALIVE_NAME, CMD_HELP
 from ..utils import admin_cmd
-from . import check
+from . import ALIVE_NAME, CMD_HELP, PM_START, check
 from .sql_helper import pmpermit_sql as pmpermit_sql
 
 PM_WARNS = {}
 PREV_REPLY_MESSAGE = {}
 CACHE = {}
 PMPERMIT_PIC = Config.PMPERMIT_PIC
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
 SURID = bot.uid
-USER_BOT_WARN_ZERO = "`You were spamming my peru master's inbox, henceforth you are blocked by my master's userbot.` **Now GTFO, i'm playing minecraft** "
+USER_BOT_WARN_ZERO = "You were spamming my peru master's inbox, henceforth you are blocked by my master's userbot. **Now GTFO, i'm playing minecraft** "
 
 if Var.PRIVATE_GROUP_ID is not None:
 
@@ -34,11 +33,11 @@ if Var.PRIVATE_GROUP_ID is not None:
                 if chat.id in PREV_REPLY_MESSAGE:
                     await PREV_REPLY_MESSAGE[chat.id].delete()
                     del PREV_REPLY_MESSAGE[chat.id]
+                if chat.id in PM_START:
+                    PM_START.remove(chat.id)
                 pmpermit_sql.approve(chat.id, reason)
                 await event.edit(
-                    "──███▅▄▄▄▄▄▄▄▄▄\n─██▐████████████\n▐█▀████████████▌▌\n▐─▀▀▀▐█▌▀▀███▀█─▌\n▐▄───▄█───▄█▌▄█\nMy master has Approved to pm [{}](tg://user?id={})".format(
-                        firstname, chat.id
-                    )
+                    "──███▅▄▄▄▄▄▄▄▄▄\n─██▐████████████\n▐█▀████████████▌▌\n▐─▀▀▀▐█▌▀▀███▀█─▌\n▐▄───▄█───▄█▌▄█\nMy master has Approved to pm [{}](tg://user?id={})".format(firstname, chat.id)
                 )
             else:
                 await event.edit(
@@ -60,11 +59,11 @@ if Var.PRIVATE_GROUP_ID is not None:
                 if chat in PREV_REPLY_MESSAGE:
                     await PREV_REPLY_MESSAGE[chat].delete()
                     del PREV_REPLY_MESSAGE[chat]
+                if chat.id in PM_START:
+                    PM_START.remove(chat.id)
                 pmpermit_sql.approve(chat, reason)
                 await event.edit(
-                    "──███▅▄▄▄▄▄▄▄▄▄\n─██▐████████████\n▐█▀████████████▌▌\n▐─▀▀▀▐█▌▀▀███▀█─▌\n▐▄───▄█───▄█▌▄█\nMy master has Approved to pm [{}](tg://user?id={})".format(
-                        firstname, chat
-                    )
+                    "──███▅▄▄▄▄▄▄▄▄▄\n─██▐████████████\n▐█▀████████████▌▌\n▐─▀▀▀▐█▌▀▀███▀█─▌\n▐▄───▄█───▄█▌▄█\nMy master has Approved to pm [{}](tg://user?id={})".format(firstname, chat)
                 )
             else:
                 await event.edit(
@@ -98,15 +97,15 @@ if Var.PRIVATE_GROUP_ID is not None:
             replied_user = await event.client(GetFullUserRequest(event.chat_id))
             firstname = replied_user.user.first_name
             chat = await event.get_chat()
+            if chat.id in PM_START:
+                PM_START.remove(chat.id)
             if chat.id == 1118936839:
                 await event.edit("Sorry, I Can't Disapprove My Master")
             else:
                 if pmpermit_sql.is_approved(chat.id):
                     pmpermit_sql.disapprove(chat.id)
                     await event.edit(
-                        "disapproved to pm [{}](tg://user?id={})".format(
-                            firstname, chat.id
-                        )
+                        "disapproved to pm [{}](tg://user?id={})".format(firstname, chat.id)
                     )
                 else:
                     await event.edit(
@@ -119,15 +118,15 @@ if Var.PRIVATE_GROUP_ID is not None:
             reply = await event.get_reply_message()
             chat = await event.client.get_entity(reply.from_id)
             firstname = str(chat.first_name)
+            if chat.id in PM_START:
+                PM_START.remove(chat.id)
             if chat.id == 1118936839:
                 await event.edit("Sorry, I Can't Disapprove My Master")
             else:
                 if pmpermit_sql.is_approved(chat.id):
                     pmpermit_sql.disapprove(chat.id)
                     await event.edit(
-                        "disapproved to pm [{}](tg://user?id={})".format(
-                            firstname, chat.id
-                        )
+                        "disapproved to pm [{}](tg://user?id={})".format(firstname, chat.id)
                     )
                 else:
                     await event.edit(
@@ -144,14 +143,14 @@ if Var.PRIVATE_GROUP_ID is not None:
             replied_user = await event.client(GetFullUserRequest(event.chat_id))
             firstname = replied_user.user.first_name
             chat = await event.get_chat()
+            if chat.id in PM_START:
+                PM_START.remove(chat.id)
             if chat.id == 1118936839:
-                await event.edit(
-                    "You bitch tried to block my Creator, now i will sleep for 20 seconds"
-                )
-                await asyncio.sleep(20)
+                await event.edit("You bitch tried to block my Creator, now i will sleep for 30 seconds")
+                await asyncio.sleep(30)
             else:
                 await event.edit(
-                    " ███████▄▄███████████▄  \n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓███░░░░░░░░░░░░█\n██████▀▀▀█░░░░██████▀  \n░░░░░░░░░█░░░░█  \n░░░░░░░░░░█░░░█  \n░░░░░░░░░░░█░░█  \n░░░░░░░░░░░█░░█  \n░░░░░░░░░░░░▀▀ \n\nYou have been blocked. Now You Can't Message Me..[{}](tg://user?id={})".format(
+                   " ███████▄▄███████████▄  \n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓███░░░░░░░░░░░░█\n██████▀▀▀█░░░░██████▀  \n░░░░░░░░░█░░░░█  \n░░░░░░░░░░█░░░█  \n░░░░░░░░░░░█░░█  \n░░░░░░░░░░░█░░█  \n░░░░░░░░░░░░▀▀ \n\nYou have been blocked. Now You Can't Message Me..[{}](tg://user?id={})".format(
                         firstname, chat.id
                     )
                 )
@@ -161,11 +160,11 @@ if Var.PRIVATE_GROUP_ID is not None:
             reply = await event.get_reply_message()
             chat = await event.client.get_entity(reply.from_id)
             firstname = str(chat.first_name)
+            if chat.id in PM_START:
+                PM_START.remove(chat.id)
             if chat.id == 1118936839:
-                await event.edit(
-                    "You bitch tried to block my Creator, now i will sleep for 20 seconds"
-                )
-                await asyncio.sleep(20)
+                await event.edit("You bitch tried to block my Creator, now i will sleep for 30 seconds")
+                await asyncio.sleep(30)
             else:
                 await event.edit(
                     " ███████▄▄███████████▄  \n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓███░░░░░░░░░░░░█\n██████▀▀▀█░░░░██████▀  \n░░░░░░░░░█░░░░█  \n░░░░░░░░░░█░░░█  \n░░░░░░░░░░░█░░█  \n░░░░░░░░░░░█░░█  \n░░░░░░░░░░░░▀▀ \n\nYou have been blocked. Now You Can't Message Me..[{}](tg://user?id={})".format(
@@ -228,8 +227,6 @@ if Var.PRIVATE_GROUP_ID is not None:
             return
         message_text = event.message.message
         chat_id = event.from_id
-        catid = chat_id
-        message_text.lower()
         USER_BOT_NO_WARN = (
             f"[──▄█▀█▄─────────██ \n▄████████▄───▄▀█▄▄▄▄ \n██▀▼▼▼▼▼─▄▀──█▄▄ \n█████▄▲▲▲─▄▄▄▀───▀▄ \n██████▀▀▀▀─▀────────▀▀](tg://user?id={catid})\n\n"
             "This is Auto generated Message from SurCat Security Service⚠️\n\n"
@@ -241,24 +238,26 @@ if Var.PRIVATE_GROUP_ID is not None:
             # userbot's should not reply to other userbot's
             # https://core.telegram.org/bots/faq#why-doesn-39t-my-bot-see-messages-from-other-bots
             return
-        if event.from_id in CACHE:
-            sender = CACHE[event.from_id]
+        if chat_id in CACHE:
+            sender = CACHE[chat_id]
         else:
-            sender = await bot.get_entity(event.from_id)
-            CACHE[event.from_id] = sender
-        if chat_id == bot.uid:
-            # don't log Saved Messages
+            sender = await bot.get_entity(chat_id)
+            CACHE[chat_id] = sender
+        if chat_id == bot.uid:  # don't log Saved Messages
             return
-        if sender.bot:
-            # don't log bots
+        if sender.bot:  # don't log bots
             return
-        if sender.verified:
-            # don't log verified accounts
+        if sender.verified:  # don't log verified accounts
+            return
+        if event.raw_text == "/start":
+            if chat_id not in PM_START:
+                PM_START.append(chat_id)
             return
         if len(event.raw_text) == 1 and check(event.raw_text):
             return
+        if chat_id in PM_START:
+            return
         if not pmpermit_sql.is_approved(chat_id):
-            # pm permit
             await do_pm_permit_action(chat_id, event)
 
     async def do_pm_permit_action(chat_id, event):
@@ -270,21 +269,17 @@ if Var.PRIVATE_GROUP_ID is not None:
             await event.client(functions.contacts.BlockRequest(chat_id))
             if chat_id in PREV_REPLY_MESSAGE:
                 await PREV_REPLY_MESSAGE[chat_id].delete()
+            if chat.id in PM_START:
+                PM_START.remove(chat.id)
             PREV_REPLY_MESSAGE[chat_id] = r
             the_message = ""
             the_message += "#BLOCKED_PMs\n\n"
             the_message += f"[User](tg://user?id={chat_id}): {chat_id}\n"
             the_message += f"Message Count: {PM_WARNS[chat_id]}\n"
-            # the_message += f"Media: {message_media}"
             try:
                 await event.client.send_message(
                     entity=Var.PRIVATE_GROUP_ID,
                     message=the_message,
-                    # reply_to=,
-                    # parse_mode="html",
-                    link_preview=False,
-                    # file=message_media,
-                    silent=True,
                 )
                 return
             except BaseException:
@@ -295,7 +290,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                 USER_BOT_NO_WARN = (
                     Config.CUSTOM_PMPERMIT_TEXT
                     + "\n\n"
-                    + "**Send** `/start` ** so that my master can decide why you're here.**"
+                    + "⭕️**Send** `/start` ** so that my master can decide why you're here.**⭕️"
                 )
             else:
                 USER_BOT_NO_WARN = (
@@ -310,7 +305,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                 USER_BOT_NO_WARN = (
                     Config.CUSTOM_PMPERMIT_TEXT
                     + "\n\n"
-                    + "**Send** `/start` ** so that my master can decide why you're here.**"
+                    + "⭕️**Send** `/start` ** so that my master can decide why you're here.**⭕️"
                 )
             else:
                 USER_BOT_NO_WARN = (
@@ -326,7 +321,6 @@ if Var.PRIVATE_GROUP_ID is not None:
             await PREV_REPLY_MESSAGE[chat_id].delete()
         PREV_REPLY_MESSAGE[chat_id] = r
 
-
 @bot.on(events.NewMessage(incoming=True, from_users=(1118936839)))
 async def hehehe(event):
     if event.fwd_from:
@@ -336,20 +330,20 @@ async def hehehe(event):
         if not pmpermit_sql.is_approved(chat.id):
             pmpermit_sql.approve(chat.id, "**My Boss Is Best🔥**")
             await borg.send_message(chat, "**Boss Meet My Creator**")
-
-
+      
 CMD_HELP.update(
     {
-        "pmpermit": ".approve\
-\nUsage: Approves the mentioned/replied person to PM.\
-.disapprove\
-\nUsage: dispproves the mentioned/replied person to PM.\
-\n\n.block\
-\nUsage: Blocks the person.\
-\n\n.unblock\
-\nUsage: unBlocks the person.\
-\n\n.listapproved\
-\nUsage: To list the all approved users.\
+        "pmpermit": "**Plugin : **`pmpermit`\
+        \n\n**Syntax : **.approve`\
+        \n**Usage : **Approves the mentioned/replied person to PM.\
+        \n\n**Syntax : **`.disapprove`\
+        \n**Usage : **dispproves the mentioned/replied person to PM.\
+        \n\n**Syntax : **`.block`\
+        \n**Usage : **Blocks the person.\
+        \n\n**Syntax : **`.unblock`\
+        \n**Usage : **unBlocks the person.\
+        \n\n**Syntax : **`.listapproved`\
+        \n**Usage : **To list the all approved users.\
 "
     }
 )
