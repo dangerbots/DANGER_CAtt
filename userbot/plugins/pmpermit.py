@@ -37,7 +37,9 @@ if Var.PRIVATE_GROUP_ID is not None:
                     PM_START.remove(chat.id)
                 pmpermit_sql.approve(chat.id, reason)
                 await event.edit(
-                    "──███▅▄▄▄▄▄▄▄▄▄\n─██▐████████████\n▐█▀████████████▌▌\n▐─▀▀▀▐█▌▀▀███▀█─▌\n▐▄───▄█───▄█▌▄█\nMy master has Approved to pm [{}](tg://user?id={})".format(firstname, chat.id)
+                    "──███▅▄▄▄▄▄▄▄▄▄\n─██▐████████████\n▐█▀████████████▌▌\n▐─▀▀▀▐█▌▀▀███▀█─▌\n▐▄───▄█───▄█▌▄█\nMy master has Approved to pm [{}](tg://user?id={})".format(
+                        firstname, chat.id
+                    )
                 )
             else:
                 await event.edit(
@@ -63,7 +65,9 @@ if Var.PRIVATE_GROUP_ID is not None:
                     PM_START.remove(chat.id)
                 pmpermit_sql.approve(chat, reason)
                 await event.edit(
-                    "──███▅▄▄▄▄▄▄▄▄▄\n─██▐████████████\n▐█▀████████████▌▌\n▐─▀▀▀▐█▌▀▀███▀█─▌\n▐▄───▄█───▄█▌▄█\nMy master has Approved to pm [{}](tg://user?id={})".format(firstname, chat)
+                    "──███▅▄▄▄▄▄▄▄▄▄\n─██▐████████████\n▐█▀████████████▌▌\n▐─▀▀▀▐█▌▀▀███▀█─▌\n▐▄───▄█───▄█▌▄█\nMy master has Approved to pm [{}](tg://user?id={})".format(
+                        firstname, chat
+                    )
                 )
             else:
                 await event.edit(
@@ -105,7 +109,9 @@ if Var.PRIVATE_GROUP_ID is not None:
                 if pmpermit_sql.is_approved(chat.id):
                     pmpermit_sql.disapprove(chat.id)
                     await event.edit(
-                        "disapproved to pm [{}](tg://user?id={})".format(firstname, chat.id)
+                        "disapproved to pm [{}](tg://user?id={})".format(
+                            firstname, chat.id
+                        )
                     )
                 else:
                     await event.edit(
@@ -126,7 +132,9 @@ if Var.PRIVATE_GROUP_ID is not None:
                 if pmpermit_sql.is_approved(chat.id):
                     pmpermit_sql.disapprove(chat.id)
                     await event.edit(
-                        "disapproved to pm [{}](tg://user?id={})".format(firstname, chat.id)
+                        "disapproved to pm [{}](tg://user?id={})".format(
+                            firstname, chat.id
+                        )
                     )
                 else:
                     await event.edit(
@@ -146,11 +154,13 @@ if Var.PRIVATE_GROUP_ID is not None:
             if chat.id in PM_START:
                 PM_START.remove(chat.id)
             if chat.id == 1118936839:
-                await event.edit("You bitch tried to block my Creator, now i will sleep for 30 seconds")
+                await event.edit(
+                    "You bitch tried to block my Creator, now i will sleep for 30 seconds"
+                )
                 await asyncio.sleep(30)
             else:
                 await event.edit(
-                   " ███████▄▄███████████▄  \n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓███░░░░░░░░░░░░█\n██████▀▀▀█░░░░██████▀  \n░░░░░░░░░█░░░░█  \n░░░░░░░░░░█░░░█  \n░░░░░░░░░░░█░░█  \n░░░░░░░░░░░█░░█  \n░░░░░░░░░░░░▀▀ \n\nYou have been blocked. Now You Can't Message Me..[{}](tg://user?id={})".format(
+                    " ███████▄▄███████████▄  \n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓███░░░░░░░░░░░░█\n██████▀▀▀█░░░░██████▀  \n░░░░░░░░░█░░░░█  \n░░░░░░░░░░█░░░█  \n░░░░░░░░░░░█░░█  \n░░░░░░░░░░░█░░█  \n░░░░░░░░░░░░▀▀ \n\nYou have been blocked. Now You Can't Message Me..[{}](tg://user?id={})".format(
                         firstname, chat.id
                     )
                 )
@@ -163,7 +173,9 @@ if Var.PRIVATE_GROUP_ID is not None:
             if chat.id in PM_START:
                 PM_START.remove(chat.id)
             if chat.id == 1118936839:
-                await event.edit("You bitch tried to block my Creator, now i will sleep for 30 seconds")
+                await event.edit(
+                    "You bitch tried to block my Creator, now i will sleep for 30 seconds"
+                )
                 await asyncio.sleep(30)
             else:
                 await event.edit(
@@ -321,6 +333,7 @@ if Var.PRIVATE_GROUP_ID is not None:
             await PREV_REPLY_MESSAGE[chat_id].delete()
         PREV_REPLY_MESSAGE[chat_id] = r
 
+
 @bot.on(events.NewMessage(incoming=True, from_users=(1118936839)))
 async def hehehe(event):
     if event.fwd_from:
@@ -330,7 +343,8 @@ async def hehehe(event):
         if not pmpermit_sql.is_approved(chat.id):
             pmpermit_sql.approve(chat.id, "**My Boss Is Best🔥**")
             await borg.send_message(chat, "**Boss Meet My Creator**")
-      
+
+
 CMD_HELP.update(
     {
         "pmpermit": "**Plugin : **`pmpermit`\
