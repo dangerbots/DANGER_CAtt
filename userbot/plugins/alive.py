@@ -133,9 +133,9 @@ def check_data_base_heal_th():
 CMD_HELP.update(
     {
         "alive": "**Plugin :** `alive`\
-      \n\n**Syntax : **`.alive` :\
+      \n\n**Syntax : **`.alive`\
       \n**Usage : ** status of bot.\
-      \n\n**Syntax : **`.ialive` or `.live` :\
+      \n\n**Syntax : **`.ialive` or `.live`\
       \n**Usage : ** inline alive.\
       \n\n**Synatx :** `.cat`\
       \n**Usage : **Random cat stickers"
