@@ -15,7 +15,7 @@ from validators.url import url
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd, ALIVE_NAME
 from . import CMD_HELP, name_dl, runcmd, song_dl, video_dl, yt_search
 
-DEFAULTUSER = str(ALIVE_NAME) if else "SurCat"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
 SURID = bot.uid
 
 @bot.on(admin_cmd(pattern="(song|song320)($| (.*))"))
