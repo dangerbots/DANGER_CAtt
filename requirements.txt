@@ -27,6 +27,7 @@ gsearch
 gtts
 hachoir
 heroku3
+html-telegraph-poster
 humanize
 jotquote
 justwatch
@@ -54,7 +55,7 @@ pytz
 qrcode
 regex
 requests
-search-engine-parser
+git+https://github.com/bisoncorps/search-engine-parser
 selenium
 spamwatch
 speedtest-cli
@@ -65,4 +66,3 @@ validators
 wand
 wikipedia
 youtube-dl
-html_telegraph_poster
