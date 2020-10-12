@@ -17,7 +17,7 @@ from userbot.utils import admin_cmd
 FONT_FILE_TO_USE = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
 
 SUR_PIC = os.environ.get("SUR_PIC", None)
-if SUR_PIC = None:
+if SUR_PIC is None:
    SUR_PIC = "https://telegra.ph/file/b2cea1712ebaca603e6f4.jpg"
 else:
    SUR_PIC = SUR_PIC
