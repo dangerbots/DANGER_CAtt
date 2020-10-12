@@ -1,4 +1,4 @@
-# By SurV_ivor
+# By Surv_ivor
 # Set SUR_PIC and SUR_USERNAME in heroku Var
 
 import asyncio
@@ -25,7 +25,7 @@ SUR_USERNAME = str(SUR_USERNAME) if SUR_USERNAME else "SurCat"
 
 @borg.on(admin_cmd(pattern="spp$"))
 async def autopic(event):
-    await event.edit(f"Autopic by @SurV_ivor")
+    await event.edit(f"Autopic by @Surv_ivor")
     downloaded_file_name = "userbot/original_pic.png"
     downloader = SmartDL(SUR_PIC, downloaded_file_name, progress_bar=False)
     downloader.start(blocking=False)
