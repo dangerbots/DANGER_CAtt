@@ -7,6 +7,7 @@ import os
 
 from telethon.errors import ChatAdminRequiredError
 from telethon.errors.rpcerrorlist import MessageTooLongError, YouBlockedUserError
+from telethon.tl.functions.users import GetFullUserRequest
 
 from userbot import ALIVE_NAME
 from userbot.utils import admin_cmd
