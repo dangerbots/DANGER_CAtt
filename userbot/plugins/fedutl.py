@@ -43,7 +43,7 @@ async def _(event):
                 else:
                     await borg.send_message(event.chat_id, fedstat.text)
                 await event.delete()
-    elif sysarg == "":
+    if sysarg == "":
         async with borg.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
@@ -59,7 +59,7 @@ async def _(event):
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_bot `and retry!")
-    elif sysarg.startswith("@"):
+    if sysarg.startswith("@"):
         async with borg.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
@@ -75,7 +75,7 @@ async def _(event):
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
-    elif sysarg.isdigit():
+    if sysarg.isdigit():
         async with borg.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
