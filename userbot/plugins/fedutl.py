@@ -43,6 +43,8 @@ async def _(event):
                 else:
                     await borg.send_message(event.chat_id, fedstat.text)
                 await event.delete()
+           except YouBlockedUserError:
+                await event.edit("**Error:** `unblock` @MissRose_bot `and retry!")
     if sysarg == "":
         async with borg.conversation(bots) as conv:
             try:
