@@ -31,7 +31,7 @@ async def _(event):
     if event.reply_to_msg_id and not event.pattern_match.group(1):
         previous_message = await event.get_reply_message()
         replied_user = await event.client(GetFullUserRequest(previous_message.from_id))
-        getuser = replied_user.user.id
+        getuser = str(replied_user.user.id)
         async with borg.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
