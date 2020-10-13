@@ -60,7 +60,7 @@ async def _(event):
                 if "file" in fedstat.text:
                     await fedstat.click(0)
                     reply = await conv.get_response()
-                    if file:
+                    if not "minutes" in reply.text:
                         await borg.forward_messages(event.chat_id, reply)
                     else:
                         await borg.send_message(event.chat_id, reply.text)
