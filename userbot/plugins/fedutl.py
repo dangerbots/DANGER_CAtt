@@ -27,36 +27,67 @@ async def _(event):
     if event.fwd_from:
         return
     sysarg = event.pattern_match.group(1)
-    if sysarg == "":
+    if event.reply_to_msg_id and not event.pattern_match.group(1):
+        previous_message = await event.get_reply_message()
+        replied_user = await event.client(GetFullUserRequest(previous_message.from_id))
+        async with borg.conversation(bots) as conv:
+           try:
+                await conv.send_message("/start")
+                await conv.get_response()
+                await conv.send_message("/fedstat" + {replied_user.user.id})
+                fedstat = await conv.get_response()
+                if "file" in fedstat.text:
+                    await fedstat.click(0)
+                    reply = await conv.get_response()
+                    await borg.forward_messages(event.chat_id, reply)
+                else:
+                    await borg.send_message(event.chat_id, fedstat.text)
+                await event.delete()
+    elif sysarg == "":
         async with borg.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
                 await conv.send_message("/fedstat")
-                audio = await conv.get_response()
-                await borg.send_message(event.chat_id, audio.text)
+                fedstat = await conv.get_response()
+                if "file" in fedstat.text:
+                    await fedstat.click(0)
+                    reply = await conv.get_response()
+                    await borg.forward_messages(event.chat_id, reply)
+                else:
+                     await borg.send_message(event.chat_id, fedstat.text)
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_bot `and retry!")
-    elif "@" in sysarg:
+    elif sysarg.startswith("@"):
         async with borg.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
                 await conv.send_message("/fedstat " + sysarg)
-                audio = await conv.get_response()
-                await borg.send_message(event.chat_id, audio.text)
+                fedstat = await conv.get_response()
+                if "file" in fedstat.text:
+                    await fedstat.click(0)
+                    reply = await conv.get_response()
+                    await borg.forward_messages(event.chat_id, reply)
+                else:
+                     await borg.send_message(event.chat_id, fedstat.text)
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
-    elif "" in sysarg:
+    elif sysarg.isdigit():
         async with borg.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
                 await conv.send_message("/fedstat " + sysarg)
-                audio = await conv.get_response()
-                await borg.send_message(event.chat_id, audio.text)
+                fedstat = await conv.get_response()
+                if "file" in fedstat.text:
+                    await fedstat.click(0)
+                    reply = await conv.get_response()
+                    await borg.forward_messages(event.chat_id, reply)
+                else:
+                     await borg.send_message(event.chat_id, fedstat.text)
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
