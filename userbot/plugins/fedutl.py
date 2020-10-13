@@ -31,11 +31,12 @@ async def _(event):
     if event.reply_to_msg_id and not event.pattern_match.group(1):
         previous_message = await event.get_reply_message()
         replied_user = await event.client(GetFullUserRequest(previous_message.from_id))
+        getuser = replied_user.user.id
         async with borg.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
-                await conv.send_message("/fedstat" + {replied_user.user.id})
+                await conv.send_message("/fedstat" + getuser)
                 fedstat = await conv.get_response()
                 if "file" in fedstat.text:
                     await fedstat.click(0)
