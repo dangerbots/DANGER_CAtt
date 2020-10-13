@@ -41,7 +41,10 @@ async def _(event):
                 if "file" in fedstat.text:
                     await fedstat.click(0)
                     reply = await conv.get_response()
-                    await borg.forward_messages(event.chat_id, reply)
+                    if file:
+                        await borg.forward_messages(event.chat_id, reply)
+                    else:
+                        await borg.send_message(event.chat_id, reply.text)
                 else:
                     await borg.send_message(event.chat_id, fedstat.text)
                 await event.delete()
@@ -57,7 +60,10 @@ async def _(event):
                 if "file" in fedstat.text:
                     await fedstat.click(0)
                     reply = await conv.get_response()
-                    await borg.forward_messages(event.chat_id, reply)
+                    if file:
+                        await borg.forward_messages(event.chat_id, reply)
+                    else:
+                        await borg.send_message(event.chat_id, reply.text)
                 else:
                     await borg.send_message(event.chat_id, fedstat.text)
                 await event.delete()
