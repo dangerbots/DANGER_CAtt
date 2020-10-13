@@ -36,7 +36,7 @@ async def _(event):
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
-                await conv.send_message("/fedstat" + getuser)
+                await conv.send_message("/fedstat " + getuser)
                 fedstat = await conv.get_response()
                 if "file" in fedstat.text:
                     await fedstat.click(0)
