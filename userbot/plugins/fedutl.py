@@ -31,7 +31,7 @@ async def _(event):
         previous_message = await event.get_reply_message()
         replied_user = await event.client(GetFullUserRequest(previous_message.from_id))
         async with borg.conversation(bots) as conv:
-           try:
+            try:
                 await conv.send_message("/start")
                 await conv.get_response()
                 await conv.send_message("/fedstat" + {replied_user.user.id})
@@ -43,7 +43,7 @@ async def _(event):
                 else:
                     await borg.send_message(event.chat_id, fedstat.text)
                 await event.delete()
-           except YouBlockedUserError:
+            except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_bot `and retry!")
     if sysarg == "":
         async with borg.conversation(bots) as conv:
@@ -57,7 +57,7 @@ async def _(event):
                     reply = await conv.get_response()
                     await borg.forward_messages(event.chat_id, reply)
                 else:
-                     await borg.send_message(event.chat_id, fedstat.text)
+                    await borg.send_message(event.chat_id, fedstat.text)
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_bot `and retry!")
@@ -73,7 +73,7 @@ async def _(event):
                     reply = await conv.get_response()
                     await borg.forward_messages(event.chat_id, reply)
                 else:
-                     await borg.send_message(event.chat_id, fedstat.text)
+                    await borg.send_message(event.chat_id, fedstat.text)
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
@@ -89,7 +89,7 @@ async def _(event):
                     reply = await conv.get_response()
                     await borg.forward_messages(event.chat_id, reply)
                 else:
-                     await borg.send_message(event.chat_id, fedstat.text)
+                    await borg.send_message(event.chat_id, fedstat.text)
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
