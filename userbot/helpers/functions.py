@@ -65,8 +65,7 @@ async def yt_search(cat):
             video_link = "https://www.youtube.com/watch?v=" + user_data[0]
         if video_link:
             return video_link
-        else:
-            return "Couldnt fetch results"
+        return "Couldnt fetch results"
     except:
         return "Couldnt fetch results"
 
@@ -112,6 +111,20 @@ async def waifutxt(text, chat_id, reply_to_id, bot, borg):
     if cat:
         await borg.send_file(int(chat_id), cat, reply_to=reply_to_id)
         await cat.delete()
+
+
+async def sanga_seperator(sanga_list):
+    for i in sanga_list:
+        if i.startswith("🔗"):
+            sanga_list.remove(i)
+    s = 0
+    for i in sanga_list:
+        if i.startswith("Username History"):
+            break
+        s += 1
+    usernames = sanga_list[s:]
+    names = sanga_list[:s]
+    return names, usernames
 
 
 # unziping file
