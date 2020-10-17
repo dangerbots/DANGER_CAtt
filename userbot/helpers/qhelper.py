@@ -1,4 +1,4 @@
-#    This file is part of NiceGrill.
+This file is part of NiceGrill.
 #    NiceGrill is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
@@ -158,7 +158,6 @@ async def process(msg, user, client, reply, replied=None):
         # Creating a big canvas to gather all the elements
         replname = "" if not replied.sender.last_name else replied.sender.last_name
         reptot = replied.sender.first_name + " " + replname
-        font2.getsize(reptot)[0]
         if reply.sticker:
             sticker = await reply.download_media()
             file_1 = os.path.join("./temp/", "q.png")
