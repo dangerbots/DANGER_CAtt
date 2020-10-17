@@ -20,7 +20,7 @@ from . import runcmd
 HEROKU_APP_NAME = Var.HEROKU_APP_NAME
 HEROKU_API_KEY = Var.HEROKU_API_KEY
 UPSTREAM_REPO_BRANCH = "master"
-UPSTREAM_REPO_URL = "https://github.com/Sur-vivor/CatUserbot"
+UPSTREAM_REPO_URL = "https://github.com/sandy1709/catuserbot"
 
 requirements_path = path.join(
     path.dirname(path.dirname(path.dirname(__file__))), "requirements.txt"
@@ -44,9 +44,8 @@ async def print_changelogs(event, ac_br, changelog):
     )
     if len(changelog_str) > 4096:
         await event.edit("`Changelog is too big, view the file to see it.`")
-        file = open("output.txt", "w+")
-        file.write(changelog_str)
-        file.close()
+        with open("output.txt", "w+") as file:
+            file.write(changelog_str)
         await event.client.send_file(
             event.chat_id,
             "output.txt",
@@ -205,7 +204,7 @@ async def upstream(event):
     if changelog == "" and not force_update:
         await event.edit(
             "\n`CATUSERBOT is`  **up-to-date**  `with`  "
-            f"**[{UPSTREAM_REPO_BRANCH}]({UPSTREAM_REPO_URL})**\n"
+            f"**{UPSTREAM_REPO_BRANCH}**\n"
         )
         return repo.__del__()
     if conf == "" and not force_update:

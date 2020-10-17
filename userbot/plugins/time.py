@@ -180,12 +180,13 @@ async def date_func(dat):
 async def _(event):
     if event.fwd_from:
         return
+    reply_msg_id = None
     current_time = dt.now().strftime(
         f"⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡\n⚡USERBOT TIMEZONE⚡\n⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡\n   {LOCATION}\n  Time: %H:%M:%S \n  Date: %d.%m.%y \n⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡"
     )
     input_str = event.pattern_match.group(1)
     if event.from_id != bot.uid:
-        event.message.id
+        reply_msg_id = event.message.id
     if input_str:
         current_time = input_str
     elif event.reply_to_msg_id:
