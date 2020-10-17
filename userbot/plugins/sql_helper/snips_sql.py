@@ -1,75 +1,58 @@
-from sqlalchemy import Column, LargeBinary, Numeric, UnicodeText
+from sqlalchemy import Column, Numeric, UnicodeText
 
-from userbot.plugins.sql_helper import BASE, SESSION
+from . import BASE, SESSION
 
 
-class Snips(BASE):
-    __tablename__ = "snips"
-    snip = Column(UnicodeText, primary_key=True)
+class Note(BASE):
+    __tablename__ = "catsnip"
+    keyword = Column(UnicodeText, primary_key=True, nullable=False)
     reply = Column(UnicodeText)
-    snip_type = Column(Numeric)
-    media_id = Column(UnicodeText)
-    media_access_hash = Column(UnicodeText)
-    media_file_reference = Column(LargeBinary)
+    f_mesg_id = Column(Numeric)
 
-    def __init__(
-        self,
-        snip,
-        reply,
-        snip_type,
-        media_id=None,
-        media_access_hash=None,
-        media_file_reference=None,
-    ):
-        self.snip = snip
+    def __init__(self, keyword, reply, f_mesg_id):
+        self.keyword = keyword
         self.reply = reply
-        self.snip_type = snip_type
-        self.media_id = media_id
-        self.media_access_hash = media_access_hash
-        self.media_file_reference = media_file_reference
+        self.f_mesg_id = f_mesg_id
 
 
-Snips.__table__.create(checkfirst=True)
+Note.__table__.create(checkfirst=True)
 
 
-def get_snips(keyword):
+def get_note(keyword):
     try:
-        return SESSION.query(Snips).get(keyword)
-    except BaseException:
-        return None
+        return SESSION.query(Note).get(keyword)
     finally:
         SESSION.close()
 
 
-def get_all_snips():
+def get_notes():
     try:
-        return SESSION.query(Snips).all()
-    except BaseException:
-        return None
+        return SESSION.query(Note).all()
     finally:
         SESSION.close()
 
 
-def add_snip(
-    keyword, reply, snip_type, media_id, media_access_hash, media_file_reference
-):
-    adder = SESSION.query(Snips).get(keyword)
-    if adder:
-        adder.reply = reply
-        adder.snip_type = snip_type
-        adder.media_id = media_id
-        adder.media_access_hash = media_access_hash
-        adder.media_file_reference = media_file_reference
-    else:
-        adder = Snips(
-            keyword, reply, snip_type, media_id, media_access_hash, media_file_reference
-        )
+def add_note(keyword, reply, f_mesg_id):
+    to_check = get_note(keyword)
+    if not to_check:
+        adder = Note(keyword, reply, f_mesg_id)
+        SESSION.add(adder)
+        SESSION.commit()
+        return True
+    rem = SESSION.query(Note).get(keyword)
+    SESSION.delete(rem)
+    SESSION.commit()
+    adder = Note(keyword, reply, f_mesg_id)
     SESSION.add(adder)
     SESSION.commit()
+    return False
 
 
-def remove_snip(keyword):
-    note = SESSION.query(Snips).filter(Snips.snip == keyword)
-    if note:
-        note.delete()
-        SESSION.commit()
+def rm_note(keyword):
+    to_check = get_note(keyword)
+    if not to_check:
+        return False
+    rem = SESSION.query(Note).get(keyword)
+    SESSION.delete(rem)
+    SESSION.commit()
+    return True
