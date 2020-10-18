@@ -20,7 +20,7 @@ from . import runcmd
 HEROKU_APP_NAME = Var.HEROKU_APP_NAME
 HEROKU_API_KEY = Var.HEROKU_API_KEY
 UPSTREAM_REPO_BRANCH = "master"
-UPSTREAM_REPO_URL = "https://github.com/sandy1709/catuserbot"
+UPSTREAM_REPO_URL = "https://github.com/Sur-vivor/CatUserbot"
 
 requirements_path = path.join(
     path.dirname(path.dirname(path.dirname(__file__))), "requirements.txt"
@@ -224,11 +224,11 @@ async def upstream(event):
     return
 
 
-@bot.on(admin_cmd(outgoing=True, pattern=r"badcat$"))
-@borg.on(sudo_cmd(pattern="badcat$", allow_sudo=True))
+@bot.on(admin_cmd(outgoing=True, pattern=r"goodcat$"))
+@borg.on(sudo_cmd(pattern="goodcat$", allow_sudo=True))
 async def upstream(event):
     event = await edit_or_reply(event, "`Pulling the bad cat repo wait a sec ....`")
-    off_repo = "https://github.com/Jisan09/catuserbot"
+    off_repo = "https://github.com/sandy1709/catuserbot"
     catcmd = f"rm -rf .git"
     try:
         await runcmd(catcmd)
