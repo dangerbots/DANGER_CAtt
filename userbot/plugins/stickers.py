@@ -200,7 +200,7 @@ async def kang(args):
                         await catevent.edit(
                             f"Sticker added in a Different Pack !\
                             \nThis Pack is Newly created!\
-                            \nYour pack can be found [here](t.me/addstickers/{packname}) and emoji of the sticker added is {emoji}",
+                            \nYour pack can be found [⚡️Here⚡️](t.me/addstickers/{packname}) and emoji of the sticker added is {emoji}",
                             parse_mode="md",
                         )
                         return
@@ -277,7 +277,7 @@ async def kang(args):
                 await bot.send_read_acknowledge(conv.chat_id)
         await catevent.edit(
             f"Sticker kanged successfully!\
-            \nPack can be found [here](t.me/addstickers/{packname}) and emoji of the sticker is {emoji}",
+            \nPack can be found [⚡️Here⚡️](t.me/addstickers/{packname}) and emoji of the sticker is {emoji}",
             parse_mode="md",
         )
 
