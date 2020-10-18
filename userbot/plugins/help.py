@@ -7,6 +7,7 @@ from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 from . import ALIVE_NAME, CMD_HELP, CMD_LIST, SUDO_LIST, yaml_format
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
+SURID = bot.uid
 
 HELPTYPE = Config.HELP_INLINETYPE or True
 
@@ -65,7 +66,7 @@ async def cmd_list(event):
             await event.delete()
     else:
         if HELPTYPE is True:
-            help_string = f"Userbot Helper.. Provided by {DEFAULTUSER}\
+            help_string = f"Userbot Helper.. Provided by ✨[{DEFAULTUSER}](tg://user?id={SURID})✨\
                           \nUserbot Helper to reveal all the plugin names\
                           \n__Do__ `.help` __plugin_name for commands, in case popup doesn't appear.__\
                           \nDo `.info` plugin_name for usage"
