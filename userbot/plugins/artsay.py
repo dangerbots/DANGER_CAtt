@@ -7,7 +7,7 @@ from userbot import ALIVE_NAME, CMD_HELP
 
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 
-name = str(ALIVE_NAME) if ALIVE_NAME else "BadCat"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
 hmm = bot.uid
 USERNAME = f"tg://user?id={hmm}"
 
