@@ -156,34 +156,6 @@ async def _(event):
     await event.delete()
 
 
-@bot.on(admin_cmd(pattern="lovestory$"))
-@bot.on(sudo_cmd(pattern="lovestory$", allow_sudo=True))
-async def _(event):
-    if event.fwd_from:
-        return
-    animation_interval = 3
-    animation_ttl = range(0, 103)
-    await event.edit("Starting asf")
-    animation_chars = [
-        "1 ❤️ love story",
-        "  😐             😕 \n/👕\         <👗\ \n 👖               /|",
-        "  😉          😳 \n/👕\       /👗\ \n  👖            /|",
-        "  😚            😒 \n/👕\         <👗> \n  👖             /|",
-        "  😍         ☺️ \n/👕\      /👗\ \n  👖          /|",
-        "  😍          😍 \n/👕\       /👗\ \n  👖           /|",
-        "  😘   😊 \n /👕\/👗\ \n   👖   /|",
-        " 😳  😁 \n /|\ /👙\ \n /     / |",
-        "😈    /😰\ \n<|\      👙 \n /🍆    / |",
-        "😅 \n/(),✊😮 \n /\         _/\\/|",
-        "😎 \n/\\_,__😫 \n  //    //       \\",
-        "😖 \n/\\_,💦_😋  \n  //         //        \\",
-        "  😭      ☺️ \n  /|\   /(👶)\ \n  /!\   / \ ",
-        "The End 😂...",
-    ]
-
-    for i in animation_ttl:
-        await asyncio.sleep(animation_interval)
-        await event.edit(animation_chars[i % 103])
 
 
 @bot.on(admin_cmd(pattern="bf$"))
