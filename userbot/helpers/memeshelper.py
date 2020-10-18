@@ -1,4 +1,6 @@
 import random
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
+SURID = bot.uid
 
 RENDISTR = [
     "`I Know Uh ez Rendi Bhay Dont show Your Randi Pesa Here`",
