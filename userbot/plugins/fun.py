@@ -7,7 +7,8 @@ from userbot import LOGS
 from userbot.utils import admin_cmd
 
 
-@borg.on(admin_cmd(outgoing=True, pattern="kf$(.*)"))
+@bot.on(admin_cmd(pattern="kf$"))
+@bot.on(sudo_cmd(pattern="kf$", allow_sudo=True))
 async def _(event):
     r = random.randint(0, 3)
     logger.debug(r)
@@ -18,13 +19,16 @@ async def _(event):
         await event.edit("╭━━━╮\n┃╭━━╯\n┃╰━━╮\n┃╭━━╯\n┃┃\n╰╯")
 
 
-@borg.on(admin_cmd(pattern="join"))
+@bot.on(admin_cmd(pattern="join$"))
+@bot.on(sudo_cmd(pattern="join$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
     mentions = "`━━━━━┓ \n┓┓┓┓┓┃\n┓┓┓┓┓┃　ヽ○ノ ⇦ Me When You Joined \n┓┓┓┓┓┃.     /　 \n┓┓┓┓┓┃ ノ) \n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃`"
     chat = await event.get_input_chat()
-    async for _ in borg.iter_participants(chat, filter=ChannelParticipantsAdmins):
+    async for _ in event.client.iter_participants(
+        chat, filter=ChannelParticipantsAdmins
+    ):
         mentions += f""
     reply_message = None
     if event.reply_to_msg_id:
@@ -35,30 +39,16 @@ async def _(event):
     await event.delete()
 
 
-@borg.on(admin_cmd(pattern="pay"))
-async def _(event):
-    if event.fwd_from:
-        return
-    mentions = "`█▀▀▀▀▀█░▀▀░░░█░░░░█▀▀▀▀▀█\n█░███░█░█▄░█▀▀░▄▄░█░███░█\n█░▀▀▀░█░▀█▀▀▄▀█▀▀░█░▀▀▀░█\n▀▀▀▀▀▀▀░▀▄▀▄▀▄█▄▀░▀▀▀▀▀▀▀\n█▀█▀▄▄▀░█▄░░░▀▀░▄█░▄▀█▀░▀\n░█▄▀░▄▀▀░░░▄▄▄█░▀▄▄▄▀▄▄▀▄\n░░▀█░▀▀▀▀▀▄█░▄░████ ██▀█▄\n▄▀█░░▄▀█▀█▀░█▄▀░▀█▄██▀░█▄\n░░▀▀▀░▀░█▄▀▀▄▄░▄█▀▀▀█░█▀▀\n█▀▀▀▀▀█░░██▀█░░▄█░▀░█▄░██\n█░███░█░▄▀█▀██▄▄▀▀█▀█▄░▄▄\n█░▀▀▀░█░█░░▀▀▀░█░▀▀▀▀▄█▀░\n▀▀▀▀▀▀▀░▀▀░░▀░▀░░░▀▀░▀▀▀▀`"
-    chat = await event.get_input_chat()
-    async for _ in borg.iter_participants(chat, filter=ChannelParticipantsAdmins):
-        mentions += f""
-    reply_message = None
-    if event.reply_to_msg_id:
-        reply_message = await event.get_reply_message()
-        await reply_message.reply(mentions)
-    else:
-        await event.reply(mentions)
-    await event.delete()
-
-
-@borg.on(admin_cmd(pattern="climb"))
+@bot.on(admin_cmd(pattern="climb$"))
+@bot.on(sudo_cmd(pattern="climb$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
     mentions = "`😏/\n/▌ \n/ \\n████\n╬╬\n╬╬\n╬╬\n╬╬\n╬╬\n╬╬\n╬╬\😦\n╬╬/▌\n╬╬/\`"
     chat = await event.get_input_chat()
-    async for _ in borg.iter_participants(chat, filter=ChannelParticipantsAdmins):
+    async for _ in event.client.iter_participants(
+        chat, filter=ChannelParticipantsAdmins
+    ):
         mentions += f""
     reply_message = None
     if event.reply_to_msg_id:
@@ -69,13 +59,16 @@ async def _(event):
     await event.delete()
 
 
-@borg.on(admin_cmd(pattern="aag"))
+@bot.on(admin_cmd(pattern="aag$"))
+@bot.on(sudo_cmd(pattern="aag$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
     mentions = "`😲💨  🔥\n/|\     🔥🔥\n/ \   🔥🔥🔥`"
     chat = await event.get_input_chat()
-    async for _ in borg.iter_participants(chat, filter=ChannelParticipantsAdmins):
+    async for _ in event.client.iter_participants(
+        chat, filter=ChannelParticipantsAdmins
+    ):
         mentions += f""
     reply_message = None
     if event.reply_to_msg_id:
@@ -86,13 +79,16 @@ async def _(event):
     await event.delete()
 
 
-@borg.on(admin_cmd(pattern="push"))
+@bot.on(admin_cmd(pattern="push$"))
+@bot.on(sudo_cmd(pattern="push$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
     mentions = "`.      😎\n          |\👐\n         / \\\n━━━━━┓ ＼＼ \n┓┓┓┓┓┃\n┓┓┓┓┓┃ ヽ😩ノ\n┓┓┓┓┓┃ 　 /　\n┓┓┓┓┓┃  ノ)　 \n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃\n┓┓┓┓┓┃`"
     chat = await event.get_input_chat()
-    async for _ in borg.iter_participants(chat, filter=ChannelParticipantsAdmins):
+    async for _ in event.client.iter_participants(
+        chat, filter=ChannelParticipantsAdmins
+    ):
         mentions += f""
     reply_message = None
     if event.reply_to_msg_id:
@@ -103,13 +99,16 @@ async def _(event):
     await event.delete()
 
 
-@borg.on(admin_cmd(pattern="work"))
+@bot.on(admin_cmd(pattern="work$"))
+@bot.on(sudo_cmd(pattern="work$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
-    mentions = "`📔📚           📚\n📓📚📖  😫  📚📚📓\n📕📚📚  📝  📗💻📘\n📖⁣📖📖📖📖📖📖📖📖`"
+    mentions = "`📔📚             📚\n📓📚📖  😫  📚📚📓\n📕📚📚  📝  📗💻📘\n📖⁣📖📖📖📖📖📖📖📖`"
     chat = await event.get_input_chat()
-    async for _ in borg.iter_participants(chat, filter=ChannelParticipantsAdmins):
+    async for _ in event.client.iter_participants(
+        chat, filter=ChannelParticipantsAdmins
+    ):
         mentions += f""
     reply_message = None
     if event.reply_to_msg_id:
@@ -120,7 +119,8 @@ async def _(event):
     await event.delete()
 
 
-@borg.on(admin_cmd(pattern="suckit"))
+@bot.on(admin_cmd(pattern="suckit$"))
+@bot.on(sudo_cmd(pattern="suckit$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -137,7 +137,8 @@ async def _(event):
     await event.delete()
 
 
-@borg.on(admin_cmd(pattern="ohh"))
+@bot.on(admin_cmd(pattern="ohh$"))
+@bot.on(sudo_cmd(pattern="ohh$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -154,7 +155,8 @@ async def _(event):
     await event.delete()
 
 
-@borg.on(admin_cmd(pattern="lovestory"))
+@bot.on(admin_cmd(pattern="lovestory$"))
+@bot.on(sudo_cmd(pattern="lovestory$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -183,7 +185,8 @@ async def _(event):
         await event.edit(animation_chars[i % 103])
 
 
-@borg.on(admin_cmd(outgoing=True, pattern="bf"))
+@bot.on(admin_cmd(pattern="bf$"))
+@bot.on(sudo_cmd(pattern="bf$", allow_sudo=True))
 async def pressf(f):
     """Pays respects"""
     args = f.text.split()
@@ -206,7 +209,8 @@ async def pressf(f):
         await f.edit("`" + out + "`")
 
 
-@borg.on(admin_cmd("bigoof"))
+@bot.on(admin_cmd(pattern="bigoof$"))
+@bot.on(sudo_cmd(pattern="bigoof$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -230,7 +234,8 @@ async def _(event):
         await event.edit(animation_chars[i % 7])
 
 
-@borg.on(admin_cmd(pattern="ctext ?(.*)"))
+@bot.on(admin_cmd(pattern="ctext$"))
+@bot.on(sudo_cmd(pattern="ctext$", allow_sudo=True))
 async def payf(event):
     paytext = event.pattern_match.group(1)
     pay = "{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}".format(
