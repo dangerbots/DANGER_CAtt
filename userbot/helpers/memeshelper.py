@@ -1,3 +1,5 @@
+import random
+
 RENDISTR = [
     "`I Know Uh ez Rendi Bhay Dont show Your Randi Pesa Here`",
     "`Jag Suna suna laage Sab #maderchod bhay`",
@@ -365,6 +367,28 @@ HIT = [
 
 WHERE = ["in the chest", "on the head", "on the butt", "on the crotch"]
 
+async def slap(replied_user, event, DEFAULTUSER):
+    """ Construct a funny slap sentence !! """
+    user_id = replied_user.user.id
+    first_name = replied_user.user.first_name
+    username = replied_user.user.username
+    if username:
+        slapped = "@{}".format(username)
+    else:
+        slapped = f"[{first_name}](tg://user?id={user_id})"
+    temp = random.choice(SLAP_TEMPLATES)
+    item = random.choice(ITEMS)
+    hit = random.choice(HIT)
+    throw = random.choice(THROW)
+    where = random.choice(WHERE)
+    return temp.format(
+        user1=DEFAULTUSER,
+        victim=slapped,
+        item=item,
+        hits=hit,
+        throws=throw,
+        where=where,
+    )
 
 UWUS = [
     "(・`ω´・)",
