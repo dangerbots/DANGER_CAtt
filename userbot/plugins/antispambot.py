@@ -98,7 +98,7 @@ if Config.ANTISPAMBOT_BAN:
 async def caschecker(cas):
     catevent = await edit_or_reply(
         cas,
-        "`checking any cas(combot antispam service) banned users here, this may takes minutes too......`",
+        "`checking any cas(combot antispam service) banned users here, this may take several minutes too......`",
     )
     text = ""
     chat = cas.chat_id
@@ -118,7 +118,7 @@ async def caschecker(cas):
                 else:
                     banned_users += f"Deleted Account `{user.id}`\n"
             members_count += 1
-        text = "Warning! Found `{}` of `{}` users are CAS Banned:\n".format(
+        text = "**Warning!** Found `{}` of `{}` users are CAS Banned:\n".format(
             cas_count, members_count
         )
         text += banned_users
@@ -140,7 +140,7 @@ async def caschecker(cas):
     chat = cas.chat_id
     catevent = await edit_or_reply(
         cas,
-        "`checking any spamwatch banned users here, this may takes minutes too......`",
+        "`checking any spamwatch banned users here, this may take several minutes too......`",
     )
     try:
         info = await cas.client.get_entity(chat)
@@ -158,7 +158,7 @@ async def caschecker(cas):
                 else:
                     banned_users += f"Deleted Account `{user.id}`\n"
             members_count += 1
-        text = "Warning! Found `{}` of `{}` users are spamwatch Banned:\n".format(
+        text = "**Warning! **Found `{}` of `{}` users are spamwatch Banned:\n".format(
             cas_count, members_count
         )
         text += banned_users
@@ -173,9 +173,9 @@ async def caschecker(cas):
     await catevent.edit(text)
 
 
-def banchecker(id):
+def banchecker(user_id):
     try:
-        casurl = "https://api.cas.chat/check?user_id={}".format(id)
+        casurl = "https://api.cas.chat/check?user_id={}".format(user_id)
         data = get(casurl).json()
     except Exception as e:
         LOGS.info(e)
@@ -183,10 +183,10 @@ def banchecker(id):
     return bool(data and data["ok"])
 
 
-def spamchecker(id):
+def spamchecker(user_id):
     ban = None
     if spamwatch:
-        ban = spamwatch.get_ban(id)
+        ban = spamwatch.get_ban(user_id)
     return bool(ban)
 
 
@@ -194,8 +194,8 @@ CMD_HELP.update(
     {
         "antispambot": "**Plugin : **`antispambot`\
         \n\n**Syntax : **`.cascheck`\
-        \n**Usage : **Searches for cas(combot antispam service) banned users in group and shows you the list\
-        \n\n**Syntax : **`.cascheck`\
-        \n**Usage : **Searches for spamwatch banned users in group and shows you the list"
+        \n**Function : **__Searches for cas(combot antispam service) banned users in group and shows you the list__\
+        \n\n**Syntax : **`.sppamcheck`\
+        \n**Function : **__Searches for spamwatch banned users in group and shows you the list__"
     }
 )
