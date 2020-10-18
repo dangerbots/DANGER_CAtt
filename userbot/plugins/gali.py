@@ -78,7 +78,7 @@ async def _(event):
     name = event.pattern_match.group(1)
     animation_interval = 3
     animation_ttl = range(0, 11)
-    survivor = await await edit_or_reply(event, "👁👁")
+    survivor = await edit_or_reply(event, "👁👁")
     animation_chars = [
         f"👁👁\n  👄  =====> Abey {name} Chutiya",
         f"👁👁\n  👅  =====> Abey {name} Gay",
