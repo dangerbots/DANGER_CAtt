@@ -366,9 +366,6 @@ HIT = [
 WHERE = ["in the chest", "on the head", "on the butt", "on the crotch"]
 
 
-
-
-
 UWUS = [
     "(・`ω´・)",
     ";;w;;",
