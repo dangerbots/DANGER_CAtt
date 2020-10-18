@@ -50,6 +50,7 @@ async def get_user(event):
             return None
     return replied_user
 
+
 @bot.on(admin_cmd(outgoing=True, pattern=r"(\w+)say (.*)"))
 @bot.on(sudo_cmd(pattern="(\w+)say (.*)", allow_sudo=True))
 async def univsaye(cowmsg):
@@ -113,6 +114,8 @@ async def who(event):
         await edit_or_reply(
             event, "`Can't slap this person, need to fetch some sticks and stones !!`"
         )
+
+
 async def slap(replied_user, event):
     """ Construct a funny slap sentence !! """
     user_id = replied_user.user.id
@@ -136,6 +139,7 @@ async def slap(replied_user, event):
         where=where,
         SURID=SURID,
     )
+
 
 @bot.on(admin_cmd(outgoing=True, pattern="(yes|no|maybe|decide)$"))
 @bot.on(sudo_cmd(pattern="(yes|no|maybe|decide)$", allow_sudo=True))
