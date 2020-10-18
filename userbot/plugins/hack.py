@@ -20,7 +20,7 @@ async def _(event):
         reply_message = await event.get_reply_message()
         await event.client(GetFullUserRequest(reply_message.from_id))
         idd = reply_message.from_id
-        if idd == 1035034432:
+        if idd ==  1118936839:
             await edit_or_reply(
                 event, "This is My Master\nI can't hack my master's Account"
             )
