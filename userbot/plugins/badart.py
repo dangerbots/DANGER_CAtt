@@ -11,7 +11,7 @@ from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 
 name = str(ALIVE_NAME) if ALIVE_NAME else "BadCat"
 hmm = bot.uid
-USERNAME = tg://user?id={hmm}
+USERNAME = f"tg://user?id={hmm}"
 
 # ==================================================================
 
