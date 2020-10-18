@@ -1,6 +1,5 @@
-from userbot.utils import admin_cmd
-
-# ================= CONSTANT =================
+from ..utils import admin_cmd, edit_or_reply, sudo_cmd
+from . import CMD_HELP
 
 
 A = (
@@ -18,13 +17,13 @@ B = (
 )
 
 
-D = (
+C = (
     "`\n╭╭━━━╮╮┈┈┈┈┈┈┈┈┈┈\n┈┃╭━━╯┈┈┈┈▕╲▂▂╱▏┈\n┈┃┃╱▔▔▔▔▔▔▔▏╱▋▋╮┈`"
     "`\n┈┃╰▏┃╱╭╮┃╱╱▏╱╱▆┃┈\n┈╰━▏┗━╰╯┗━╱╱╱╰┻┫┈\n┈┈┈▏┏┳━━━━▏┏┳━━╯┈`"
     "`\n┈┈┈▏┃┃┈┈┈┈▏┃┃┈┈┈┈ `"
 )
 
-E = (
+D = (
     "`\n(\_/)`"
     "`\n(•_•)`"
     "`\n >🌹 *`"
@@ -34,7 +33,7 @@ E = (
     "`\n🌹<\ *`"
 )
 
-F = (
+E = (
     "`\n█████████`"
     "`\n█▄█████▄█`"
     "`\n█▼▼▼▼▼`"
@@ -45,10 +44,12 @@ F = (
 )
 
 
-@borg.on(admin_cmd(pattern="ml (.*)"))
-async def kakashi(jisan):
-    message = jisan.pattern_match.group(1)
-    await jisan.edit(
+@bot.on(admin_cmd(pattern=r"ml$"))
+@bot.on(sudo_cmd(pattern="ml$", allow_sudo=True))
+async def survivor(event):
+    message = event.pattern_match.group(1)
+    await edit_or_reply(
+        event,
         "`\n█████████`"
         "`\n█▄█████▄█`"
         "`\n█▼▼▼▼▼`"
@@ -59,56 +60,65 @@ async def kakashi(jisan):
     )
 
 
-@borg.on(admin_cmd(pattern=r"paw$"))
-async def kakashi(jisan):
-    await jisan.edit("`(=ↀωↀ=)`")
+@bot.on(admin_cmd(pattern=r"elove$"))
+@bot.on(sudo_cmd(pattern="elove$", allow_sudo=True))
+async def survivor(event):
+    await edit_or_reply(
+        event,
+        "░░▄███▄███▄\n░░█████████\n░░▒▀█████▀░\n░░▒░░▀█▀\n░░▒░░█░\n░░▒░█\n░░░█\n░░█░░░░███████\n░██░░░██▓▓███▓██▒\n██░░░█▓▓▓▓▓▓▓█▓████\n██░░██▓▓▓(◐)▓█▓█▓█\n███▓▓▓█▓▓▓▓▓█▓█▓▓▓▓█\n▀██▓▓█░██▓▓▓▓██▓▓▓▓▓█\n░▀██▀░░█▓▓▓▓▓▓▓▓▓▓▓▓▓█\n░░░░▒░░░█▓▓▓▓▓█▓▓▓▓▓▓█\n░░░░▒░░░█▓▓▓▓█▓█▓▓▓▓▓█\n░▒░░▒░░░█▓▓▓█▓▓▓█▓▓▓▓█\n░▒░░▒░░░█▓▓▓█░░░█▓▓▓█\n░▒░░▒░░██▓██░░░██▓▓██\n██████████████████████\n█─████─▄▄─██─█─██─▄▄─█\n█─██▀█─██─██─█─██─▄█▀█\n█▄▄▄▄▀▄▄▄▄▀▀▄▄▄▀▀▄▄▄▄▀",
+    )
 
 
-@borg.on(admin_cmd(pattern=r"tf$"))
-async def kakashi(jisan):
-    await jisan.edit("(̿▀̿ ̿Ĺ̯̿̿▀̿ ̿)̄  ")
-
-
-@borg.on(admin_cmd(pattern=r"gay$"))
-async def kakashi(jisan):
-    await jisan.edit(
+@bot.on(admin_cmd(pattern=r"gay$"))
+@bot.on(sudo_cmd(pattern="gay$", allow_sudo=True))
+async def survivor(event):
+    await edit_or_reply(
+        event,
         "`\n┈┈┈╭━━━━━╮┈┈┈┈┈\n┈┈┈┃┊┊┊┊┊┃┈┈┈┈┈`"
         "`\n┈┈┈┃┊┊╭━╮┻╮┈┈┈┈\n┈┈┈╱╲┊┃▋┃▋┃┈┈┈┈\n┈┈╭┻┊┊╰━┻━╮┈┈┈┈`"
         "`\n┈┈╰┳┊╭━━━┳╯┈┈┈┈\n┈┈┈┃┊┃╰━━┫┈U GAY`"
-        "\n┈┈┈┈┈┈┏━┓┈┈┈┈┈┈"
+        "\n┈┈┈┈┈┈┏━┓┈┈┈┈┈┈",
     )
 
 
-@borg.on(admin_cmd(pattern=r"bot$"))
-async def kakashi(jisan):
-    await jisan.edit(
+@bot.on(admin_cmd(pattern=r"bot$"))
+@bot.on(sudo_cmd(pattern="bot$", allow_sudo=True))
+async def survivor(event):
+    await edit_or_reply(
+        event,
         "` \n   ╲╲╭━━━━╮ \n╭╮┃▆┈┈▆┃╭╮ \n┃╰┫▽▽▽┣╯┃ \n╰━┫△△△┣━╯`"
-        "`\n╲╲┃┈┈┈┈┃  \n╲╲┃┈┏┓┈┃ `"
+        "`\n╲╲┃┈┈┈┈┃  \n╲╲┃┈┏┓┈┃ `",
     )
 
 
-@borg.on(admin_cmd(pattern=r"hai$"))
-async def kakashi(jisan):
-    await jisan.edit(
+@bot.on(admin_cmd(pattern=r"hai$"))
+@bot.on(sudo_cmd(pattern="hai$", allow_sudo=True))
+async def survivor(event):
+    await edit_or_reply(
+        event,
         "\n┈┈┈╱▔▔▔▔╲┈╭━━━━━\n┈┈▕▂▂▂▂▂▂▏┃HELLO!┊😀`"
         "`\n┈┈▕▔▇▔▔┳▔▏╰┳╮HELLO!┊\n┈┈▕╭━╰╯━╮▏━╯╰━━━\n╱▔▔▏▅▅▅▅▕▔▔╲┈┈┈┈`"
-        "`\n▏┈┈╲▂▂▂▂╱┈┈┈▏┈┈┈`"
+        "`\n▏┈┈╲▂▂▂▂╱┈┈┈▏┈┈┈`",
     )
 
 
-@borg.on(admin_cmd(pattern=r"nou$"))
-async def kakashi(jisan):
-    await jisan.edit(
+@bot.on(admin_cmd(pattern=r"nou$"))
+@bot.on(sudo_cmd(pattern="nou$", allow_sudo=True))
+async def survivor(event):
+    await edit_or_reply(
+        event,
         "`\n┈╭╮╭╮\n┈┃┃┃┃\n╭┻┗┻┗╮`"
         "`\n┃┈▋┈▋┃\n┃┈╭▋━╮━╮\n┃┈┈╭╰╯╰╯╮`"
         "`\n┫┈┈  NoU\n┃┈╰╰━━━━╯`"
-        "`\n┗━━┻━┛`"
+        "`\n┗━━┻━┛`",
     )
 
 
-@borg.on(admin_cmd(pattern=r"sayhi$"))
-async def kakashi(jisan):
-    await jisan.edit(
+@bot.on(admin_cmd(pattern=r"sayhi$"))
+@bot.on(sudo_cmd(pattern="sayhi$", allow_sudo=True))
+async def survivor(event):
+    await edit_or_reply(
+        event,
         "\n💛💛💛💛💛💛💛💛💛"
         "\n💛🔷🔷🔷🔷🔷🔷🔷💛"
         "\n💛💛💛💛🔷💛💛💛💛"
@@ -124,27 +134,29 @@ async def kakashi(jisan):
         "\n💛💛💛💛💛💛💛💛💛"
     )
 
+@bot.on(admin_cmd(pattern=r"fail$"))
+@bot.on(sudo_cmd(pattern="fail$", allow_sudo=True))
+async def survivor(fail):
+    await edit_or_reply(fail, A)
 
-@borg.on(admin_cmd(pattern=r"fail$"))
-async def kakashi(fail):
-    await fail.edit(A)
-
-
-@borg.on(admin_cmd(pattern=r"lol$"))
-async def kakashi(lol):
-    await lol.edit(B)
-
-
-@borg.on(admin_cmd(pattern=r"lool$"))
-async def kakashi(loal):
-    await loal.edit(D)
+@bot.on(admin_cmd(pattern=r"lool$"))
+@bot.on(sudo_cmd(pattern="lool$", allow_sudo=True))
+async def survivor(lool):
+    await edit_or_reply(lool, C)
 
 
-@borg.on(admin_cmd(pattern=r"nih$"))
-async def kakashi(shit):
-    await shit.edit(E)
+@bot.on(admin_cmd(pattern=r"lol$"))
+@bot.on(sudo_cmd(pattern="lol$", allow_sudo=True))
+async def survivor(lol):
+    await edit_or_reply(lol, B)
+
+@bot.on(admin_cmd(pattern=r"hallo$"))
+@bot.on(sudo_cmd(pattern="hallo$", allow_sudo=True))
+async def survivor(hallo):
+    await edit_or_reply(hallo, E)
 
 
-@borg.on(admin_cmd(pattern=r"hallo$"))
-async def kakashi(hello):
-    await hello.edit(E)
+@bot.on(admin_cmd(pattern=r"nih$"))
+@bot.on(sudo_cmd(pattern="nih$", allow_sudo=True))
+async def survivor(nih):
+    await edit_or_reply(nih, D)
