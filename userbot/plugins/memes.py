@@ -104,7 +104,7 @@ async def _(event):
 @bot.on(sudo_cmd(pattern="slap(?: |$)(.*)", allow_sudo=True))
 async def who(event):
     replied_user = await get_user(event)
-    caption = await slap(replied_user, event)
+    caption = await catmemes.slap(replied_user, event, DEFAULTUSER, SURID)
     message_id_to_reply = event.message.reply_to_msg_id
     if not message_id_to_reply:
         message_id_to_reply = None
@@ -114,33 +114,8 @@ async def who(event):
         await edit_or_reply(
             event, "`Can't slap this person, need to fetch some sticks and stones !!`"
         )
-
-
-async def slap(replied_user, event):
-    """ Construct a funny slap sentence !! """
-    user_id = replied_user.user.id
-    first_name = replied_user.user.first_name
-    username = replied_user.user.username
-    if username:
-        slapped = "@{}".format(username)
-    else:
-        slapped = f"[{first_name}](tg://user?id={user_id})"
-    temp = random.choice(catmemes.SLAP_TEMPLATES)
-    item = random.choice(catmemes.ITEMS)
-    hit = random.choice(catmemes.HIT)
-    throw = random.choice(catmemes.THROW)
-    where = random.choice(catmemes.WHERE)
-    return temp.format(
-        user1=DEFAULTUSER,
-        victim=slapped,
-        item=item,
-        hits=hit,
-        throws=throw,
-        where=where,
-        SURID=SURID,
-    )
-
-
+                        
+                       
 @bot.on(admin_cmd(outgoing=True, pattern="(yes|no|maybe|decide)$"))
 @bot.on(sudo_cmd(pattern="(yes|no|maybe|decide)$", allow_sudo=True))
 async def decide(event):
