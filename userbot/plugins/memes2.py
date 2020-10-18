@@ -1,6 +1,4 @@
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import CMD_HELP
-
 
 A = (
     "`▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ `\n"
@@ -56,7 +54,7 @@ async def survivor(event):
         f"`\n█  {message}`"
         "`\n█▲▲▲▲▲`"
         "`\n█████████`"
-        "`\n ██   ██`"
+        "`\n ██   ██`",
     )
 
 
@@ -131,13 +129,15 @@ async def survivor(event):
         "\n💛🔷🔷🔷🔷🔷🔷🔷💛"
         "\n💛🔷🔷🔷🔷🔷🔷️🔷💛"
         "\n💛🔷💛💛💛💛️💛🔷💛"
-        "\n💛💛💛💛💛💛💛💛💛"
+        "\n💛💛💛💛💛💛💛💛💛",
     )
+
 
 @bot.on(admin_cmd(pattern=r"fail$"))
 @bot.on(sudo_cmd(pattern="fail$", allow_sudo=True))
 async def survivor(fail):
     await edit_or_reply(fail, A)
+
 
 @bot.on(admin_cmd(pattern=r"lool$"))
 @bot.on(sudo_cmd(pattern="lool$", allow_sudo=True))
@@ -149,6 +149,7 @@ async def survivor(lool):
 @bot.on(sudo_cmd(pattern="lol$", allow_sudo=True))
 async def survivor(lol):
     await edit_or_reply(lol, B)
+
 
 @bot.on(admin_cmd(pattern=r"hallo$"))
 @bot.on(sudo_cmd(pattern="hallo$", allow_sudo=True))

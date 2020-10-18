@@ -156,8 +156,6 @@ async def _(event):
     await event.delete()
 
 
-
-
 @bot.on(admin_cmd(pattern="bf$"))
 @bot.on(sudo_cmd(pattern="bf$", allow_sudo=True))
 async def pressf(f):
