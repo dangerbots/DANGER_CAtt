@@ -10,6 +10,7 @@ from . import ALIVE_NAME, CMD_HELP
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
 SURID = bot.uid
 
+
 @bot.on(admin_cmd(pattern=r"hack$", outgoing=True))
 @bot.on(sudo_cmd(pattern=r"hack$", allow_sudo=True))
 async def _(event):
