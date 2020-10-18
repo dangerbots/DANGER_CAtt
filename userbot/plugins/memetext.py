@@ -6,7 +6,6 @@
 # Edited by @Sur_vivor
 """ Userbot module for having some fun with people. """
 
-import asyncio
 import random
 
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
@@ -300,11 +299,13 @@ async def noon(noon):
     txt = random.choice(GDNOON)
     await edit_or_reply(noon, txt)
 
+
 @bot.on(admin_cmd(outgoing=True, pattern="chase$"))
 @bot.on(sudo_cmd(pattern="chasr$", allow_sudo=True))
 async def runner_lol(e):
     txt = random.choice(CHASE_STR)
     await edit_or_reply(e, txt)
+
 
 @bot.on(admin_cmd(outgoing=True, pattern="hey$"))
 @bot.on(sudo_cmd(pattern="hey$", allow_sudo=True))
