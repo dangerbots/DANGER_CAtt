@@ -1,24 +1,79 @@
 import asyncio
-
+from .. import CMD_HELP
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 
 
-@borg.on(admin_cmd(pattern="session$"))
+@bot.on(admin_cmd(outgoing=True, pattern="^\:/$"))
+@bot.on(sudo_cmd(pattern="^\:/$", allow_sudo=True))
+async def kek(keks):
+    keks = await edit_or_reply(keks, ":\\")
+    uio = ["/", "\\"]
+    for i in range(15):
+        await asyncio.sleep(0.5)
+        txt = ":" + uio[i % 2]
+        await keks.edit(txt)
+
+
+@bot.on(admin_cmd(outgoing=True, pattern="^\-_-$"))
+@bot.on(sudo_cmd(pattern="^\-_-$", allow_sudo=True))
+async def lol(lel):
+    lel = await edit_or_reply(lel, "-__-")
+    okay = "-__-"
+    for _ in range(15):
+        await asyncio.sleep(0.5)
+        okay = okay[:-1] + "_-"
+        await lel.edit(okay)
+
+
+@bot.on(admin_cmd(outgoing=True, pattern="^\;_;$"))
+@bot.on(sudo_cmd(pattern="^\;_;$", allow_sudo=True))
+async def fun(e):
+    e = await edit_or_reply(e, ";__;")
+    t = ";__;"
+    for _ in range(15):
+        await asyncio.sleep(0.5)
+        t = t[:-1] + "_;"
+        await e.edit(t)
+
+
+@bot.on(admin_cmd(outgoing=True, pattern="oof$"))
+@bot.on(sudo_cmd(pattern="oof$", allow_sudo=True))
+async def Oof(e):
+    t = "Oof"
+    catevent = await edit_or_reply(e, t)
+    for _ in range(15):
+        await asyncio.sleep(0.5)
+        t = t[:-1] + "of"
+        await catevent.edit(t)
+
+
+@bot.on(admin_cmd(outgoing=True, pattern="type (.*)"))
+@bot.on(sudo_cmd(pattern="type (.*)", allow_sudo=True))
+async def typewriter(typew):
+    message = typew.pattern_match.group(1)
+    sleep_time = 0.2
+    typing_symbol = "|"
+    old_text = ""
+    typew = await edit_or_reply(typew, typing_symbol)
+    await asyncio.sleep(sleep_time)
+    for character in message:
+        old_text = old_text + "" + character
+        typing_text = old_text + "" + typing_symbol
+        await typew.edit(typing_text)
+        await asyncio.sleep(sleep_time)
+        await typew.edit(old_text)
+        await asyncio.sleep(sleep_time)
+
+
+@bot.on(admin_cmd(pattern="repeat (\d*) (.*)", outgoing=True))
+@bot.on(sudo_cmd(pattern="repeat (\d*) (.*)", allow_sudo=True))
 async def _(event):
-    if event.fwd_from:
-        return
-    mentions = "**telethon.errors.rpcerrorlist.AuthKeyDuplicatedError: The authorization key (session file) was used under two different IP addresses simultaneously, and can no longer be used. Use the same session exclusively, or use different sessions (caused by GetMessagesRequest)**"
-    await event.edit(mentions)
-
-
-@borg.on(admin_cmd(pattern="ccry$"))
-async def cry(e):
-    await e.edit("`(;༎ຶД༎ຶ`)`")
-
-
-@borg.on(admin_cmd(pattern="fp$"))
-async def facepalm(e):
-    await e.edit("🤦‍♂")
+    cat = ("".join(event.text.split(maxsplit=1)[1:])).split(" ", 1)
+    message = cat[1]
+    count = int(cat[0])
+    repmessage = (f"{message} ") * count
+    await asyncio.wait([event.respond(repmessage)])
+    await event.delete()
 
 
 @bot.on(admin_cmd(pattern=f"meme", outgoing=True))
@@ -204,3 +259,28 @@ async def flower(event):
         + flower
     )
     await asyncio.sleep(sleepValue)
+
+CMD_HELP.update(
+    {
+        "meme": "**Plugin : **`meme`\
+        \n\n**Commands :**\
+        \n  •  `:/`\
+        \n  •  `-_-`\
+        \n  •  `;_;`\
+        \n  •  `.oof`\
+        \n\n**Functions :**\
+        \n__The above four commands are animation commands__\
+        \n\n**Commands :**\
+        \n  •  `.meme`\
+        \n  •  `.give`\
+        \n\n**Functions :**\
+        \n__The above two commands are animation memes meme by default takes ✈️ and give by default takes 🍭__\
+        \n\n**Syntax : **`.repeat count message`\
+        \n**Function : **try out and check Yourself `.repeat 5 hello`\
+        \n\n**Syntax :** `.type`\
+        \n**Function : **Just a small command to make your keyboard become a typewriter!\
+        \n\n**Syntax :** `.sadmin`\
+        \n**Function : **Fun animation of @admin!\
+        "
+    }
+)
