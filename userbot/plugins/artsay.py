@@ -3,7 +3,7 @@
 import asyncio
 
 from userbot import ALIVE_NAME
-from userbot.utils import admin_cmd
+from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 
 n = str(ALIVE_NAME) if ALIVE_NAME else "Set ALIVE_NAME in config vars in Heroku"
 
@@ -114,7 +114,8 @@ D = (
 )
 
 
-@borg.on(admin_cmd(pattern="sthink (.*)"))
+@bot.on(admin_cmd(pattern="sthink (.*)"))
+@bot.on(sudo_cmd(pattern="sthink (.*)", allow_sudo=True))
 async def survivor(think):
     name = think.pattern_match.group(1)
     E = (
@@ -373,15 +374,17 @@ async def survivor(event):
         await event.edit(animation_chars[i % 5])
 
 
-@borg.on(admin_cmd(pattern="carry (.*)"))
+@bot.on(admin_cmd(pattern="carry (.*)"))
+@bot.on(sudo_cmd(pattern="carry (.*)", allow_sudo=True))
 async def survivor(carry):
     name = carry.pattern_match.group(1)
-    await carry.edit(
+    await edit_or_reply(
         f"**Carry ➥ {name} .**\n\n                     ⣤⣶⣶⣶⣦⣤⣄⡀\n⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀\n⠀⠀⠀⢀⣾⣿⣿⣿⠿⠿⠟⠻⠿⢿⣿⣿⣿⡆\n⠀⠀⠀⢰⣿⣿⡿⠂⠀⠀⠀⠀⠀⠀ ⠈⠉⢻⡇ \n⠀⠀⠀⠈⠿⣿⣇⣠⠤⠤⠤⢤⣀⣤⠤⠤⣺⡏ \n⠀⠀⠀⠀⠐⢉⣯⠹⣀⣀⣢⡸⠉⢏⡄⣀⣯⠁ \n⠀⠀⠀⠀⠡⠀⢹⣆⠀⠀⠀⣀⡀⡰⠀⢠⠖⠂ \n⠀⠀⠀⠀⠀⠈⠙⣿⣿⠀⠠⠚⢋⡁⠀⡜ \n⠀⠀⠀⠀⠀⠀⢸⠈⠙⠦⣤⣀⣤⣤⡼⠁  \n⠀⠀⠀ ⠀⢀⡌⠀⠀⠀⠀ ⠉⢏⡉  \n⠀⠀⠀⣀⣴⣿⣷⣶⣤⣤⣤⣴⣾⣷⣶⣦⡀ \n⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣄ \n⠚⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛"
     )
 
 
-@borg.on(admin_cmd(pattern="hnd (.*)"))
+@bot.on(admin_cmd(pattern="hnd (.*)"))
+@bot.on(sudo_cmd(pattern="hnd (.*)", allow_sudo=True))
 async def _(event):
     name = event.pattern_match.group(1)
     if event.fwd_from:
