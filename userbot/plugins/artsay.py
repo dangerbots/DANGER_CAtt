@@ -218,3 +218,4 @@ CMD_HELP.update(
       \n**USAGE   ➥  **Ahhh shit...here we go again..\
 "
     }
+)
