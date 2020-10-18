@@ -1,6 +1,6 @@
 import asyncio
 
-from userbot.utils import admin_cmd
+from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 
 
 @borg.on(admin_cmd(pattern="session$"))
@@ -21,14 +21,15 @@ async def facepalm(e):
     await e.edit("🤦‍♂")
 
 
-@borg.on(admin_cmd(pattern=f"meme", outgoing=True))
+@bot.on(admin_cmd(pattern=f"meme", outgoing=True))
+@bot.on(sudo_cmd(pattern=f"meme", allow_sudo=True))
 async def meme(event):
-    if event.fwd_from:
-        return
     memeVar = event.text
-    sleepValue = 1
+    sleepValue = 0.5
     memeVar = memeVar[6:]
-    await event.edit("-------------" + memeVar)
+    if not memeVar:
+        memeVar = "✈️"
+    event = await edit_or_reply(event, "-------------" + memeVar)
     await asyncio.sleep(sleepValue)
     await event.edit("------------" + memeVar + "-")
     await asyncio.sleep(sleepValue)
@@ -87,57 +88,17 @@ async def meme(event):
     await event.edit(memeVar)
 
 
-@borg.on(admin_cmd(pattern=f"lp$", outgoing=True))
-async def meme(event):
-    if event.fwd_from:
-        return
-    lp = " 🍭"
-    sleepValue = 1
-    await event.edit(lp + "        ")
-    await asyncio.sleep(sleepValue)
-    await event.edit(lp + lp + "       ")
-    await asyncio.sleep(sleepValue)
-    await event.edit(lp + lp + lp + "      ")
-    await asyncio.sleep(sleepValue)
-    await event.edit(lp + lp + lp + lp + "     ")
-    await asyncio.sleep(sleepValue)
-    await event.edit(lp + lp + lp + lp + lp + "    ")
-    await asyncio.sleep(sleepValue)
-    await event.edit(lp + lp + lp + lp + lp + lp + "   ")
-    await asyncio.sleep(sleepValue)
-    await event.edit(lp + lp + lp + lp + lp + lp + lp + "  ")
-    await asyncio.sleep(sleepValue)
-    await event.edit(lp + lp + lp + lp + lp + lp + lp + lp + " ")
-    await asyncio.sleep(sleepValue)
-    await event.edit(lp + lp + lp + lp + lp + lp + lp + lp + lp)
-    await asyncio.sleep(sleepValue)
-    await event.edit(lp + "        ")
-    await asyncio.sleep(sleepValue)
-    await event.edit(lp + lp + "       ")
-    await asyncio.sleep(sleepValue)
-    await event.edit(lp + lp + lp + "      ")
-    await asyncio.sleep(sleepValue)
-    await event.edit(lp + lp + lp + lp + "     ")
-    await asyncio.sleep(sleepValue)
-    await event.edit(lp + lp + lp + lp + lp + "    ")
-    await asyncio.sleep(sleepValue)
-    await event.edit(lp + lp + lp + lp + lp + lp + "   ")
-    await asyncio.sleep(sleepValue)
-    await event.edit(lp + lp + lp + lp + lp + lp + lp + "  ")
-    await asyncio.sleep(sleepValue)
-    await event.edit(lp + lp + lp + lp + lp + lp + lp + lp + " ")
-    await asyncio.sleep(sleepValue)
-    await event.edit(lp + lp + lp + lp + lp + lp + lp + lp + lp)
-
-
-@borg.on(admin_cmd(pattern=f"give", outgoing=True))
+@bot.on(admin_cmd(pattern=f"give", outgoing=True))
+@bot.on(sudo_cmd(pattern=f"give", allow_sudo=True))
 async def give(event):
     if event.fwd_from:
         return
     giveVar = event.text
-    sleepValue = 1
+    sleepValue = 0.5
     lp = giveVar[6:]
-    await event.edit(lp + "        ")
+    if not lp:
+        lp = " 🍭"
+    event = await edit_or_reply(event, lp + "        ")
     await asyncio.sleep(sleepValue)
     await event.edit(lp + lp + "       ")
     await asyncio.sleep(sleepValue)
@@ -174,7 +135,33 @@ async def give(event):
     await event.edit(lp + lp + lp + lp + lp + lp + lp + lp + lp)
 
 
-@borg.on(admin_cmd(pattern="flower"))
+@bot.on(admin_cmd(pattern=f"sadmin$", outgoing=True))
+@bot.on(sudo_cmd(pattern=f"sadmin$", allow_sudo=True))
+async def _(event):
+    animation_ttl = range(13)
+    event = await edit_or_reply(event, "sadmin")
+    animation_chars = [
+        "@aaaaaaaaaaaaadddddddddddddmmmmmmmmmmmmmiiiiiiiiiiiiinnnnnnnnnnnnn",
+        "@aaaaaaaaaaaaddddddddddddmmmmmmmmmmmmiiiiiiiiiiiinnnnnnnnnnnn",
+        "@aaaaaaaaaaadddddddddddmmmmmmmmmmmiiiiiiiiiiinnnnnnnnnnn",
+        "@aaaaaaaaaaddddddddddmmmmmmmmmmiiiiiiiiiinnnnnnnnnn",
+        "@aaaaaaaaadddddddddmmmmmmmmmiiiiiiiiinnnnnnnnn",
+        "@aaaaaaaaddddddddmmmmmmmmiiiiiiiinnnnnnnn",
+        "@aaaaaaadddddddmmmmmmmiiiiiiinnnnnnn",
+        "@aaaaaaddddddmmmmmmiiiiiinnnnnn",
+        "@aaaaadddddmmmmmiiiiinnnnn",
+        "@aaaaddddmmmmiiiinnnn",
+        "@aaadddmmmiiinnn",
+        "@aaddmmiinn",
+        "@admin",
+    ]
+    for i in animation_ttl:
+        await asyncio.sleep(1)
+        await event.edit(animation_chars[i % 13])
+
+
+@bot.on(admin_cmd(pattern=f"flower", outgoing=True))
+@bot.on(sudo_cmd(pattern=f"flower", allow_sudo=True))
 async def flower(event):
     if event.fwd_from:
         return
