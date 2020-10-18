@@ -125,11 +125,11 @@ async def slap(replied_user, event):
         slapped = "@{}".format(username)
     else:
         slapped = f"[{first_name}](tg://user?id={user_id})"
-    temp = random.choice(SLAP_TEMPLATES)
-    item = random.choice(ITEMS)
-    hit = random.choice(HIT)
-    throw = random.choice(THROW)
-    where = random.choice(WHERE)
+    temp = random.choice(catmemes.SLAP_TEMPLATES)
+    item = random.choice(catmemes.ITEMS)
+    hit = random.choice(catmemes.HIT)
+    throw = random.choice(catmemes.THROW)
+    where = random.choice(catmemes.WHERE)
     return temp.format(
         user1=DEFAULTUSER,
         victim=slapped,
