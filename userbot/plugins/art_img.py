@@ -16,6 +16,7 @@ DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
 hmm = bot.uid
 SURID = f"tg://user?id={hmm}"
 
+
 @bot.on(admin_cmd("ascii ?(.*)"))
 @bot.on(sudo_cmd(pattern="ascii ?(.*)", allow_sudo=True))
 async def _(event):

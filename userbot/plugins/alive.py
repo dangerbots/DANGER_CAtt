@@ -1,9 +1,6 @@
 import time
 from platform import python_version
 
-import nekos
-import requests
-from PIL import Image
 from telethon import version
 
 from userbot import ALIVE_NAME, CMD_HELP, StartTime, catdef, catversion

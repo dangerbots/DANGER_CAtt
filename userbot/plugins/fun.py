@@ -4,7 +4,9 @@ import random
 from telethon.tl.types import ChannelParticipantsAdmins
 
 from userbot import LOGS
+
 from ..utils import admin_cmd, sudo_cmd
+
 
 @bot.on(admin_cmd(pattern="kf$"))
 @bot.on(sudo_cmd(pattern="kf$", allow_sudo=True))

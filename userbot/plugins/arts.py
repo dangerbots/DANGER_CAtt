@@ -29,6 +29,7 @@ async def bluedevilded(ded):
         "　　　　　 Ｕ Ｕ\n",
     )
 
+
 @bot.on(admin_cmd(pattern="killer (.*)"))
 @bot.on(sudo_cmd(pattern="killer (.*)", allow_sudo=True))
 async def survivor(killer):
@@ -40,7 +41,8 @@ async def survivor(killer):
         "(҂`_´)\n"
         f"<,︻╦╤─ ҉ - - - {name}\n"
         "_/﹋\_\n",
-    )    
+    )
+
 
 A = (
     "▄███████▄\n"
@@ -502,7 +504,6 @@ async def bluedevilgun(gun):
     await edit_or_reply(gun, D)
 
 
-
 @bot.on(admin_cmd(pattern=r"dog$"))
 @bot.on(sudo_cmd(pattern="dog$", allow_sudo=True))
 async def bluedevildog(dog):
@@ -532,16 +533,17 @@ async def bluedevilcouple(couple):
 async def bluedevilsupreme(supreme):
     await edit_or_reply(supreme, I)
 
+
 @bot.on(admin_cmd(pattern=r"india$"))
 @bot.on(sudo_cmd(pattern="india$", allow_sudo=True))
 async def bluedevilindia(india):
     await edit_or_reply(india, J)
 
+
 @bot.on(admin_cmd(pattern=r"wc$"))
 @bot.on(sudo_cmd(pattern="wc$", allow_sudo=True))
 async def bluedevilwelcome(welcome):
     await edit_or_reply(welcome, K)
-
 
 
 @bot.on(admin_cmd(pattern=r"snk$"))
@@ -613,7 +615,7 @@ async def bluedevilhbd(hbd):
 @bot.on(admin_cmd(pattern=r"goodm$"))
 @bot.on(sudo_cmd(pattern="goodm$", allow_sudo=True))
 async def bluedevilgoodm(goodm):
-    await edit_or_reply(goodm,W)
+    await edit_or_reply(goodm, W)
 
 
 @bot.on(admin_cmd(pattern=r"tnk$"))

@@ -14,17 +14,18 @@ async def _(event):
         await event.edit("".join(deq))
         deq.rotate(1)
 
-@borg.on(admin_cmd(pattern=r"run$"))	
-@borg.on(sudo_cmd(pattern="run$", allow_sudo=True))	
-async def _(event):	
-    event = await edit_or_reply(event, "Odra")	
-    deq = deque(list("🚶🏃🚶🏃🚶🏃🚶🏃"))	
-    for _ in range(48):	
-        await asyncio.sleep(0.1)	
-        await event.edit("".join(deq))	
+
+@borg.on(admin_cmd(pattern=r"run$"))
+@borg.on(sudo_cmd(pattern="run$", allow_sudo=True))
+async def _(event):
+    event = await edit_or_reply(event, "Odra")
+    deq = deque(list("🚶🏃🚶🏃🚶🏃🚶🏃"))
+    for _ in range(48):
+        await asyncio.sleep(0.1)
+        await event.edit("".join(deq))
         deq.rotate(1)
-        
-        
+
+
 @borg.on(admin_cmd(pattern=r"lmao$"))
 @borg.on(sudo_cmd(pattern="lmao$", allow_sudo=True))
 async def _(event):

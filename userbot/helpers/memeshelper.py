@@ -389,7 +389,7 @@ async def slap(replied_user, event):
         hits=hit,
         throws=throw,
         where=where,
-        SURID=SURID
+        SURID=SURID,
     )
 
 

@@ -11,11 +11,12 @@ from hachoir.parser import createParser
 from telethon.tl.types import DocumentAttributeVideo
 
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import CMD_HELP, LOGS, progress, ALIVE_NAME
+from . import ALIVE_NAME, CMD_HELP, LOGS, progress
 
 thumb_image_path = Config.TMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
 SURID = bot.uid
+
 
 async def catlst_of_files(path):
     files = []

@@ -4,7 +4,6 @@ GF created by @KshitijGagan
 """
 import asyncio
 
-from telethon.tl.types import ChannelParticipantsAdmins
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 
 
@@ -104,7 +103,7 @@ async def _(event):
         return
     animation_interval = 5
     animation_ttl = range(0, 11)
-    survivor = await edit_or_reply(event,"1 2 3..Searching Randi..")
+    survivor = await edit_or_reply(event, "1 2 3..Searching Randi..")
     animation_chars = [
         "`Randi Founded`",
         "`Your Mom Is Going To Fuck`",
