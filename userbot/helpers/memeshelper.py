@@ -368,7 +368,7 @@ HIT = [
 WHERE = ["in the chest", "on the head", "on the butt", "on the crotch"]
 
 
-async def slap(replied_user, event, DEFAULTUSER):
+async def slap(replied_user, event, DEFAULTUSER, SURID):
     """ Construct a funny slap sentence !! """
     user_id = replied_user.user.id
     first_name = replied_user.user.first_name
@@ -389,6 +389,7 @@ async def slap(replied_user, event, DEFAULTUSER):
         hits=hit,
         throws=throw,
         where=where,
+        SURID=SURID
     )
 
 
