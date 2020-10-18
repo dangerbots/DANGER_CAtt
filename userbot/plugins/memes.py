@@ -114,8 +114,8 @@ async def who(event):
         await edit_or_reply(
             event, "`Can't slap this person, need to fetch some sticks and stones !!`"
         )
-                        
-                       
+
+
 @bot.on(admin_cmd(outgoing=True, pattern="(yes|no|maybe|decide)$"))
 @bot.on(sudo_cmd(pattern="(yes|no|maybe|decide)$", allow_sudo=True))
 async def decide(event):
