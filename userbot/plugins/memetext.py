@@ -6,9 +6,10 @@
 # Edited by @Sur_vivor
 """ Userbot module for having some fun with people. """
 
-from random import choice
+import asyncio
+import random
 
-from userbot.utils import admin_cmd
+from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 
 # ================= CONSTANT =================
 
@@ -184,19 +185,6 @@ HELLOSTR = [
     "`Hi !`",
 ]
 
-CONGRATULATION = [
-    "`Congratulations and BRAVO!`",
-    "`You did it! So proud of you!`",
-    "`This calls for celebrating! Congratulations!`",
-    "`I knew it was only a matter of time. Well done!`",
-    "`Congratulations on your well-deserved success.`",
-    "`Heartfelt congratulations to you.`",
-    "`Warmest congratulations on your achievement.`",
-    "`Congratulations and best wishes for your next adventure!”`",
-    "`So pleased to see you accomplishing great things.`",
-    "`Feeling so much joy for you today. What an impressive achievement!`",
-]
-
 BYESTR = [
     "`Nice talking with you`",
     "`I've gotta go!`",
@@ -285,51 +273,62 @@ GDMORNING = [
 ]
 
 
-@borg.on(admin_cmd(pattern=f"love$", outgoing=True))
-async def love(chutiyappa):
-    await chutiyappa.edit(choice(LOVESTR))
+@bot.on(admin_cmd(pattern=f"love$", outgoing=True))
+@bot.on(sudo_cmd(pattern="love$", allow_sudo=True))
+async def suru(chutiyappa):
+    txt = random.choice(LOVESTR)
+    await edit_or_reply(chutiyappa, txt)
 
 
-@borg.on(admin_cmd(pattern=f"dhoka$", outgoing=True))
+@bot.on(admin_cmd(pattern=f"dhoka$", outgoing=True))
+@bot.on(sudo_cmd(pattern="dhoka$", allow_sudo=True))
 async def katgya(chutiya):
-    await chutiya.edit(choice(DHOKA))
+    txt = random.choice(DHOKA)
+    await edit_or_reply(chutiya, txt)
 
 
-@borg.on(admin_cmd(pattern=f"metoo$", outgoing=True))
+@bot.on(admin_cmd(pattern=f"metoo$", outgoing=True))
+@bot.on(sudo_cmd(pattern="metoo$", allow_sudo=True))
 async def metoo(hahayes):
-    await hahayes.edit(choice(METOOSTR))
+    txt = random.choice(METOOSTR)
+    await edit_or_reply(hahayes, txt)
 
 
-@borg.on(admin_cmd(pattern=f"gnoon$", outgoing=True))
+@bot.on(admin_cmd(pattern=f"gnoon$", outgoing=True))
+@bot.on(sudo_cmd(pattern="gnoon$", allow_sudo=True))
 async def noon(noon):
-    await noon.edit(choice(GDNOON))
+    txt = random.choice(GDNOON)
+    await edit_or_reply(noon, txt)
+
+@bot.on(admin_cmd(outgoing=True, pattern="chase$"))
+@bot.on(sudo_cmd(pattern="chasr$", allow_sudo=True))
+async def runner_lol(e):
+    txt = random.choice(CHASE_STR)
+    await edit_or_reply(e, txt)
+
+@bot.on(admin_cmd(outgoing=True, pattern="hey$"))
+@bot.on(sudo_cmd(pattern="hey$", allow_sudo=True))
+async def hoi(e):
+    txt = random.choice(HELLOSTR)
+    await edit_or_reply(e, txt)
 
 
-@borg.on(admin_cmd(pattern=f"chase$", outgoing=True))
-async def police(chase):
-    await chase.edit(choice(CHASE_STR))
-
-
-@borg.on(admin_cmd(pattern=f"congo$", outgoing=True))
-async def Sahih(congrats):
-    await congrats.edit(choice(CONGRATULATION))
-
-
-@borg.on(admin_cmd(pattern=f"qhi$", outgoing=True))
-async def hoi(hello):
-    await hello.edit(choice(HELLOSTR))
-
-
-@borg.on(admin_cmd(pattern=f"gbye$", outgoing=True))
+@bot.on(admin_cmd(pattern=f"qbye$", outgoing=True))
+@bot.on(sudo_cmd(pattern="qbye$", allow_sudo=True))
 async def bhago(bhagobc):
-    await bhagobc.edit(choice(BYESTR))
+    txt = random.choice(BYESTR)
+    await edit_or_reply(bhagobc, txt)
 
 
-@borg.on(admin_cmd(pattern=f"gn$", outgoing=True))
+@bot.on(admin_cmd(pattern=f"gn$", outgoing=True))
+@bot.on(sudo_cmd(pattern="gn$", allow_sudo=True))
 async def night(night):
-    await night.edit(choice(GDNIGHT))
+    txt = random.choice(GDNIGHT)
+    await edit_or_reply(night, txt)
 
 
-@borg.on(admin_cmd(pattern=f"gm$", outgoing=True))
+@bot.on(admin_cmd(pattern=f"gm$", outgoing=True))
+@bot.on(sudo_cmd(pattern="gm$", allow_sudo=True))
 async def morning(morning):
-    await morning.edit(choice(GDMORNING))
+    txt = random.choice(GDMORNING)
+    await edit_or_reply(morning, txt)
