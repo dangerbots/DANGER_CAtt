@@ -50,6 +50,29 @@ async def get_user(event):
             return None
     return replied_user
 
+async def slap(replied_user, event):
+    """ Construct a funny slap sentence !! """
+    user_id = replied_user.user.id
+    first_name = replied_user.user.first_name
+    username = replied_user.user.username
+    if username:
+        slapped = "@{}".format(username)
+    else:
+        slapped = f"[{first_name}](tg://user?id={user_id})"
+    temp = random.choice(SLAP_TEMPLATES)
+    item = random.choice(ITEMS)
+    hit = random.choice(HIT)
+    throw = random.choice(THROW)
+    where = random.choice(WHERE)
+    return temp.format(
+        user1=DEFAULTUSER,
+        victim=slapped,
+        item=item,
+        hits=hit,
+        throws=throw,
+        where=where,
+        SURID=SURID,
+    )
 
 @bot.on(admin_cmd(outgoing=True, pattern=r"(\w+)say (.*)"))
 @bot.on(sudo_cmd(pattern="(\w+)say (.*)", allow_sudo=True))
