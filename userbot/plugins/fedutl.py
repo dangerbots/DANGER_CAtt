@@ -163,14 +163,12 @@ async def get_users(show):
         mentions = "id,reason"
         try:
             if not show.pattern_match.group(1):
-                async for user in show.client.iter_participants(
-                    show.chat_id
-                ):
+                async for user in show.client.iter_participants(show.chat_id):
                     if not user.deleted:
                         try:
-                           user_id = user.id
+                            user_id = user.id
                         except:
-                           user_id = bot.uid
+                            user_id = bot.uid
                         mentions += f"\n{user_id},⚠️Porn / Porn Group Member//AntiPornFed #Massban🔞🛑"
                     else:
                         mentions += f"\n{user_id},⚠️Porn / Porn Group Member//AntiPornFed #Massban🔞🛑"
