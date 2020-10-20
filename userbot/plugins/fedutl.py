@@ -167,7 +167,10 @@ async def get_users(show):
                     show.chat_id
                 ):
                     if not user.deleted:
-                        user_id = user.id except bot.uid
+                        try:
+                           user_id = user.id
+                        except:
+                           user_id = bot.uid
                         mentions += f"\n{user_id},⚠️Porn / Porn Group Member//AntiPornFed #Massban🔞🛑"
                     else:
                         mentions += f"\n{user_id},⚠️Porn / Porn Group Member//AntiPornFed #Massban🔞🛑"
