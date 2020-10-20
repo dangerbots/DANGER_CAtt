@@ -173,9 +173,9 @@ async def get_users(show):
                 async for user in show.client.iter_participants(
                     show.chat_id, search=f"{searchq}"
                 ):
-                    if not user.deleted:
+                    if not user.deleted and user.id != bot.uid:
                         mentions += f"\n{user.id},⚠️Porn / Porn Group Member//AntiPornFed #Massban🔞🛑"
-                    else:
+                    elif user.id != bot.uid:
                         mentions += f"\n{user.id},⚠️Porn / Porn Group Member//AntiPornFed #Massban🔞🛑"
         except ChatAdminRequiredError as err:
             mentions += " " + str(err) + "\n"
@@ -206,18 +206,18 @@ async def get_users(show):
         try:
             if not show.pattern_match.group(1):
                 async for user in show.client.iter_participants(show.chat_id):
-                    if not user.deleted:
+                    if not user.deleted and user.id != bot.uid:
                         mentions += f"\n{user.id},⚠️Suspicious/Btc Scammer/Fraudulent activities #Massban🛑"
-                    else:
+                    elif user.id != bot.uid:
                         mentions += f"\n{user.id},⚠️Suspicious/Btc Scammer/Fraudulent activities #Massban🛑"
             else:
                 searchq = show.pattern_match.group(1)
                 async for user in show.client.iter_participants(
                     show.chat_id, search=f"{searchq}"
                 ):
-                    if not user.deleted:
+                    if not user.deleted and user.id != bot.uid:
                         mentions += f"\n{user.id},⚠️Suspicious/Btc Scammer/Fraudulent activities #Massban🛑"
-                    else:
+                    elif user.id != bot.uid:
                         mentions += f"\n{user.id},⚠️Suspicious/Btc Scammer/Fraudulent activities #Massban🛑"
         except ChatAdminRequiredError as err:
             mentions += " " + str(err) + "\n"
