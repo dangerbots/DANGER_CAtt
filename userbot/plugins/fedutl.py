@@ -179,13 +179,10 @@ async def get_users(show):
                         mentions += f"\n{user.id},⚠️Porn / Porn Group Member//AntiPornFed #Massban🔞🛑"
         except ChatAdminRequiredError as err:
             mentions += " " + str(err) + "\n"
-        try:
-            await bot.send_message(BOTLOG_CHATID, mentions)
-        except MessageTooLongError:
-            file = open("userslist.csv", "w+")
-            file.write(mentions)
-            file.close()
-            await show.client.send_file(
+        file = open("userslist.csv", "w+")
+        file.write(mentions)
+        file.close()
+        await show.client.send_file(
                 BOTLOG_CHATID,
                 "userslist.csv",
                 caption="Group Members in {}".format(title),
@@ -221,13 +218,10 @@ async def get_users(show):
                         mentions += f"\n{user.id},⚠️Suspicious/Btc Scammer/Fraudulent activities #Massban🛑"
         except ChatAdminRequiredError as err:
             mentions += " " + str(err) + "\n"
-        try:
-            await bot.send_message(BOTLOG_CHATID, mentions)
-        except MessageTooLongError:
-            file = open("userslist.csv", "w+")
-            file.write(mentions)
-            file.close()
-            await show.client.send_file(
+        file = open("userslist.csv", "w+")
+        file.write(mentions)
+        file.close()
+        await show.client.send_file(
                 BOTLOG_CHATID,
                 "userslist.csv",
                 caption="Group Members in {}".format(title),
