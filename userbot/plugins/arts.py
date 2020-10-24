@@ -493,7 +493,6 @@ async def bluedevilmuusic(muusic):
     await edit_or_reply(muusic, T)
 
 
-
 @bot.on(admin_cmd(pattern=r"fooku$"))
 @bot.on(sudo_cmd(pattern="fooku$", allow_sudo=True))
 async def bluedevilfooku(fooku):
