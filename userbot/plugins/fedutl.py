@@ -6,7 +6,7 @@
 import os
 
 from telethon.errors import ChatAdminRequiredError
-from telethon.errors.rpcerrorlist import MessageTooLongError, YouBlockedUserError
+from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.users import GetFullUserRequest
 
 from userbot import ALIVE_NAME
@@ -183,11 +183,11 @@ async def get_users(show):
         file.write(mentions)
         file.close()
         await show.client.send_file(
-                BOTLOG_CHATID,
-                "userslist.csv",
-                caption="Group Members in {}".format(title),
-                reply_to=show.id,
-            )
+            BOTLOG_CHATID,
+            "userslist.csv",
+            caption="Group Members in {}".format(title),
+            reply_to=show.id,
+        )
 
 
 @borg.on(admin_cmd(pattern=r"blist ?(.*)", outgoing=True))
@@ -222,11 +222,11 @@ async def get_users(show):
         file.write(mentions)
         file.close()
         await show.client.send_file(
-                BOTLOG_CHATID,
-                "userslist.csv",
-                caption="Group Members in {}".format(title),
-                reply_to=show.id,
-            )
+            BOTLOG_CHATID,
+            "userslist.csv",
+            caption="Group Members in {}".format(title),
+            reply_to=show.id,
+        )
 
 
 @borg.on(admin_cmd(pattern="bgban ?(.*)"))
