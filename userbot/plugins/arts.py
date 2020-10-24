@@ -358,26 +358,6 @@ Q = (
     "…¶¶¶¶..¶..¶¶……....….¶¶..¶..¶\n"
 )
 
-
-R = (
-    "██╗░░██╗██╗\n"
-    "██║░░██║██║\n"
-    "███████║██║\n"
-    "██╔══██║██║\n"
-    "██║░░██║██║\n"
-    "╚═╝░░╚═╝╚═╝\n"
-)
-
-S = (
-    "..... (¯`v´¯)♥️\n"
-    ".......•.¸.•´\n"
-    "....¸.•´  🅷🅸\n"
-    "... (   BABYy\n"
-    "☻/ \n"
-    "/▌✿🌷✿\n"
-    "/ \     \|/\n"
-)
-
 T = (
     "╔══╗        🎧\n"
     "║██║  Nice ya ! (•  ̮ •) \n"
@@ -385,81 +365,6 @@ T = (
     "╚══╝                  . .Π.\n"
     "▄ █ ▄ █ ▄ ▄ █ ▄ █ ▄ █\n"
     "Min- - - - - - - - - - - -●Max\n"
-)
-
-U = (
-    "🌙.     *       ☄️      \n"
-    "🌟   .  *       .         \n"
-    "                       *   .      🛰     .        ✨      *\n"
-    "  .     *   SLEEP WELL        🚀     \n"
-    "      .              . . SWEET DREAMS 🌙\n"
-    ". *       🌏 GOOD NIGHT         *\n"
-    "                     🌙.     *       ☄️      \n"
-    "🌟   .  *       .         \n"
-    "                       *   .      🛰     .        ✨      *\n"
-)
-
-V = (
-    "▃▃▃▃▃▃▃▃▃▃▃\n"
-    "┊ ┊ ┊ ┊ ┊ ┊\n"
-    "┊ ┊ ┊ ┊ ˚✩ ⋆｡˚ ✩\n"
-    "┊ ┊ ┊ ✫\n"
-    "┊ ┊ ✧🎂🍰🍫🍭\n"
-    "┊ ┊ ✯\n"
-    "┊ . ˚ ˚✩\n"
-    "........♥️♥️..........♥️♥️_\n"
-    ".....♥️........♥️..♥️........♥️_\n"
-    "...♥️.............♥️............♥️\n"
-    "......♥️.....Happy.......♥️__\n"
-    "...........♥️..............♥️__\n"
-    "................♥️.....♥️__\n"
-    "......................♥️__\n"
-    "...............♥️........♥️__\n"
-    "..........♥️...............♥️__\n"
-    ".......♥️..Birthday....♥️_\n"
-    ".....♥️..........♥️...........♥️__\n"
-    ".....♥️.......♥️_♥️.....♥️__\n"
-    ".........♥️♥️........♥️♥️.....\n"
-    ".............................................\n"
-    "..... (¯`v´¯)♥️\n"
-    ".......•.¸.•´STAY BLESSED\n"
-    "....¸.•´      LOVE&FUN\n"
-    "... (   YOU DESERVE\n"
-    "☻/ THEM A LOT\n"
-    "/▌✿🌷✿\n"
-    r"/ \     \|/\n"
-    "▃▃▃▃▃▃▃▃▃▃▃\n"
-)
-
-W = (
-    "G🌷o🍃o🌷D\n"
-    "M🍃o🌷r🍃N🌷i🍃N🌷g\n"
-    "            \n"
-    "No matter how good or \n"
-    "bad your life is,\n"
-    "wake up each morning\n"
-    "and be thankful.\n"
-    "You still have a new day.\n"
-    "        \n"
-    "🌞   \n"
-    "         \n"
-    "╱◥████◣\n"
-    "│田│▓ ∩ │◥███◣\n"
-    "╱◥◣ ◥████◣田∩田│\n"
-    "│╱◥█◣║∩∩∩ 田∩田│\n"
-    "║◥███◣∩田∩ 田∩田│\n"
-    "│∩│ ▓ ║∩田│║▓田▓\n"
-    "🌹🌷🌹🌷🌹🍃🌷🌹🌷🌹\n"
-)
-
-X = (
-    ".......🦋🦋........🦋🦋\n"
-    "...🦋.........🦋🦋.......🦋\n"
-    "...🦋............💙..........🦋\n"
-    ".....🦋🅣🅗🅐🅝🅚🅢 🦋\n"
-    "....... 🦋.................🦋\n"
-    "..............🦋......🦋\n"
-    "...................💙\n"
 )
 
 Y = (
@@ -582,46 +487,11 @@ async def bluedevildemon(demon):
     await edit_or_reply(demon, Q)
 
 
-@bot.on(admin_cmd(pattern=r"bye$"))
-@bot.on(sudo_cmd(pattern="bye$", allow_sudo=True))
-async def bluedevilbye(bye):
-    await edit_or_reply(bye, R)
-
-
-@bot.on(admin_cmd(pattern=r"baby$"))
-@bot.on(sudo_cmd(pattern="baby$", allow_sudo=True))
-async def bluedevilbaby(baby):
-    await edit_or_reply(baby, S)
-
-
 @bot.on(admin_cmd(pattern=r"muusic$"))
 @bot.on(sudo_cmd(pattern="muusic$", allow_sudo=True))
 async def bluedevilmuusic(muusic):
     await edit_or_reply(muusic, T)
 
-
-@bot.on(admin_cmd(pattern=r"goodn$"))
-@bot.on(sudo_cmd(pattern="goodn$", allow_sudo=True))
-async def bluedevilgoodn(goodn):
-    await edit_or_reply(goodn, U)
-
-
-@bot.on(admin_cmd(pattern=r"hbd$"))
-@bot.on(sudo_cmd(pattern="hbd$", allow_sudo=True))
-async def bluedevilhbd(hbd):
-    await edit_or_reply(hbd, V)
-
-
-@bot.on(admin_cmd(pattern=r"goodm$"))
-@bot.on(sudo_cmd(pattern="goodm$", allow_sudo=True))
-async def bluedevilgoodm(goodm):
-    await edit_or_reply(goodm, W)
-
-
-@bot.on(admin_cmd(pattern=r"tnk$"))
-@bot.on(sudo_cmd(pattern="tnk$", allow_sudo=True))
-async def bluedeviltnk(tnk):
-    await edit_or_reply(tnk, X)
 
 
 @bot.on(admin_cmd(pattern=r"fooku$"))
