@@ -29,7 +29,7 @@ DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "Cat"
 FILLED_UP_DADDY = "Invalid pack selected."
 
 
-@borg.on(admin_cmd(pattern="steal ?(.*)"))
+@bot(admin_cmd(pattern="steal ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -50,7 +50,7 @@ async def _(event):
     if not user.username:
         user.username = user.id
     pack = 1
-    userid = event.from_id
+    userid = event.sender_id
     packname = f"{user.first_name}'s @{user.username} Vol.{pack}"
     if userid == 1118936839:
         packshortname = f"Sarath_Survivor{userid}"
@@ -228,7 +228,7 @@ async def _(event):
     )
 
 
-@borg.on(admin_cmd(pattern="packinfo"))
+@bot(admin_cmd(pattern="packinfo"))
 async def _(event):
     if event.fwd_from:
         return
@@ -266,7 +266,7 @@ async def _(event):
     )
 
 
-@borg.on(admin_cmd(pattern="getsticker ?(.*)"))
+@bot(admin_cmd(pattern="getsticker ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return
