@@ -146,26 +146,24 @@ async def hating(hated):
     await hated.edit(reply_text)
 
 
-@bot.on(admin_cmd(outgoing=True, pattern="mslap$"))
-@bot.on(sudo_cmd(pattern="mslap$", allow_sudo=True))
+@bot.on(admin_cmd(pattern=r"mslap(?: |$)(.*)", outgoing=True))
+@bot.on(sudo_cmd(pattern="Mmslap(?: |$)(.*)", allow_sudo=True))
 async def who(event):
-    if event.fwd_from:
-        return
     replied_user = await get_user(event)
     caption = await slap(replied_user, event)
     message_id_to_reply = event.message.reply_to_msg_id
-
     if not message_id_to_reply:
         message_id_to_reply = None
-
     try:
-        await event.edit(caption)
-
-    except:
-        await event.edit("`Can't slap this nibba !!`")
+        await edit_or_reply(event, caption)
+    except BaseException:
+        await edit_or_reply(
+            event, "`Can't slap this person, need to fetch some sticks and stones !!`"
+        )
 
 
 async def get_user(event):
+    # Get the user from argument or replied message.
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         replied_user = await event.client(
@@ -173,7 +171,6 @@ async def get_user(event):
         )
     else:
         user = event.pattern_match.group(1)
-
         if user.isnumeric():
             user = int(user)
 
@@ -193,9 +190,8 @@ async def get_user(event):
             replied_user = await event.client(GetFullUserRequest(user_object.id))
 
         except (TypeError, ValueError):
-            await event.edit("`I don't slap strangers !!`")
+            await event.edit("`I don't slap aliens, they ugly AF !!`")
             return None
-
     return replied_user
 
 
