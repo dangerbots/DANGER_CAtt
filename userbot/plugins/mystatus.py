@@ -11,7 +11,7 @@ import urllib
 
 from telethon.tl import functions
 
-from userbot.utils import admin_cmd
+from ..utils import admin_cmd, sudo_cmd
 
 OFFLINE_TAG = "[OFFLINE]"
 PROFILE_IMAGE = os.environ.get(
@@ -19,7 +19,8 @@ PROFILE_IMAGE = os.environ.get(
 )
 
 
-@borg.on(admin_cmd(pattern="offline"))  # pylint:disable=E0602
+@bot.on(admin_cmd(pattern=f"offline$", outgoing=True))
+@bot.on(sudo_cmd(pattern="offline$", allow_sudo=True))  # pylint:disable=E0602
 async def _(event):
     if event.fwd_from:
         return
@@ -38,12 +39,12 @@ async def _(event):
     if photo:
         file = await event.client.upload_file(photo)
         try:
-            await borg(
+            await event.client(
                 functions.photos.DeletePhotosRequest(
                     await event.client.get_profile_photos("me", limit=1)
                 )
             )
-            await borg(functions.photos.UploadProfilePhotoRequest(file))
+            await event.client(functions.photos.UploadProfilePhotoRequest(file))
         except Exception as e:  # pylint:disable=C0103,W0703
             await event.edit(str(e))
         else:
@@ -55,7 +56,7 @@ async def _(event):
     last_name = user.first_name
     first_name = OFFLINE_TAG
     try:
-        await borg(
+        await event.client(
             functions.account.UpdateProfileRequest(  # pylint:disable=E0602
                 last_name=last_name, first_name=first_name
             )
@@ -66,7 +67,8 @@ async def _(event):
         await event.edit(str(e))
 
 
-@borg.on(admin_cmd(pattern="online"))  # pylint:disable=E0602
+@bot.on(admin_cmd(pattern=f"online$", outgoing=True))
+@bot.on(sudo_cmd(pattern="online$", allow_sudo=True))  # pylint:disable=E0602
 async def _(event):
     if event.fwd_from:
         return
@@ -84,12 +86,12 @@ async def _(event):
     if photo:
         file = await event.client.upload_file(photo)
         try:
-            await borg(
+            await event.client(
                 functions.photos.DeletePhotosRequest(
                     await event.client.get_profile_photos("me", limit=1)
                 )
             )
-            await borg(functions.photos.UploadProfilePhotoRequest(file))
+            await event.client(functions.photos.UploadProfilePhotoRequest(file))
         except Exception as e:  # pylint:disable=C0103,W0703
             await event.edit(str(e))
         else:
@@ -101,7 +103,7 @@ async def _(event):
     first_name = user.last_name
     last_name = ""
     try:
-        await borg(
+        await event.client(
             functions.account.UpdateProfileRequest(  # pylint:disable=E0602
                 last_name=last_name, first_name=first_name
             )

@@ -17,8 +17,8 @@ SURCAT = (
 EMOJI = str(Config.CUSTOM_ALIVE_EMOJI) if Config.CUSTOM_ALIVE_EMOJI else "✰"
 
 
-@borg.on(admin_cmd(outgoing=True, pattern="alive$"))
-@borg.on(sudo_cmd(pattern="alive$", allow_sudo=True))
+@bot.on(admin_cmd(outgoing=True, pattern="alive$"))
+@bot.on(sudo_cmd(pattern="alive$", allow_sudo=True))
 async def amireallyalive(alive):
     if alive.fwd_from:
         return
@@ -30,25 +30,27 @@ async def amireallyalive(alive):
         reply_to_id = await alive.get_reply_message()
     if CAT_IMG:
         cat_caption = f"**{SURCAT}**\n\n"
-        cat_caption += f"**{EMOJI} My Master:** ✨[{DEFAULTUSER}](tg://user?id={hmm})✨\n"
+        cat_caption += f"**{EMOJI} Master:** ✨[{DEFAULTUSER}](tg://user?id={hmm})✨\n"
         cat_caption += f"**{EMOJI} Uptime :** `{uptime}\n`"
         cat_caption += f"**{EMOJI} Python Version :** `{python_version()}\n`"
-        cat_caption += f"**{EMOJI} Telethon version :** `{version.__version__}\n`"
+        cat_caption += f"**{EMOJI} Telethon Version :** `{version.__version__}\n`"
         cat_caption += f"**{EMOJI} Catuserbot Version :** `{catversion}`\n"
         cat_caption += f"**{EMOJI} Database :** `{check_sgnirts}`\n\n"
         cat_caption += "   **[SurCat]**(https://github.com/Sur-vivor/CatUserbot)  |  **[GoodCat]**(https://github.com/sandy1709/catuserbot)  |  **[Support]**(https://t.me/catuserbot_support)  "
-        await borg.send_file(
+        await alive.client.send_file(
             alive.chat_id,
             CAT_IMG,
             caption=cat_caption,
             reply_to=reply_to_id,
+            link_preview=False,
+            allow_cache=True,
         )
         await alive.delete()
     else:
         await edit_or_reply(
             alive,
             f"**{SURCAT}**\n\n"
-            f"**{EMOJI} My Master:** [{DEFAULTUSER}](tg://user?id={hmm})\n"
+            f"**{EMOJI} Master:** [{DEFAULTUSER}](tg://user?id={hmm})\n"
             f"**{EMOJI} Uptime :** `{uptime}\n`"
             f"**{EMOJI} Python Version :** `{python_version()}\n`"
             f"**{EMOJI} Telethon Version :** `{version.__version__}\n`"
@@ -58,8 +60,8 @@ async def amireallyalive(alive):
         )
 
 
-@borg.on(admin_cmd(outgoing=True, pattern="(ialive|live)$"))
-@borg.on(sudo_cmd(pattern="ialive$", allow_sudo=True))
+@bot.on(admin_cmd(outgoing=True, pattern="ialive$"))
+@bot.on(sudo_cmd(pattern="ialive$", allow_sudo=True))
 async def amireallyalive(alive):
     if alive.fwd_from:
         return
@@ -72,7 +74,7 @@ async def amireallyalive(alive):
     cat_caption += f"**  -Telethon version :** `{version.__version__}\n`"
     cat_caption += f"**  -Catuserbot Version :** `{catversion}`\n"
     cat_caption += f"**  -Python Version :** `{python_version()}\n`"
-    cat_caption += f"**  -My peru Master:** [{DEFAULTUSER}](tg://user?id={hmm})\n"
+    cat_caption += f"**  -Master:** [{DEFAULTUSER}](tg://user?id={hmm})\n"
     results = await bot.inline_query(tgbotusername, cat_caption)  # pylint:disable=E0602
     await results[0].click(alive.chat_id, reply_to=reply_to_id, hide_via=True)
     await alive.delete()
@@ -113,8 +115,9 @@ CMD_HELP.update(
     {
         "alive": "**Plugin :** `alive`\
       \n\n**Syntax : **`.alive` \
-      \n**Usage : ** status of bot.\
+      \n**Function : **__status of bot will be showed__\
       \n\n**Syntax : **`.ialive` \
-      \n**Usage : ** inline alive."
+      \n**Function : **__inline status of bot will be shown.__\
+      \nSet `ALIVE_PIC` var for media in alive message"
     }
 )

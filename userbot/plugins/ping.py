@@ -1,40 +1,18 @@
 import asyncio
-import time
 from datetime import datetime
 
-from userbot import StartTime, catdef
-
-from .. import ALIVE_NAME, CMD_HELP
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
-
-
-@bot.on(admin_cmd(pattern="ping$"))
-@bot.on(sudo_cmd(pattern="ping$", allow_sudo=True))
-async def _(event):
-    if event.fwd_from:
-        return
-    SURID = bot.uid
-    start = datetime.now()
-    event = await edit_or_reply(event, "__**☞ Pong!__**")
-    end = datetime.now()
-    ms = (end - start).microseconds / 1000
-    uptime = await catdef.get_readable_time((time.time() - StartTime))
-    await event.edit(
-        f"__**☞ Pong!__**\n➥__**Ping Speed**__ {ms}\n➥__**Uptime**__ {uptime}\n➥ __**Bot**__ __**of**__ [{DEFAULTUSER}](tg://user?id={SURID})"
-    )
+from . import CMD_HELP, hmention
 
 
 @bot.on(admin_cmd(pattern=f"fping$", outgoing=True))
-@bot.on(sudo_cmd(pattern=f"fping$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
     start = datetime.now()
     animation_interval = 0.2
-    animation_ttl = range(26)
-    event = await edit_or_reply("ping....")
+    animation_ttl = range(0, 26)
+    await event.edit("ping....")
     animation_chars = [
         "⬛⬛⬛⬛⬛⬛⬛⬛⬛",
         "⬛⬛⬛⬛⬛⬛⬛⬛⬛ \n⬛‎📶‎📶‎📶‎📶‎📶‎📶‎📶⬛",
@@ -75,13 +53,27 @@ async def _(event):
     )
 
 
+@bot.on(admin_cmd(pattern="ping$"))
+@bot.on(sudo_cmd(pattern="ping$", allow_sudo=True))
+async def _(event):
+    if event.fwd_from:
+        return
+    start = datetime.now()
+    event = await edit_or_reply(event, "<b><i>☞ Pong!</b></i>", "html")
+    end = datetime.now()
+    ms = (end - start).microseconds / 1000
+    await event.edit(
+        f"<b><i>☞ Pong</b></i>\n➥ {ms}\n➥ <b><i>Bot of {hmention}</b></i>",
+        parse_mode="html",
+    )
+
+
 CMD_HELP.update(
     {
-        "ping": "**Plugin :** `ping`\
-    \n\n**Syntax :** `.ping`\
-    \n**Function : **__Shows you the ping speed of server__\
-    \n\n**Syntax : **`.fping`\
-    \n**Function : **__A kind ofping with extra animation__\
-    "
+        "ping": "__**PLUGIN NAME :** Ping__\
+    \n\n📌** CMD ➥** `.fping`\
+    \n**USAGE   ➥  **A kind ofping with extra animation\
+    \n\n📌** CMD ➥** `.ping`\
+    \n**USAGE   ➥  **Shows you the ping speed of server"
     }
 )

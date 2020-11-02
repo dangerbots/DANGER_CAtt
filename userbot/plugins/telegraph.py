@@ -7,18 +7,15 @@ from PIL import Image
 from telegraph import Telegraph, exceptions, upload_file
 
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import ALIVE_NAME, BOTLOG, BOTLOG_CHATID, CMD_HELP
+from . import BOTLOG, BOTLOG_CHATID, CMD_HELP
 
 telegraph = Telegraph()
 r = telegraph.create_account(short_name=Config.TELEGRAPH_SHORT_NAME)
 auth_url = r["auth_url"]
 
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
-SURID = bot.uid
 
-
-@borg.on(admin_cmd(pattern="telegraph (media|text) ?(.*)"))
-@borg.on(sudo_cmd(pattern="telegraph (media|text) ?(.*)", allow_sudo=True))
+@bot.on(admin_cmd(pattern="telegraph (media|text) ?(.*)"))
+@bot.on(sudo_cmd(pattern="telegraph (media|text) ?(.*)", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -26,7 +23,7 @@ async def _(event):
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     if BOTLOG:
-        await borg.send_message(
+        await event.client.send_message(
             BOTLOG_CHATID,
             "Created New Telegraph account {} for the current session. \n**Do not give this url to anyone, even if they say they are from Telegram!**".format(
                 auth_url
@@ -38,7 +35,7 @@ async def _(event):
         r_message = await event.get_reply_message()
         input_str = event.pattern_match.group(1)
         if input_str == "media":
-            downloaded_file_name = await borg.download_media(
+            downloaded_file_name = await event.client.download_media(
                 r_message, Config.TMP_DOWNLOAD_DIRECTORY
             )
             end = datetime.now()
@@ -51,7 +48,6 @@ async def _(event):
             try:
                 start = datetime.now()
                 media_urls = upload_file(downloaded_file_name)
-                survivor = "https://telegra.ph{}".format(media_urls[0])
             except exceptions.TelegraphException as exc:
                 await catevent.edit("**Error : **" + str(exc))
                 os.remove(downloaded_file_name)
@@ -60,11 +56,14 @@ async def _(event):
                 ms_two = (end - start).seconds
                 os.remove(downloaded_file_name)
                 await catevent.edit(
-                    f"__**➥ Uploaded to :-**__ **[Telegraph]**({survivor})\n__**➥ Uploaded in {ms + ms_two} seconds .**__\n__**➥ Uploaded by :-**__ [{DEFAULTUSER}](tg://user?id={SURID})",
+                    "**link : **[telegraph](https://telegra.ph{})\
+                    \n**Time Taken : **`{} seconds.`".format(
+                        media_urls[0], (ms + ms_two)
+                    ),
                     link_preview=True,
                 )
         elif input_str == "text":
-            user_object = await borg.get_entity(r_message.from_id)
+            user_object = await event.client.get_entity(r_message.sender_id)
             title_of_page = user_object.first_name  # + " " + user_object.last_name
             # apparently, all Users do not have last_name field
             if optional_title:
@@ -73,7 +72,7 @@ async def _(event):
             if r_message.media:
                 if page_content != "":
                     title_of_page = page_content
-                downloaded_file_name = await borg.download_media(
+                downloaded_file_name = await event.client.download_media(
                     r_message, Config.TMP_DOWNLOAD_DIRECTORY
                 )
                 m_list = None
@@ -88,7 +87,8 @@ async def _(event):
             ms = (end - start).seconds
             cat = f"https://telegra.ph/{response['path']}"
             await catevent.edit(
-                f"__**➥ Pasted to :-**__ **[Telegraph]**({cat})\n__**➥ Pasted in {ms} seconds .**__",
+                f"**link : ** [telegraph]({cat})\
+                 \n**Time Taken : **`{ms} seconds.`",
                 link_preview=True,
             )
     else:
@@ -106,7 +106,7 @@ CMD_HELP.update(
     {
         "telegraph": "**Plugin :**`telegraph`\
      \n\n**Syntax :** `.telegraph media`\
-     \n**Usage :** Reply to any image or video to upload it to telgraph(video must be less than 5mb)\
+     \n**Usage :** Reply to any image or video to upload it to telegraph (video must be less than 5mb)\
      \n\n**Syntax :** `.telegraph text`\
      \n**Usage :** reply to any text file or any message to paste it to telegraph\
     "

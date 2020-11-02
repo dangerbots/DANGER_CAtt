@@ -38,7 +38,7 @@ async def animepp():
     urllib.request.urlretrieve(fy, "donottouch.jpg")
 
 
-@borg.on(admin_cmd(pattern="gamerpfp ?(.*)"))
+@bot.on(admin_cmd(pattern="gamerpfp ?(.*)"))
 async def main(event):
     await event.edit("**Starting Gamer Profile Pic.**")  # Owner @NihiNivi
     while True:

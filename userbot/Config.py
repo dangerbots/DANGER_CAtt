@@ -22,6 +22,10 @@ class Config((object)):
     PRIVATE_GROUP_BOT_API_ID = os.environ.get("PRIVATE_GROUP_BOT_API_ID", None)
     if PRIVATE_GROUP_BOT_API_ID:
         PRIVATE_GROUP_BOT_API_ID = int(PRIVATE_GROUP_BOT_API_ID)
+    # same as  PRIVATE_GROUP_BOT_API_ID but set only if you need pmpermit
+    PRIVATE_GROUP_ID = os.environ.get("PRIVATE_GROUP_ID", None)
+    if PRIVATE_GROUP_ID:
+        PRIVATE_GROUP_ID = int(PRIVATE_GROUP_ID)
     # Send .get_id in any channel to fill this value. ReQuired for @Manuel15
     # inspiration to work!
     PRIVATE_CHANNEL_BOT_API_ID = os.environ.get("PRIVATE_CHANNEL_BOT_API_ID", None)
@@ -34,7 +38,7 @@ class Config((object)):
     IBM_WATSON_CRED_URL = os.environ.get("IBM_WATSON_CRED_URL", None)
     IBM_WATSON_CRED_PASSWORD = os.environ.get("IBM_WATSON_CRED_PASSWORD", None)
     # This is required for the @telegraph functionality.
-    TELEGRAPH_SHORT_NAME = os.environ.get("TELEGRAPH_SHORT_NAME", "Survivor")
+        TELEGRAPH_SHORT_NAME = os.environ.get("TELEGRAPH_SHORT_NAME", "Survivor")
     # Set False to stop deleting old welcome messages
     CLEAN_WELCOME = os.environ.get("CLEAN_WELCOME", True)
     # github vars
@@ -73,12 +77,7 @@ class Config((object)):
     )
     CHATS_TO_MONITOR_FOR_ANTI_FLOOD = []
     # specify LOAD and NO_LOAD
-    NO_LOAD = [
-        "notification_mtab_manager",
-        "dbhelper",
-        "fban_gban",
-        "unbanmute",
-    ]
+    NO_LOAD = [x for x in os.environ.get("NO_LOAD", "").split()]
     # in alive message pic
     ALIVE_PIC = os.environ.get("ALIVE_PIC", None)
     # in pm permit pic
@@ -165,9 +164,11 @@ class Config((object)):
     SPAMWATCH_API = os.environ.get("SPAMWATCH_API", None)
     # SpamWatch, CAS, SpamProtection ban Needed or not
     ANTISPAMBOT_BAN = os.environ.get("ANTISPAMBOT_BAN", False)
+    # Deepai value can get from https://deepai.org/
+    DEEP_AI = os.environ.get("DEEP_AI", None)
+    #Custom alive text
     CUSTOM_ALIVE_TEXT = os.environ.get("CUSTOM_ALIVE_TEXT", None)
     CUSTOM_ALIVE_EMOJI = os.environ.get("CUSTOM_ALIVE_EMOJI", None)
-
 
 class Production(Config):
     LOGGER = False

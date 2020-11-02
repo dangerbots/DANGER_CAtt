@@ -13,9 +13,8 @@ from os import environ, execle, path, remove
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
 
-from .. import CMD_HELP
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import runcmd
+from . import CMD_HELP, runcmd
 
 HEROKU_APP_NAME = Var.HEROKU_APP_NAME
 HEROKU_API_KEY = Var.HEROKU_API_KEY
@@ -147,7 +146,7 @@ async def update(event, repo, ups_rem, ac_br):
 
 
 @bot.on(admin_cmd(outgoing=True, pattern=r"update($| (now|deploy))"))
-@borg.on(sudo_cmd(pattern="update($| (now|deploy))", allow_sudo=True))
+@bot.on(sudo_cmd(pattern="update($| (now|deploy))", allow_sudo=True))
 async def upstream(event):
     "For .update command, check if the bot is up to date, update if specified"
     conf = event.pattern_match.group(1).strip()
@@ -223,11 +222,10 @@ async def upstream(event):
         await update(event, repo, ups_rem, ac_br)
     return
 
-
 @bot.on(admin_cmd(outgoing=True, pattern=r"goodcat$"))
-@borg.on(sudo_cmd(pattern="goodcat$", allow_sudo=True))
+@bot.on(sudo_cmd(pattern="goodcat$", allow_sudo=True))
 async def upstream(event):
-    event = await edit_or_reply(event, "`Pulling the bad cat repo wait a sec ....`")
+    event = await edit_or_reply(event, "`Pulling the good cat repo wait a sec ....`")
     off_repo = "https://github.com/sandy1709/catuserbot"
     catcmd = f"rm -rf .git"
     try:
@@ -261,7 +259,6 @@ async def upstream(event):
     await event.edit("`Deploying userbot, please wait....`")
     await deploy(event, repo, ups_rem, ac_br, txt)
 
-
 CMD_HELP.update(
     {
         "updater": "**Plugin : **`updater`"
@@ -274,7 +271,7 @@ CMD_HELP.update(
         "\n\n**Syntax : **`.update deploy`"
         "\n**Usage :** Deploy your userbot.So even you restart it doesnt go back to previous version"
         "\nThis will triggered deploy always, even no updates."
-        "\n\n**Syntax : **`.badcat`"
-        "\n**Usage :** Shifts from official cat repo to jisan's repo(for gali commands)"
+        "\n\n**Syntax : **`.goodcat`"
+        "\n**Usage :** Shifts from sur cat repo to official repo"
     }
 )

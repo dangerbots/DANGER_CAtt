@@ -1,14 +1,15 @@
 import asyncio
 import random
 
-from userbot.utils import admin_cmd
+from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 
 
-@borg.on(admin_cmd(pattern=r"msing$", outgoing=True))
+@bot.on(admin_cmd(pattern=r"msing$", outgoing=True))
+@bot.on(sudo_cmd(pattern=r"msing$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
-    await event.edit("Singing...")
+    event = await edit_or_reply(event, "Singing...")
     await asyncio.sleep(2)
     x = random.randrange(1, 44)
     if x == 1:
@@ -161,11 +162,12 @@ async def _(event):
         )
 
 
-@borg.on(admin_cmd(pattern=r"sing$", outgoing=True))
+@bot.on(admin_cmd(pattern=r"sing$", outgoing=True))
+@bot.on(sudo_cmd(pattern=r"sing$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
-    await event.edit("Singing...")
+    event = await edit_or_reply(event, "Singing...")
     await asyncio.sleep(2)
     x = random.randrange(1, 66)
     if x == 1:

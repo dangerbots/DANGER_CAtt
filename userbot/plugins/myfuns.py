@@ -6,7 +6,7 @@ from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
 
 from userbot import ALIVE_NAME
-from userbot.utils import admin_cmd
+from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
 SURID = bot.uid
@@ -137,14 +137,16 @@ HATE_STRINGS = [
 # ===========================================
 
 
-@borg.on(admin_cmd(outgoing=True, pattern="kozhi"))
+@bot.on(admin_cmd(outgoing=True, pattern="kozhi$"))
+@bot.on(sudo_cmd(pattern="kozhi$", allow_sudo=True))
 async def hating(hated):
     index = random.randint(0, len(HATE_STRINGS) - 1)
     reply_text = HATE_STRINGS[index]
     await hated.edit(reply_text)
 
 
-@borg.on(admin_cmd(pattern="mslap ?(.*)"))
+@bot.on(admin_cmd(outgoing=True, pattern="mslap$"))
+@bot.on(sudo_cmd(pattern="mslap$", allow_sudo=True))
 async def who(event):
     if event.fwd_from:
         return
@@ -165,7 +167,7 @@ async def who(event):
 async def get_user(event):
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
-        replied_user = await event.client(GetFullUserRequest(previous_message.from_id))
+        replied_user = await event.client(GetFullUserRequest(previous_message.sender_id))
     else:
         user = event.pattern_match.group(1)
 
@@ -210,46 +212,52 @@ async def slap(replied_user, event):
     return caption
 
 
-@borg.on(admin_cmd(outgoing=True, pattern="mrape"))
+@bot.on(admin_cmd(outgoing=True, pattern="mrape$"))
+@bot.on(sudo_cmd(pattern="mrape$", allow_sudo=True))
 async def raping(raped):
     index = random.randint(0, len(RAPE_STRINGS) - 1)
     reply_text = RAPE_STRINGS[index]
     await raped.edit(reply_text)
 
 
-@borg.on(admin_cmd(outgoing=True, pattern="mshe"))
+@bot.on(admin_cmd(outgoing=True, pattern="mshe$"))
+@bot.on(sudo_cmd(pattern="mshe$", allow_sudo=True))
 async def thanos(thanos):
     index = random.randint(0, len(THANOS_STRINGS) - 1)
     reply_text = THANOS_STRINGS[index]
     await thanos.edit(reply_text)
 
 
-@borg.on(admin_cmd(outgoing=True, pattern="mabuse"))
+@bot.on(admin_cmd(outgoing=True, pattern="mabuse$"))
+@bot.on(sudo_cmd(pattern="mabuse$", allow_sudo=True))
 async def fuckedd(abusehard):
     index = random.randint(0, len(ABUSEHARD_STRING) - 1)
     reply_text = ABUSEHARD_STRING[index]
     await abusehard.edit(reply_text)
 
 
-@borg.on(admin_cmd(outgoing=True, pattern="mruns"))
+@bot.on(admin_cmd(outgoing=True, pattern="mruns$"))
+@bot.on(sudo_cmd(pattern="mruns$", allow_sudo=True))
 async def fuckedd(abusehard):
     index = random.randint(0, len(RUNSREACTS) - 1)
     reply_text = RUNSREACTS[index]
     await abusehard.edit(reply_text)
 
 
-@borg.on(admin_cmd(outgoing=True, pattern="minsult$"))
+@bot.on(admin_cmd(outgoing=True, pattern="minsult$"))
+@bot.on(sudo_cmd(pattern="minsult$", allow_sudo=True))
 async def proo(pros):
     index = random.randint(0, len(PRO_STRINGS) - 1)
     reply_text = PRO_STRINGS[index]
     await pros.edit(reply_text)
 
 
-@borg.on(admin_cmd(pattern=r"foryou$", outgoing=True))
+@bot.on(admin_cmd(outgoing=True, pattern="foryou$"))
+@bot.on(sudo_cmd(pattern="foryou$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
-    await event.edit("For you❤️...")
+    event = await edit_or_reply(event, "For you❤️...")
     await asyncio.sleep(2)
     x = random.randrange(1, 33)
     if x == 1:

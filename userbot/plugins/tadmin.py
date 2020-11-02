@@ -15,8 +15,8 @@ NO_ADMIN = "`I am not an admin nub nibba!`"
 NO_PERM = "`I don't have sufficient permissions! This is so sed. Alexa play despacito`"
 
 
-@borg.on(admin_cmd(pattern=r"tmute(?: |$)(.*)"))
-@borg.on(sudo_cmd(pattern=r"tmute(?: |$)(.*)", allow_sudo=True))
+@bot.on(admin_cmd(pattern=r"tmute(?: |$)(.*)"))
+@bot.on(sudo_cmd(pattern=r"tmute(?: |$)(.*)", allow_sudo=True))
 @errors_handler
 async def tmuter(catty):
     chat = await catty.get_chat()
@@ -26,7 +26,7 @@ async def tmuter(catty):
     if not admin and not creator:
         await edit_or_reply(catty, NO_ADMIN)
         return
-    catevent = await edit_or_reply(catty, "`muteing....`")
+    catevent = await edit_or_reply(catty, "`muting....`")
     user, reason = await get_user_from_event(catty)
     if not user:
         return
@@ -36,7 +36,7 @@ async def tmuter(catty):
         cattime = reason[0]
         reason = reason[1] if hmm == 2 else None
     else:
-        await catevent.edit("you havent mentioned time check `.info tadmin`")
+        await catevent.edit("you haven't mentioned time, check `.info tadmin`")
         return
     self_user = await catty.client.get_me()
     ctime = await extract_time(catty, cattime)
@@ -46,7 +46,7 @@ async def tmuter(catty):
         )
         return
     if user.id == self_user.id:
-        await catevent.edit(f"Sorry, I can't mute my self")
+        await catevent.edit(f"Sorry, I can't mute myself")
         return
     try:
         await catevent.client(
@@ -60,7 +60,7 @@ async def tmuter(catty):
         if reason:
             await catevent.edit(
                 f"{user.first_name} was muted in {catty.chat.title}\n"
-                f"**Mutted for : **{cattime}\n"
+                f"**Muted for : **{cattime}\n"
                 f"**Reason : **__{reason}__"
             )
             if BOTLOG:
@@ -69,13 +69,13 @@ async def tmuter(catty):
                     "#TMUTE\n"
                     f"**User : **[{user.first_name}](tg://user?id={user.id})\n"
                     f"**Chat : **{catty.chat.title}(`{catty.chat_id}`)\n"
-                    f"**Mutted for : **`{cattime}`\n"
+                    f"**Muted for : **`{cattime}`\n"
                     f"**Reason : **`{reason}``",
                 )
         else:
             await catevent.edit(
                 f"{user.first_name} was muted in {catty.chat.title}\n"
-                f"Mutted for {cattime}\n"
+                f"Muted for {cattime}\n"
             )
             if BOTLOG:
                 await catty.client.send_message(
@@ -83,15 +83,15 @@ async def tmuter(catty):
                     "#TMUTE\n"
                     f"**User : **[{user.first_name}](tg://user?id={user.id})\n"
                     f"**Chat : **{catty.chat.title}(`{catty.chat_id}`)\n"
-                    f"**Mutted for : **`{cattime}`",
+                    f"**Muted for : **`{cattime}`",
                 )
         # Announce to logging group
     except UserIdInvalidError:
         return await catevent.edit("`Uh oh my mute logic broke!`")
 
 
-@borg.on(admin_cmd(pattern="tban(?: |$)(.*)"))
-@borg.on(sudo_cmd(pattern="tban(?: |$)(.*)", allow_sudo=True))
+@bot.on(admin_cmd(pattern="tban(?: |$)(.*)"))
+@bot.on(sudo_cmd(pattern="tban(?: |$)(.*)", allow_sudo=True))
 @errors_handler
 async def ban(catty):
     chat = await catty.get_chat()
@@ -101,7 +101,7 @@ async def ban(catty):
     if not admin and not creator:
         await edit_or_reply(catty, NO_ADMIN)
         return
-    catevent = await edit_or_reply(catty, "`baning....`")
+    catevent = await edit_or_reply(catty, "`banning....`")
     user, reason = await get_user_from_event(catty)
     if not user:
         return
@@ -111,7 +111,7 @@ async def ban(catty):
         cattime = reason[0]
         reason = reason[1] if hmm == 2 else None
     else:
-        await catevent.edit("you havent mentioned time check `.info tadmin`")
+        await catevent.edit("you haven't mentioned time, check `.info tadmin`")
         return
     self_user = await catty.client.get_me()
     ctime = await extract_time(catty, cattime)
@@ -121,7 +121,7 @@ async def ban(catty):
         )
         return
     if user.id == self_user.id:
-        await catevent.edit(f"Sorry, I can't ban my self")
+        await catevent.edit(f"Sorry, I can't ban myself")
         return
     await catevent.edit("`Whacking the pest!`")
     try:
@@ -184,7 +184,7 @@ async def get_user_from_event(event):
     extra = None
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
-        user_obj = await event.client.get_entity(previous_message.from_id)
+        user_obj = await event.client.get_entity(previous_message.sender_id)
         extra = event.pattern_match.group(1)
     elif args:
         user = args[0]
@@ -228,6 +228,6 @@ CMD_HELP.update(
       \n\n**Syntax : **`.tban <reply/username/userid> <time> <reason>`\
       \n**Usage : **Temporary bans the user for given time.\
       \n\n**Time units : ** (2m = 2 minutes) ,(3h = 3hours)  ,(4d = 4 days) ,(5w = 5 weeks)\
-      This times are example u can use anything with thoose untis "
+      These times are example u can use anything with those units "
     }
 )
