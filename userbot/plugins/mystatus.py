@@ -11,7 +11,7 @@ import urllib
 
 from telethon.tl import functions
 
-from userbot.utils import admin_cmd
+from ..utils import admin_cmd, sudo_cmd
 
 OFFLINE_TAG = "[OFFLINE]"
 PROFILE_IMAGE = os.environ.get(
@@ -19,7 +19,8 @@ PROFILE_IMAGE = os.environ.get(
 )
 
 
-@borg.on(admin_cmd(pattern="offline"))  # pylint:disable=E0602
+@bot.on(admin_cmd(pattern=f"offline$", outgoing=True))
+@bot.on(sudo_cmd(pattern="offline$", allow_sudo=True))  # pylint:disable=E0602
 async def _(event):
     if event.fwd_from:
         return
@@ -66,7 +67,8 @@ async def _(event):
         await event.edit(str(e))
 
 
-@borg.on(admin_cmd(pattern="online"))  # pylint:disable=E0602
+@bot.on(admin_cmd(pattern=f"online$", outgoing=True))
+@bot.on(sudo_cmd(pattern="online$", allow_sudo=True))  # pylint:disable=E0602
 async def _(event):
     if event.fwd_from:
         return
