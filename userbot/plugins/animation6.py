@@ -3,8 +3,8 @@ import asyncio
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 
 
-@borg.on(admin_cmd(pattern="unoob$"))
-@borg.on(sudo_cmd(pattern="unoob$", allow_sudo=True))
+@bot.on(admin_cmd(pattern="unoob$"))
+@bot.on(sudo_cmd(pattern="unoob$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -27,8 +27,8 @@ async def _(event):
         await asyncio.sleep(animation_interval)
 
 
-@borg.on(admin_cmd(pattern="menoob$"))
-@borg.on(sudo_cmd(pattern="menoob$", allow_sudo=True))
+@bot.on(admin_cmd(pattern="menoob$"))
+@bot.on(sudo_cmd(pattern="menoob$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -51,8 +51,8 @@ async def _(event):
         await asyncio.sleep(animation_interval)
 
 
-@borg.on(admin_cmd(pattern="upro$"))
-@borg.on(sudo_cmd(pattern="upro$", allow_sudo=True))
+@bot.on(admin_cmd(pattern="upro$"))
+@bot.on(sudo_cmd(pattern="upro$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -74,8 +74,8 @@ async def _(event):
         await asyncio.sleep(animation_interval)
 
 
-@borg.on(admin_cmd(pattern="mepro$"))
-@borg.on(sudo_cmd(pattern="mepro$", allow_sudo=True))
+@bot.on(admin_cmd(pattern="mepro$"))
+@bot.on(sudo_cmd(pattern="mepro$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -97,8 +97,8 @@ async def _(event):
         await asyncio.sleep(animation_interval)
 
 
-@borg.on(admin_cmd(pattern=f"quickheal$", outgoing=True))
-@borg.on(sudo_cmd(pattern=f"quickheal$", allow_sudo=True))
+@bot.on(admin_cmd(pattern=f"quickheal$", outgoing=True))
+@bot.on(sudo_cmd(pattern=f"quickheal$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -123,8 +123,8 @@ async def _(event):
         await event.edit(animation_chars[i % 11])
 
 
-@borg.on(admin_cmd(pattern=f"sqh$", outgoing=True))
-@borg.on(sudo_cmd(pattern=f"sqh$", allow_sudo=True))
+@bot.on(admin_cmd(pattern=f"sqh$", outgoing=True))
+@bot.on(sudo_cmd(pattern=f"sqh$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -149,8 +149,8 @@ async def _(event):
         await event.edit(animation_chars[i % 11])
 
 
-@borg.on(admin_cmd(pattern=f"vquickheal$", outgoing=True))
-@borg.on(sudo_cmd(pattern=f"vquickheal$", allow_sudo=True))
+@bot.on(admin_cmd(pattern=f"vquickheal$", outgoing=True))
+@bot.on(sudo_cmd(pattern=f"vquickheal$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -175,8 +175,8 @@ async def _(event):
         await event.edit(animation_chars[i % 11])
 
 
-@borg.on(admin_cmd(pattern=f"macos$", outgoing=True))
-@borg.on(sudo_cmd(pattern=f"macos$", allow_sudo=True))
+@bot.on(admin_cmd(pattern=f"macos$", outgoing=True))
+@bot.on(sudo_cmd(pattern=f"macos$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -201,8 +201,8 @@ async def _(event):
         await event.edit(animation_chars[i % 11])
 
 
-@borg.on(admin_cmd(pattern=f"windows$", outgoing=True))
-@borg.on(sudo_cmd(pattern=f"windows$", allow_sudo=True))
+@bot.on(admin_cmd(pattern=f"windows$", outgoing=True))
+@bot.on(sudo_cmd(pattern=f"windows$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -220,15 +220,15 @@ async def _(event):
         "`Loading Windows 10... 69%\n█████████████▒▒▒▒▒▒▒▒▒▒▒▒ `",
         "`Loading Windows 10... 89%\n█████████████████████▒▒▒▒ `",
         "`Loading Windows 10... 100%\n█████████████████████████ `",
-        "`Welcome...\n\nStock OS: Symbian OS\nCurrent OS: Windows 10`\n\n**My PC Specs:**\n\n **CPU:** __2.9GHz Intel Core i9-8950HK (hexa-core, 12MB cache, up to 4.8GHz)__\n\n**Graphics:** __Nvidia GeForce GTX 1080 OC (8GB GDDR5X)__\n\n**RAM:** __32GB DDR4 (2,666MHz)__\n\n**Screen:** __17.3-inch, QHD (2,560 x 1,440) 120Hz G-Sync__\n\n**Storage:** __512GB PCIe SSD, 1TB HDD (7,200 rpm)__\n\n**Ports:** __2 x USB 3.0, 1 x USB-C 3.0, 1 x USB-C (Thunderbolt 3), HDMI, mini DisplayPort, Ethernet, headphone jack, microphone jack__\n\n**Connectivity:** __Killer 1550 802.11ac Wi-Fi, Bluetooth 5.0__\n\n**Camera:** __Alienware FHD camera, Tobii IR Eye-tracking with Windows Hello__\n\n**Size:** __16.7 x 13.1 x 1.18 inches (42.4 x 33.2 x 2.99cm; W x D x H)__",
+        "`Welcome...\n\nStock OS: Symbian OS\nCurrent OS: Windows 10`\n\n**My PC Specs:**\n\n **CPU:** __3.4GHz ryzen 9 5950x (16-core,32 threads 64MB cache, up to 4.9GHz)__\n\n**Graphics:** __Nvidia GeForce RTX 3090 OC (24GB GDDR6X)__\n\n**RAM:** __64GB DDR4 (4000MHz)__\n\n**Screen:** __17.3-inch, UHD (3840 x 2160) 144Hz Hdr G-Sync__\n\n**Storage:** __512GB nvme gen 4 SSD, 5 TB HDD (7,200 rpm)__\n\n**Ports:** __2 x USB 3.1, 1 x USB-C 3.0, 1 x USB-C (Thunderbolt 3), 2 HDMI2.0, mini DisplayPort, Ethernet, headphone jack, microphone jack__\n\n**Connectivity:** __Killer 1550 802.11ac Wi-Fi, Bluetooth 5.0__\n\n**Camera:** __Alienware FHD camera, Tobii IR Eye-tracking with Windows Hello__\n\n**Size:** __16.7 x 13.1 x 1.18 inches (42.4 x 33.2 x 2.99cm; W x D x H)__",
     ]
     for i in animation_ttl:
         await asyncio.sleep(animation_interval)
         await event.edit(animation_chars[i % 11])
 
 
-@borg.on(admin_cmd(pattern=f"linux$", outgoing=True))
-@borg.on(sudo_cmd(pattern=f"linux$", allow_sudo=True))
+@bot.on(admin_cmd(pattern=f"linux$", outgoing=True))
+@bot.on(sudo_cmd(pattern=f"linux$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -253,8 +253,8 @@ async def _(event):
         await event.edit(animation_chars[i % 11])
 
 
-@borg.on(admin_cmd(pattern=f"stock$", outgoing=True))
-@borg.on(sudo_cmd(pattern=f"stock$", allow_sudo=True))
+@bot.on(admin_cmd(pattern=f"stock$", outgoing=True))
+@bot.on(sudo_cmd(pattern=f"stock$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -279,8 +279,8 @@ async def _(event):
         await event.edit(animation_chars[i % 11])
 
 
-@borg.on(admin_cmd(pattern=f"os$", outgoing=True))
-@borg.on(sudo_cmd(pattern=f"os$", allow_sudo=True))
+@bot.on(admin_cmd(pattern=f"os$", outgoing=True))
+@bot.on(sudo_cmd(pattern=f"os$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return

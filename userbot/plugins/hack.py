@@ -8,7 +8,6 @@ from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 from . import ALIVE_NAME, CMD_HELP
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
-SURID = bot.uid
 
 
 @bot.on(admin_cmd(pattern=r"hack$", outgoing=True))
@@ -18,9 +17,9 @@ async def _(event):
         return
     if event.reply_to_msg_id:
         reply_message = await event.get_reply_message()
-        await event.client(GetFullUserRequest(reply_message.from_id))
-        idd = reply_message.from_id
-        if idd == 1118936839:
+        await event.client(GetFullUserRequest(reply_message.sender_id))
+        idd = reply_message.sender_id
+        if idd == 1035034432:
             await edit_or_reply(
                 event, "This is My Master\nI can't hack my master's Account"
             )
@@ -37,7 +36,7 @@ async def _(event):
                 "`Hacking... 52%\n█████████████▒▒▒▒▒▒▒▒▒▒▒▒ `",
                 "`Hacking... 84%\n█████████████████████▒▒▒▒ `",
                 "`Hacking... 100%\n█████████HACKED███████████ `",
-                f"`Targeted Account Hacked...\n\nPay 69$ To` [{DEFAULTUSER}](tg://user?id={SURID}) . `To Remove this hack..`",
+                f"`Targeted Account Hacked...\n\nPay 69$ To` {DEFAULTUSER} . `To Remove this hack..`",
             ]
             animation_interval = 3
             animation_ttl = range(11)
@@ -58,7 +57,7 @@ async def _(event):
     event = await edit_or_reply(event, "thack")
     animation_chars = [
         "**Connecting To Telegram Data Centre**",
-        f"Target Selected By Hacker: [{DEFAULTUSER}](tg://user?id={SURID})",
+        f"Target Selected By Hacker: {DEFAULTUSER}",
         "`Hacking... 0%\n▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ `\n\n\n  TERMINAL:\nDownloading Bruteforce-Telegram-0.1.tar.gz (9.3 kB)",
         "`Hacking... 4%\n█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ `\n\n\n  TERMINAL:\nDownloading Bruteforce-Telegram-0.1.tar.gz (9.3 kB)\nCollecting Data Package",
         "`Hacking... 8%\n██▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ `\n\n\n  TERMINAL:\nDownloading Bruteforce-Telegram-0.1.tar.gz (9.3 kB)\nCollecting Data Package\n  Downloading Telegram-Data-Sniffer-7.1.1-py2.py3-none-any.whl (82 kB)",
@@ -67,7 +66,7 @@ async def _(event):
         "`Hacking... 52%\n█████████████▒▒▒▒▒▒▒▒▒▒▒▒ `\n\n\n  TERMINAL:\nDownloading Bruteforce-Telegram-0.1.tar.gz (9.3 kB)\nCollecting Data Package\n  Downloading Telegram-Data-Sniffer-7.1.1-py2.py3-none-any.whl (82 kB)\nBuilding wheel for Tg-Bruteforcing (setup.py): finished with status 'done'\nCreated wheel for telegram: filename=Telegram-Data-Sniffer-0.0.1-py3-none-any.whl size=1306 sha256=cb224caad7fe01a6649188c62303cd4697c1869fa12d280570bb6ac6a88e6b7e\n  Stored in directory: /app/.cache/pip/wheels/a2/9f/b5/650dd4d533f0a17ca30cc11120b176643d27e0e1f5c9876b5b",
         "`Hacking... 84%\n█████████████████████▒▒▒▒ `\n\n\n  TERMINAL:\nDownloading Bruteforce-Telegram-0.1.tar.gz (9.3 kB)\nCollecting Data Package\n  Downloading Telegram-Data-Sniffer-7.1.1-py2.py3-none-any.whl (82 kB)\nBuilding wheel for Tg-Bruteforcing (setup.py): finished with status 'done'\nCreated wheel for telegram: filename=Telegram-Data-Sniffer-0.0.1-py3-none-any.whl size=1306 sha256=cb224caad7fe01a6649188c62303cd4697c1869fa12d280570bb6ac6a88e6b7e\n  Stored in directory: /app/.cache/pip/wheels/a2/9f/b5/650dd4d533f0a17ca30cc11120b176643d27e0e1f5c9876b5b\n\n **Successfully Hacked Telegram Server Database**",
         "`Hacking... 100%\n█████████HACKED███████████ `\n\n\n  TERMINAL:\nDownloading Bruteforce-Telegram-0.1.tar.gz (9.3 kB)\nCollecting Data Package\n  Downloading Telegram-Data-Sniffer-7.1.1-py2.py3-none-any.whl (82 kB)\nBuilding wheel for Tg-Bruteforcing (setup.py): finished with status 'done'\nCreated wheel for telegram: filename=Telegram-Data-Sniffer-0.0.1-py3-none-any.whl size=1306 sha256=cb224caad7fe01a6649188c62303cd4697c1869fa12d280570bb6ac6a88e6b7e\n  Stored in directory: /app/.cache/pip/wheels/a2/9f/b5/650dd4d533f0a17ca30cc11120b176643d27e0e1f5c9876b5b\n\n **Successfully Hacked Telegram Server Database**\n\n\n🔹Output: Generating.....",
-        f"`Targeted Account Hacked...\n\nPay 699$ To` [{DEFAULTUSER}](tg://user?id={SURID}) .`To Remove This Hack`\n\n\n  TERMINAL:\nDownloading Bruteforce-Telegram-0.1.tar.gz (9.3 kB)\nCollecting Data Package\n  Downloading Telegram-Data-Sniffer-7.1.1-py2.py3-none-any.whl (82 kB)\nBuilding wheel for Tg-Bruteforcing (setup.py): finished with status 'done'\nCreated wheel for telegram: filename=Telegram-Data-Sniffer-0.0.1-py3-none-any.whl size=1306 sha256=cb224caad7fe01a6649188c62303cd4697c1869fa12d280570bb6ac6a88e6b7e\n  Stored in directory: /app/.cache/pip/wheels/a2/9f/b5/650dd4d533f0a17ca30cc11120b176643d27e0e1f5c9876b5b\n\n **Successfully Hacked Telegram Server Database**\n\n\n🔹**Output:** Successful",
+        f"`Targeted Account Hacked...\n\nPay 699$ To` {DEFAULTUSER} .`To Remove This Hack`\n\n\n  TERMINAL:\nDownloading Bruteforce-Telegram-0.1.tar.gz (9.3 kB)\nCollecting Data Package\n  Downloading Telegram-Data-Sniffer-7.1.1-py2.py3-none-any.whl (82 kB)\nBuilding wheel for Tg-Bruteforcing (setup.py): finished with status 'done'\nCreated wheel for telegram: filename=Telegram-Data-Sniffer-0.0.1-py3-none-any.whl size=1306 sha256=cb224caad7fe01a6649188c62303cd4697c1869fa12d280570bb6ac6a88e6b7e\n  Stored in directory: /app/.cache/pip/wheels/a2/9f/b5/650dd4d533f0a17ca30cc11120b176643d27e0e1f5c9876b5b\n\n **Successfully Hacked Telegram Server Database**\n\n\n🔹**Output:** Successful",
     ]
     for i in animation_ttl:
         await asyncio.sleep(animation_interval)
@@ -108,11 +107,11 @@ CMD_HELP.update(
     {
         "hack": "**Plugin : **`hack`\
         \n\n**Syntax : **`.hack reply to a person`\
-        \n**Function : **__shows a animation of hacking progess bar__\
+        \n**Function : **__shows an animation of hacking progess bar__\
         \n\n**Syntax : **`.thack reply to a person`\
-        \n**Function : **__shows aanimation of hacking replied person telegram account__\
+        \n**Function : **__shows an animation of Telegram account hacking to a replied person__\
         \n\n**Syntax : **`.wahack reply to a person`\
-        \n**Function : **__shows aanimation of hacking replied person whatsapp account__\
+        \n**Function : **__shows an animation of whatsapp account hacking to a replied person__\
     "
     }
 )

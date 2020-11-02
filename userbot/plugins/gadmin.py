@@ -44,19 +44,19 @@ UNBAN_RIGHTS = ChatBannedRights(
 )
 
 
-@borg.on(admin_cmd(pattern=r"gban(?: |$)(.*)"))
-@borg.on(sudo_cmd(pattern=r"gban(?: |$)(.*)", allow_sudo=True))
+@bot.on(admin_cmd(pattern=r"gban(?: |$)(.*)"))
+@bot.on(sudo_cmd(pattern=r"gban(?: |$)(.*)", allow_sudo=True))
 async def catgban(cat):
-    cate = await edit_or_reply(cat, "gbaning.......")
+    cate = await edit_or_reply(cat, "gbanning.......")
     start = datetime.now()
     user, reason = await get_user_from_event(cat)
     if not user:
         return
     if user.id == (await cat.client.get_me()).id:
-        await cate.edit("why would i ban myself")
+        await cate.edit("why would I ban myself")
         return
     if user.id in CAT_ID:
-        await cate.edit("why would i ban my dev")
+        await cate.edit("why would I ban my dev")
         return
     try:
         hmm = pybase64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
@@ -85,9 +85,9 @@ async def catgban(cat):
             await asyncio.sleep(0.5)
             count += 1
         except BadRequestError:
-            await borg.send_message(
+            await cat.client.send_message(
                 BOTLOG_CHATID,
-                f"You don't have required permission in :\nCHAT: {cat.chat.title}(`{cat.chat_id}`)\nFor baning here",
+                f"You don't have required permission in :\nCHAT: {cat.chat.title}(`{cat.chat_id}`)\nFor banning here",
             )
     try:
         reply = await cat.get_reply_message()
@@ -109,15 +109,15 @@ async def catgban(cat):
         )
 
     if BOTLOG and count != 0:
-        await borg.send_message(
+        await cat.client.send_message(
             BOTLOG_CHATID,
             f"#GBAN\nGlobal BAN\nUser: [{user.first_name}](tg://user?id={user.id})\nID: `{user.id}`\
                                                 \nReason: `{reason}`\nBanned in `{count}` groups\nTime taken = `{cattaken} seconds`",
         )
 
 
-@borg.on(admin_cmd(pattern=r"ungban(?: |$)(.*)"))
-@borg.on(sudo_cmd(pattern=r"ungban(?: |$)(.*)", allow_sudo=True))
+@bot.on(admin_cmd(pattern=r"ungban(?: |$)(.*)"))
+@bot.on(sudo_cmd(pattern=r"ungban(?: |$)(.*)", allow_sudo=True))
 async def catgban(cat):
     cate = await edit_or_reply(cat, "ungbaning.....")
     start = datetime.now()
@@ -147,7 +147,7 @@ async def catgban(cat):
             await asyncio.sleep(0.5)
             count += 1
         except BadRequestError:
-            await borg.send_message(
+            await cat.client.send_message(
                 BOTLOG_CHATID,
                 f"You don't have required permission in :\nCHAT: {cat.chat.title}(`{cat.chat_id}`)\nFor unbaning here",
             )
@@ -163,15 +163,15 @@ async def catgban(cat):
         )
 
     if BOTLOG and count != 0:
-        await borg.send_message(
+        await cat.client.send_message(
             BOTLOG_CHATID,
             f"#UNGBAN\nGlobal UNBAN\nUser: [{user.first_name}](tg://user?id={user.id})\nID: {user.id}\
                                                 \nReason: `{reason}`\nUnbanned in `{count}` groups\nTime taken = `{cattaken} seconds`",
         )
 
 
-@borg.on(admin_cmd(pattern="listgban$"))
-@borg.on(sudo_cmd(pattern=r"listgban$", allow_sudo=True))
+@bot.on(admin_cmd(pattern="listgban$"))
+@bot.on(sudo_cmd(pattern=r"listgban$", allow_sudo=True))
 async def gablist(event):
     if event.fwd_from:
         return
@@ -203,8 +203,8 @@ async def gablist(event):
         await edit_or_reply(event, GBANNED_LIST)
 
 
-@borg.on(admin_cmd(outgoing=True, pattern=r"gmute ?(\d+)?"))
-@borg.on(sudo_cmd(pattern=r"gmute ?(\d+)?", allow_sudo=True))
+@bot.on(admin_cmd(outgoing=True, pattern=r"gmute ?(\d+)?"))
+@bot.on(sudo_cmd(pattern=r"gmute ?(\d+)?", allow_sudo=True))
 async def startgmute(event):
     private = False
     if event.fwd_from:
@@ -244,8 +244,8 @@ async def startgmute(event):
         )
 
 
-@borg.on(admin_cmd(outgoing=True, pattern=r"ungmute ?(\d+)?"))
-@borg.on(sudo_cmd(pattern=r"ungmute ?(\d+)?", allow_sudo=True))
+@bot.on(admin_cmd(outgoing=True, pattern=r"ungmute ?(\d+)?"))
+@bot.on(sudo_cmd(pattern=r"ungmute ?(\d+)?", allow_sudo=True))
 async def endgmute(event):
     private = False
     if event.fwd_from:
@@ -265,7 +265,7 @@ async def endgmute(event):
     else:
         return await edit_or_reply(
             event,
-            "Please reply to a user or add their into the command to ungmute them.",
+            "Please reply to a user or add their username into the command to ungmute them.",
         )
     replied_user = await event.client(GetFullUserRequest(userid))
     if not is_muted(userid, "gmute"):
@@ -297,7 +297,7 @@ async def get_user_from_event(event):
     extra = None
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
-        user_obj = await event.client.get_entity(previous_message.from_id)
+        user_obj = await event.client.get_entity(previous_message.sender_id)
         extra = event.pattern_match.group(1)
     elif args:
         user = args[0]

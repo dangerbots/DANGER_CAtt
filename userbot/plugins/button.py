@@ -14,8 +14,8 @@ from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 BTN_URL_REGEX = re.compile(r"(\[([^\[]+?)\]\<buttonurl:(?:/{0,2})(.+?)(:same)?\>)")
 
 
-@borg.on(admin_cmd(pattern=r"cbutton(?: |$)(.*)", outgoing=True))
-@borg.on(sudo_cmd(pattern=r"cbutton(?: |$)(.*)", allow_sudo=True))
+@bot.on(admin_cmd(pattern=r"cbutton(?: |$)(.*)", outgoing=True))
+@bot.on(sudo_cmd(pattern=r"cbutton(?: |$)(.*)", allow_sudo=True))
 async def _(event):
     chat = event.chat_id
     reply_message = await event.get_reply_message()
@@ -49,7 +49,7 @@ async def _(event):
     tl_ib_buttons = build_keyboard(buttons)
     tgbot_reply_message = None
     if reply_message and reply_message.media:
-        tgbot_reply_message = await borg.download_media(reply_message.media)
+        tgbot_reply_message = await event.client.download_media(reply_message.media)
     await tgbot.send_message(
         entity=chat,
         message=message_text,
@@ -67,8 +67,8 @@ async def _(event):
 # Helpers
 
 
-@borg.on(admin_cmd(pattern=r"ibutton( (.*)|$)", outgoing=True))
-@borg.on(sudo_cmd(pattern=r"ibutton( (.*)|$)", allow_sudo=True))
+@bot.on(admin_cmd(pattern=r"ibutton( (.*)|$)", outgoing=True))
+@bot.on(sudo_cmd(pattern=r"ibutton( (.*)|$)", allow_sudo=True))
 async def _(event):
     reply_to_id = None
     catinput = "".join(event.text.split(maxsplit=1)[1:])
@@ -79,7 +79,7 @@ async def _(event):
     if not catinput:
         catinput = (await event.get_reply_message()).text
     if not catinput:
-        await edit_or_reply(event, "`Give me some thing to write in bot inline`")
+        await edit_or_reply(event, "`Give me something to write in bot inline`")
         return
     catinput = "Inline buttons " + catinput
     tgbotusername = Var.TG_BOT_USER_NAME_BF_HER
@@ -102,10 +102,10 @@ CMD_HELP.update(
     {
         "button": "**Plugin : **`button`\
     \n\n**SYNTAX : **`.cbutton`\
-    \n**USAGE :** Buttons must be in th format as [name on button]<buttonurl:link you want to open> and markdown is Default to html\
+    \n**USAGE :** Buttons must be in the format as [Name on button]<buttonurl:link you want to open> and markdown is Default to html\
     \n**EXAMPLE :** `.cbutton test [google]<buttonurl:https://www.google.com> [catuserbot]<buttonurl:https://t.me/catuserbot17:same> [support]<buttonurl:https://t.me/catuserbot_support>`\
     \n\n**SYNTAX : **`.ibutton`\
-    \n**USAGE :** Buttons must be in th format as [name on button]<buttonurl:link you want to open>\
+    \n**USAGE :** Buttons must be in the format as [Name on button]<buttonurl:link you want to open>\
     \n**EXAMPLE :** `.ibutton test [google]<buttonurl:https://www.google.com> [catuserbot]<buttonurl:https://t.me/catuserbot17:same> [support]<buttonurl:https://t.me/catuserbot_support>`\
     "
     }

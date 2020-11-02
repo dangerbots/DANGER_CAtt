@@ -5,8 +5,6 @@ from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 from . import ALIVE_NAME
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
-hmm = bot.uid
-SURID = f"tg://user?id={hmm}"
 
 
 @bot.on(admin_cmd(pattern=r"star$", outgoing=True))
@@ -179,7 +177,7 @@ async def _(event):
         "🤯",
         "💔",
         "❤",
-        "i Love You❤",
+        "I Love You❤",
     ]
     for i in animation_ttl:
         await asyncio.sleep(animation_interval)
@@ -227,7 +225,7 @@ async def _(event):
         "🔴🔴🔴⬜⬜⬜🔵🔵🔵\n🔴🔴🔴⬜⬜⬜🔵🔵🔵\n🔴🔴🔴⬜⬜⬜🔵🔵🔵",
         "🔵🔵🔵⬜⬜⬜🔴🔴🔴\n🔵🔵🔵⬜⬜⬜🔴🔴🔴\n🔵🔵🔵⬜⬜⬜🔴🔴🔴",
         "🔴🔴🔴⬜⬜⬜🔵🔵🔵\n🔴🔴🔴⬜⬜⬜🔵🔵🔵\n🔴🔴🔴⬜⬜⬜🔵🔵🔵",
-        f"[{DEFAULTUSER}]({SURID}) **Police iz Here**",
+        f"[{DEFAULTUSER}]({USERNAME}) **Police iz Here**",
     ]
     for i in animation_ttl:
         await asyncio.sleep(animation_interval)
