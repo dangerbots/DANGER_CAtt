@@ -166,9 +166,10 @@ class Config((object)):
     ANTISPAMBOT_BAN = os.environ.get("ANTISPAMBOT_BAN", False)
     # Deepai value can get from https://deepai.org/
     DEEP_AI = os.environ.get("DEEP_AI", None)
-    #Custom alive text
+    # Custom alive text
     CUSTOM_ALIVE_TEXT = os.environ.get("CUSTOM_ALIVE_TEXT", None)
     CUSTOM_ALIVE_EMOJI = os.environ.get("CUSTOM_ALIVE_EMOJI", None)
+
 
 class Production(Config):
     LOGGER = False

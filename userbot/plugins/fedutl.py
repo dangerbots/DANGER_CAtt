@@ -30,7 +30,9 @@ async def _(event):
     sysarg = event.pattern_match.group(1)
     if event.reply_to_msg_id and not event.pattern_match.group(1):
         previous_message = await event.get_reply_message()
-        replied_user = await event.client(GetFullUserRequest(previous_message.sender_id))
+        replied_user = await event.client(
+            GetFullUserRequest(previous_message.sender_id)
+        )
         getuser = str(replied_user.user.id)
         async with event.client.conversation(bots) as conv:
             try:
@@ -104,7 +106,9 @@ async def _(event):
     sysarg = event.pattern_match.group(1)
     if event.reply_to_msg_id and not event.pattern_match.group(1):
         previous_message = await event.get_reply_message()
-        replied_user = await event.client(GetFullUserRequest(previous_message.sender_id))
+        replied_user = await event.client(
+            GetFullUserRequest(previous_message.sender_id)
+        )
         getuser = str(replied_user.user.id)
         async with event.client.conversation(bots) as conv:
             try:

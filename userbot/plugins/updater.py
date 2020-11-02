@@ -222,6 +222,7 @@ async def upstream(event):
         await update(event, repo, ups_rem, ac_br)
     return
 
+
 @bot.on(admin_cmd(outgoing=True, pattern=r"goodcat$"))
 @bot.on(sudo_cmd(pattern="goodcat$", allow_sudo=True))
 async def upstream(event):
@@ -258,6 +259,7 @@ async def upstream(event):
     ups_rem.fetch(ac_br)
     await event.edit("`Deploying userbot, please wait....`")
     await deploy(event, repo, ups_rem, ac_br, txt)
+
 
 CMD_HELP.update(
     {
