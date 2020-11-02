@@ -8,17 +8,12 @@ You remove this, you gay.
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 
-from userbot import ALIVE_NAME, CMD_HELP
-
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
-hmm = bot.uid
-SURID = f"tg://user?id={hmm}"
+from . import CMD_HELP, mention
 
 
-@bot.on(admin_cmd("ascii ?(.*)"))
-@bot.on(sudo_cmd(pattern="ascii ?(.*)", allow_sudo=True))
+@bot.on(admin_cmd("iascii ?(.*)"))
+@bot.on(sudo_cmd(pattern="iascii ?(.*)", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -54,12 +49,12 @@ async def _(event):
             await event.client.send_file(
                 event.chat_id,
                 response.message.media,
-                caption=f"**➥ Image Type :** ASCII Art\n**➥ Uploaded By :** [{DEFAULTUSER}]({SURID})",
+                caption=f"**➥ Image Type :** ASCII Art\n**➥ Uploaded By :** {mention}",
             )
             await event.client.send_read_acknowledge(conv.chat_id)
 
 
-@borg.on(admin_cmd(pattern="line ?(.*)"))
+@bot.on(admin_cmd(pattern="line ?(.*)"))
 @bot.on(sudo_cmd(pattern="line ?(.*)", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
@@ -92,16 +87,16 @@ async def _(event):
         await event.client.send_file(
             event.chat_id,
             pic,
-            caption=f"**➥ Image Type :** LINE Art \n**➥ Uploaded By :** [{DEFAULTUSER}]({SURID})",
+            caption=f"**➥ Image Type :** LINE Art \n**➥ Uploaded By :** {mention}",
         )
 
 
 CMD_HELP.update(
     {
         "art_img": "__**PLUGIN NAME :** Art Image__\
-      \n\n** CMD ➥** `.ascii` reply to any image file:\
+      \n\n📌** CMD ➥** `.iascii` reply to any image file:\
       \n**USAGE   ➥  **Makes an image ascii style, try out your own.\
-      \n\n** CMD ➥** `.line` reply to any image file:\
+      \n\n📌** CMD ➥** `.line` reply to any image file:\
       \n**USAGE   ➥  **Makes an image line style.\ "
     }
 )

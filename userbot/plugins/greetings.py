@@ -1,3 +1,4 @@
+from .. import CMD_HELP
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 
 R = (
@@ -158,13 +159,13 @@ async def gn(event):
     )
 
 
-@bot.on(admin_cmd(pattern=r"goodm$"))
+@bot.on(admin_cmd(pattern=r"gmg3$"))
 @bot.on(sudo_cmd(pattern="gmg3$", allow_sudo=True))
 async def bluedevilgoodm(goodm):
     await edit_or_reply(goodm, W)
 
 
-@bot.on(admin_cmd(pattern=r"goodn$"))
+@bot.on(admin_cmd(pattern=r"gnt3$"))
 @bot.on(sudo_cmd(pattern="gnt3$", allow_sudo=True))
 async def bluedevilgoodn(goodn):
     await edit_or_reply(goodn, U)
@@ -256,3 +257,14 @@ async def sprinkle(event):
         event,
         "✨.•*¨*.¸.•*¨*.¸¸.•*¨*• ƸӜƷ\n🌸🌺🌸🌺🌸🌺🌸🌺\n Sprinkled with love❤\n🌷🌻🌷🌻🌷🌻🌷🌻\n ¨*.¸.•*¨*. ¸.•*¨*.¸¸.•*¨`*•.✨\n🌹🍀🌹🍀🌹🍀🌹🍀",
     )
+
+
+CMD_HELP.update(
+    {
+        "greetings": "__**PLUGIN NAME :** Greetings__\
+    \n\n📌** CMD ➥** `.hy` | `.baby` | `.hbd` | `.thanks` |`.gmg` | `.gnt` | `.gmg2` | `.gnt2` | `.gnt3` | `.lmoon` | `.city` | `.cheer` | `.getwell` | `.luck` | `.sprinkle`\
+    \n\n**USAGE   ➥  **These are art bruh..Try & check yourself\
+     \n\n📌** CMD ➥** `.hi` or `hi <emoji>`\
+    \n\n**USAGE   ➥  **Send a hi with your custom emoji."
+    }
+)

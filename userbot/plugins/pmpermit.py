@@ -5,14 +5,13 @@ from telethon import events, functions
 from telethon.tl.functions.users import GetFullUserRequest
 
 from ..utils import admin_cmd
-from . import ALIVE_NAME, CMD_HELP, PM_START, PMMENU, check
+from . import CMD_HELP, PM_START, PMMENU, check, mention
 from .sql_helper import pmpermit_sql as pmpermit_sql
 
 PM_WARNS = {}
 PREV_REPLY_MESSAGE = {}
 CACHE = {}
 PMPERMIT_PIC = Config.PMPERMIT_PIC
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
 USER_BOT_WARN_ZERO = "You were spamming my peru master's inbox, henceforth you are blocked by my master's userbot. **Now GTFO, i'm playing minecraft** "
 
 if Config.PRIVATE_GROUP_ID is not None:
@@ -216,7 +215,7 @@ if Config.PRIVATE_GROUP_ID is not None:
             chat_id = event.sender_id
             USER_BOT_NO_WARN = (
                 f"[──▄█▀█▄─────────██ \n▄████████▄───▄▀█▄▄▄▄ \n██▀▼▼▼▼▼─▄▀──█▄▄ \n█████▄▲▲▲─▄▄▄▀───▀▄ \n██████▀▀▀▀─▀────────▀▀](tg://user?id={chat_id})\n\n"
-                f"My master {DEFAULTUSER} haven't approved you yet. Don't spam his inbox "
+                f"My master {mention} haven't approved you yet. Don't spam his inbox "
                 "Leave your name,reason and 10k$ and hopefully you'll get a reply within 2 light years.\n\n"
                 "**Send** `/start` ** so that my master can decide why you're here.**"
             )
@@ -280,7 +279,7 @@ if Config.PRIVATE_GROUP_ID is not None:
                     )
                 else:
                     USER_BOT_NO_WARN = (
-                        f"My master {DEFAULTUSER} haven't approved you yet. Don't spam his inbox "
+                        f"My master {mention} haven't approved you yet. Don't spam his inbox "
                         "Leave your name,reason and 10k$ and hopefully you'll get a reply within 2 light years.\n\n"
                         "**Send** `/start` ** so that my master can decide why you're here.**"
                     )
@@ -295,7 +294,7 @@ if Config.PRIVATE_GROUP_ID is not None:
                 else:
                     USER_BOT_NO_WARN = (
                         f"[──▄█▀█▄─────────██ \n▄████████▄───▄▀█▄▄▄▄ \n██▀▼▼▼▼▼─▄▀──█▄▄ \n█████▄▲▲▲─▄▄▄▀───▀▄ \n██████▀▀▀▀─▀────────▀▀](tg://user?id={catid})\n\n"
-                        f"My master {DEFAULTUSER} haven't approved you yet. Don't spam his inbox "
+                        f"My master {mention} haven't approved you yet. Don't spam his inbox "
                         "Leave your name,reason and 10k$ and hopefully you'll get a reply within 2 light years.\n\n"
                         "**Send** `/start` ** so that my master can decide why you're here.**"
                     )
@@ -319,7 +318,7 @@ if Config.PRIVATE_GROUP_ID is not None:
             chat_id = event.sender_id
             USER_BOT_NO_WARN = (
                 f"[──▄█▀█▄─────────██ \n▄████████▄───▄▀█▄▄▄▄ \n██▀▼▼▼▼▼─▄▀──█▄▄ \n█████▄▲▲▲─▄▄▄▀───▀▄ \n██████▀▀▀▀─▀────────▀▀](tg://user?id={chat_id})\n\n"
-                f"My master {DEFAULTUSER} haven't approved you yet. Don't spam his inbox "
+                f"My master {mention} haven't approved you yet. Don't spam his inbox "
                 "Leave your name,reason and 10k$ and hopefully you'll get a reply within 2 light years.\n\n"
                 "**Send** `/start` ** so that my master can decide why you're here.**"
             )
@@ -371,7 +370,7 @@ if Config.PRIVATE_GROUP_ID is not None:
                     USER_BOT_NO_WARN = Config.CUSTOM_PMPERMIT_TEXT
                 else:
                     USER_BOT_NO_WARN = (
-                        f"My master {DEFAULTUSER} haven't approved you yet. Don't spam his inbox "
+                        f"My master {mention} haven't approved you yet. Don't spam his inbox "
                         "Leave your name,reason and 10k$ and hopefully you'll get a reply within 2 light years."
                     )
                 r = await event.reply(USER_BOT_NO_WARN, file=PMPERMIT_PIC)
@@ -381,7 +380,7 @@ if Config.PRIVATE_GROUP_ID is not None:
                 else:
                     USER_BOT_NO_WARN = (
                         f"[──▄█▀█▄─────────██ \n▄████████▄───▄▀█▄▄▄▄ \n██▀▼▼▼▼▼─▄▀──█▄▄ \n█████▄▲▲▲─▄▄▄▀───▀▄ \n██████▀▀▀▀─▀────────▀▀](tg://user?id={catid})\n\n"
-                        f"My master {DEFAULTUSER} haven't approved you yet. Don't spam his inbox "
+                        f"My master {mention} haven't approved you yet. Don't spam his inbox "
                         "Leave your name,reason and 10k$ and hopefully you'll get a reply within 2 light years."
                     )
                 r = await event.reply(USER_BOT_NO_WARN)
@@ -393,17 +392,14 @@ if Config.PRIVATE_GROUP_ID is not None:
 
 CMD_HELP.update(
     {
-        "pmpermit": "**Plugin : **`pmpermit`\
-        \n\n**Syntax : **.approve`\
-        \n**Function : **__Approves the mentioned/replied person to PM.__\
-        \n\n**Syntax : **`.disapprove`\
-        \n**Function : **__dispproves the mentioned/replied person to PM.__\
-        \n\n**Syntax : **`.block`\
-        \n**Function : **__Blocks the person.__\
-        \n\n**Syntax : **`.unblock`\
-        \n**Function : **__Unblocks the person.__\
-        \n\n**Syntax : **`.listapproved`\
-        \n**Function : **__To list the all approved users.__\
-"
+        "pmpermit": "__**PLUGIN NAME :** Pm Permit__\
+\n\n📌** CMD ➥** `.approve`\
+\n**USAGE   ➥  **Approves the mentioned/replied person to PM.\
+\n\n📌** CMD ➥** `.disapprove`\
+\n**USAGE   ➥  **Dispproves the mentioned/replied person to PM.\
+\n\n📌** CMD ➥** `block`\
+\n**USAGE   ➥  **Blocks the person.\
+\n\n📌** CMD ➥** `listapproved`\
+\n**USAGE   ➥  **To list the all approved users."
     }
 )
