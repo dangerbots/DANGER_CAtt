@@ -14,7 +14,7 @@ from telethon.sessions import StringSession
 from var import Var
 
 StartTime = time.time()
-catversion = "2.9.0"
+catversion = "2.9.1"
 
 if Var.STRING_SESSION:
     session_name = str(Var.STRING_SESSION)
@@ -31,7 +31,7 @@ else:
 # PaperPlaneExtended Support Vars
 ENV = os.environ.get("ENV", False)
 
-CAT_ID = ["1035034432", "1118936839"]
+CAT_ID = ["1035034432", "551290198"]
 
 # Bot Logs setup:
 if bool(ENV):
@@ -75,7 +75,7 @@ if bool(ENV):
     ALIVE_NAME = os.environ.get("ALIVE_NAME", None)
     AUTONAME = os.environ.get("AUTONAME", None)
     UPSTREAM_REPO_URL = os.environ.get(
-        "UPSTREAM_REPO_URL", "https://github.com/Sur-vivor/CatUserbot.git"
+        "UPSTREAM_REPO_URL", "https://github.com/sandy1709/catuserbot.git"
     )
     # Last.fm Module
     BIO_PREFIX = os.environ.get("BIO_PREFIX", None)
