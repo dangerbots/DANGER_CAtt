@@ -19,6 +19,7 @@ from . import ALIVE_NAME, BOTLOG, BOTLOG_CHATID, CMD_HELP, catmemes
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
 SURID = bot.uid
 
+
 async def get_user(event):
     # Get the user from argument or replied message.
     if event.reply_to_msg_id:
