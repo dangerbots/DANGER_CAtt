@@ -159,13 +159,13 @@ async def gn(event):
     )
 
 
-@bot.on(admin_cmd(pattern=r"gm$"))
+@bot.on(admin_cmd(pattern=r"goodm$"))
 @bot.on(sudo_cmd(pattern="gmg3$", allow_sudo=True))
 async def bluedevilgoodm(goodm):
     await edit_or_reply(goodm, W)
 
 
-@bot.on(admin_cmd(pattern=r"gn$"))
+@bot.on(admin_cmd(pattern=r"goodn$"))
 @bot.on(sudo_cmd(pattern="gnt3$", allow_sudo=True))
 async def bluedevilgoodn(goodn):
     await edit_or_reply(goodn, U)
