@@ -222,6 +222,43 @@ async def upstream(event):
         await update(event, repo, ups_rem, ac_br)
     return
 
+@bot.on(admin_cmd(outgoing=True, pattern=r"goodcat$"))
+@bot.on(sudo_cmd(pattern="goodcat$", allow_sudo=True))
+async def upstream(event):
+    event = await edit_or_reply(event, "`Pulling the good cat repo wait a sec ....`")
+    off_repo = "https://github.com/sandy1709/catuserbot"
+    catcmd = f"rm -rf .git"
+    try:
+        await runcmd(catcmd)
+    except BaseException:
+        pass
+    try:
+        txt = "`Oops.. Updater cannot continue due to "
+        txt += "some problems occured`\n\n**LOGTRACE:**\n"
+        repo = Repo()
+    except NoSuchPathError as error:
+        await event.edit(f"{txt}\n`directory {error} is not found`")
+        return repo.__del__()
+    except GitCommandError as error:
+        await event.edit(f"{txt}\n`Early failure! {error}`")
+        return repo.__del__()
+    except InvalidGitRepositoryError:
+        repo = Repo.init()
+        origin = repo.create_remote("upstream", off_repo)
+        origin.fetch()
+        repo.create_head("master", origin.refs.master)
+        repo.heads.master.set_tracking_branch(origin.refs.master)
+        repo.heads.master.checkout(True)
+    try:
+        repo.create_remote("upstream", off_repo)
+    except BaseException:
+        pass
+    ac_br = repo.active_branch.name
+    ups_rem = repo.remote("upstream")
+    ups_rem.fetch(ac_br)
+    await event.edit("`Deploying userbot, please wait....`")
+    await deploy(event, repo, ups_rem, ac_br, txt)
+
 CMD_HELP.update(
     {
         "updater": "**Plugin : **`updater`"
@@ -234,7 +271,7 @@ CMD_HELP.update(
         "\n\n**Syntax : **`.update deploy`"
         "\n**Usage :** Deploy your userbot.So even you restart it doesnt go back to previous version"
         "\nThis will triggered deploy always, even no updates."
-        "\n\n**Syntax : **`.badcat`"
-        "\n**Usage :** Shifts from official cat repo to jisan's repo(for gali commands)"
+        "\n\n**Syntax : **`.goodcat`"
+        "\n**Usage :** Shifts from sur cat repo to official repo"
     }
 )
