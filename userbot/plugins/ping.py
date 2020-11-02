@@ -62,9 +62,7 @@ async def _(event):
     event = await edit_or_reply(event, "<b><i>☞ Pong!</b></i>", "html")
     end = datetime.now()
     ms = (end - start).microseconds / 1000
-    await event.edit(
-        f"☞ Pong\n➥ {ms}\n➥ Bot of {hmention}"
-    )
+    await event.edit(f"☞ Pong\n➥ {ms}\n➥ Bot of {hmention}")
 
 
 CMD_HELP.update(
