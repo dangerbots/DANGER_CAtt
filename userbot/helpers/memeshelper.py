@@ -397,41 +397,41 @@ HELLOSTR = [
 ]
 
 SLAP_TEMPLATES = [
-    "{user1} {hits} {victim} with a {item}.",
-    "{user1} {hits} {victim} in the face with a {item}.",
-    "{user1} {hits} {victim} around a bit with a {item}.",
-    "{user1} {throws} a {item} at {victim}.",
-    "{user1} grabs a {item} and {throws} it at {victim}'s face.",
-    "{user1} {hits} a {item} at {victim}.",
-    "{throws} a few {item} at {victim}.",
-    "{user1} grabs a {item} and {throws} it in {victim}'s face.",
-    "{user1} launches a {item} in {victim}'s general direction.",
-    "{user1} sits on {victim}'s face while slamming a {item} {where}.",
-    "{user1} starts slapping {victim} silly with a {item}.",
-    "{user1} pins {victim} down and repeatedly {hits} them with a {item}.",
-    "{user1} grabs up a {item} and {hits} {victim} with it.",
-    "{user1} starts slapping {victim} silly with a {item}.",
-    "{user1} holds {victim} down and repeatedly {hits} them with a {item}.",
-    "{user1} prods {victim} with a {item}.",
-    "{user1} picks up a {item} and {hits} {victim} with it.",
-    "{user1} ties {victim} to a chair and {throws} a {item} at them.",
-    "{user1} {hits} {victim} {where} with a {item}.",
-    "{user1} ties {victim} to a pole and whips them {where} with a {item}."
-    "{user1} gave a friendly push to help {victim} learn to swim in lava.",
-    "{user1} sent {victim} to /dev/null.",
-    "sent {victim} down the memory hole.",
-    "{user1} beheaded {victim}.",
-    "threw {victim} off a building.",
-    "{user1} replaced all of {victim}'s music with Nickelback.",
-    "{user1} spammed {victim}'s email.",
-    "made {victim} a knuckle sandwich.",
-    "{user1} slapped {victim} with pure nothing.",
-    "{user1} hit {victim} with a small, interstellar spaceship.",
-    "{user1} quickscoped {victim}.",
-    "put {victim} in check-mate.",
-    "{user1} RSA-encrypted {victim} and deleted the private key.",
-    "{user1} put {victim} in the friendzone.",
-    "{user1} slaps {victim} with a DMCA takedown request!",
+    "[{user1}](tg://user?id={SURID}) {hits} {victim} with a {item}.",
+    "[{user1}](tg://user?id={SURID}) {hits} {victim} in the face with a {item}.",
+    "[{user1}](tg://user?id={SURID}) {hits} {victim} around a bit with a {item}.",
+    "[{user1}](tg://user?id={SURID}) {throws} a {item} at {victim}.",
+    "[{user1}](tg://user?id={SURID}) grabs a {item} and {throws} it at {victim}'s face.",
+    "[{user1}](tg://user?id={SURID}) {hits} a {item} at {victim}.",
+    "[{user1}](tg://user?id={SURID}) {throws} a few {item} at {victim}.",
+    "[{user1}](tg://user?id={SURID}) grabs a {item} and {throws} it in {victim}'s face.",
+    "[{user1}](tg://user?id={SURID}) launches a {item} in {victim}'s general direction.",
+    "[{user1}](tg://user?id={SURID}) sits on {victim}'s face while slamming a {item} {where}.",
+    "[{user1}](tg://user?id={SURID}) starts slapping {victim} silly with a {item}.",
+    "[{user1}](tg://user?id={SURID}) pins {victim} down and repeatedly {hits} them with a {item}.",
+    "[{user1}](tg://user?id={SURID}) grabs up a {item} and {hits} {victim} with it.",
+    "[{user1}](tg://user?id={SURID}) starts slapping {victim} silly with a {item}.",
+    "[{user1}](tg://user?id={SURID}) holds {victim} down and repeatedly {hits} them with a {item}.",
+    "[{user1}](tg://user?id={SURID}) prods {victim} with a {item}.",
+    "[{user1}](tg://user?id={SURID}) picks up a {item} and {hits} {victim} with it.",
+    "[{user1}](tg://user?id={SURID}) ties {victim} to a chair and {throws} a {item} at them.",
+    "[{user1}](tg://user?id={SURID}) {hits} {victim} {where} with a {item}.",
+    "[{user1}](tg://user?id={SURID}) ties {victim} to a pole and whips them {where} with a {item}.",
+    "[{user1}](tg://user?id={SURID}) gave a friendly push to help {victim} learn to swim in lava.",
+    "[{user1}](tg://user?id={SURID}) sent {victim} to /dev/null.",
+    "[{user1}](tg://user?id={SURID}) sent {victim} down the memory hole.",
+    "[{user1}](tg://user?id={SURID}) beheaded {victim}.",
+    "[{user1}](tg://user?id={SURID}) threw {victim} off a building.",
+    "[{user1}](tg://user?id={SURID}) replaced all of {victim}'s music with Nickelback.",
+    "[{user1}](tg://user?id={SURID}) spammed {victim}'s email.",
+    "[{user1}](tg://user?id={SURID}) made {victim} a knuckle sandwich.",
+    "[{user1}](tg://user?id={SURID}) slapped {victim} with pure nothing.",
+    "[{user1}](tg://user?id={SURID}) hit {victim} with a small, interstellar spaceship.",
+    "[{user1}](tg://user?id={SURID}) quickscoped {victim}.",
+    "[{user1}](tg://user?id={SURID}) put {victim} in check-mate.",
+    "[{user1}](tg://user?id={SURID}) RSA-encrypted {victim} and deleted the private key.",
+    "[{user1}](tg://user?id={SURID}) put {victim} in the friendzone.",
+    "[{user1}](tg://user?id={SURID}) slaps {victim} with a DMCA takedown request!",
 ]
 
 
@@ -493,7 +493,7 @@ HIT = [
 WHERE = ["in the chest", "on the head", "on the butt", "on the crotch"]
 
 
-async def slap(replied_user, event, DEFAULTUSER):
+async def slap(replied_user, event, DEFAULTUSER, SURID):
     """ Construct a funny slap sentence !! """
     user_id = replied_user.user.id
     first_name = replied_user.user.first_name
@@ -514,6 +514,7 @@ async def slap(replied_user, event, DEFAULTUSER):
         hits=hit,
         throws=throw,
         where=where,
+        SURID=SURID,
     )
 
 
