@@ -54,7 +54,7 @@ TELEGRAPH_MEDIA_LINKSSS = [
 ]
 
 
-@borg.on(admin_cmd(pattern="survivorpfp ?(.*)"))
+@bot(admin_cmd(pattern="survivorpfp ?(.*)"))
 async def autopic(event):
     while True:
         piclink = random.randint(0, len(TELEGRAPH_MEDIA_LINKS) - 1)
@@ -88,7 +88,7 @@ async def autopic(event):
             return
 
 
-@borg.on(admin_cmd(pattern="alandp ?(.*)"))
+@bot(admin_cmd(pattern="alandp ?(.*)"))
 async def autopic(event):
     while True:
         piclink = random.randint(0, len(TELEGRAPH_MEDIA_LINKSS) - 1)
@@ -119,7 +119,7 @@ async def autopic(event):
             return
 
 
-@borg.on(admin_cmd(pattern="epp ?(.*)"))
+@bot(admin_cmd(pattern="epp ?(.*)"))
 async def autopic(event):
     while True:
         piclink = random.randint(0, len(TELEGRAPH_MEDIA_LINKSSS) - 1)
@@ -153,7 +153,7 @@ async def autopic(event):
             return
 
 
-@borg.on(admin_cmd(pattern="cname"))  # pylint:disable=E0602
+@bot(admin_cmd(pattern="cname"))  # pylint:disable=E0602
 async def _(event):
     if event.fwd_from:
         return
