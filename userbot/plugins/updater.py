@@ -13,14 +13,13 @@ from os import environ, execle, path, remove
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
 
-from .. import CMD_HELP
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import runcmd
+from . import CMD_HELP, runcmd
 
 HEROKU_APP_NAME = Var.HEROKU_APP_NAME
 HEROKU_API_KEY = Var.HEROKU_API_KEY
 UPSTREAM_REPO_BRANCH = "master"
-UPSTREAM_REPO_URL = "https://github.com/Sur-vivor/CatUserbot"
+UPSTREAM_REPO_URL = "https://github.com/sandy1709/catuserbot"
 
 requirements_path = path.join(
     path.dirname(path.dirname(path.dirname(__file__))), "requirements.txt"
@@ -147,7 +146,7 @@ async def update(event, repo, ups_rem, ac_br):
 
 
 @bot.on(admin_cmd(outgoing=True, pattern=r"update($| (now|deploy))"))
-@borg.on(sudo_cmd(pattern="update($| (now|deploy))", allow_sudo=True))
+@bot.on(sudo_cmd(pattern="update($| (now|deploy))", allow_sudo=True))
 async def upstream(event):
     "For .update command, check if the bot is up to date, update if specified"
     conf = event.pattern_match.group(1).strip()
@@ -224,11 +223,11 @@ async def upstream(event):
     return
 
 
-@bot.on(admin_cmd(outgoing=True, pattern=r"goodcat$"))
-@borg.on(sudo_cmd(pattern="goodcat$", allow_sudo=True))
+@bot.on(admin_cmd(outgoing=True, pattern=r"badcat$"))
+@bot.on(sudo_cmd(pattern="badcat$", allow_sudo=True))
 async def upstream(event):
     event = await edit_or_reply(event, "`Pulling the bad cat repo wait a sec ....`")
-    off_repo = "https://github.com/sandy1709/catuserbot"
+    off_repo = "https://github.com/Jisan09/catuserbot"
     catcmd = f"rm -rf .git"
     try:
         await runcmd(catcmd)

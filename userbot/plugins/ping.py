@@ -1,13 +1,8 @@
 import asyncio
-import time
 from datetime import datetime
 
-from userbot import StartTime, catdef
-
-from .. import ALIVE_NAME, CMD_HELP
+from .. import CMD_HELP
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
 
 
 @bot.on(admin_cmd(pattern="ping$"))
@@ -15,15 +10,11 @@ DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "SurCat"
 async def _(event):
     if event.fwd_from:
         return
-    SURID = bot.uid
     start = datetime.now()
-    event = await edit_or_reply(event, "__**☞ Pong!__**")
+    event = await edit_or_reply(event, "Pong!")
     end = datetime.now()
     ms = (end - start).microseconds / 1000
-    uptime = await catdef.get_readable_time((time.time() - StartTime))
-    await event.edit(
-        f"__**☞ Pong!__**\n➥__**Ping Speed**__ {ms}\n➥__**Uptime**__ {uptime}\n➥ __**Bot**__ __**of**__ [{DEFAULTUSER}](tg://user?id={SURID})"
-    )
+    await event.edit("Pong!\n`{}`".format(ms))
 
 
 @bot.on(admin_cmd(pattern=f"fping$", outgoing=True))
@@ -34,7 +25,7 @@ async def _(event):
     start = datetime.now()
     animation_interval = 0.2
     animation_ttl = range(26)
-    event = await edit_or_reply("ping....")
+    event = await edit_or_reply(event, "ping....")
     animation_chars = [
         "⬛⬛⬛⬛⬛⬛⬛⬛⬛",
         "⬛⬛⬛⬛⬛⬛⬛⬛⬛ \n⬛‎📶‎📶‎📶‎📶‎📶‎📶‎📶⬛",
@@ -81,7 +72,7 @@ CMD_HELP.update(
     \n\n**Syntax :** `.ping`\
     \n**Function : **__Shows you the ping speed of server__\
     \n\n**Syntax : **`.fping`\
-    \n**Function : **__A kind ofping with extra animation__\
+    \n**Function : **__Shows the server ping with extra animation__\
     "
     }
 )

@@ -10,6 +10,8 @@ import urllib.request
 from os import remove
 
 import emoji
+import requests
+from bs4 import BeautifulSoup as bs
 from PIL import Image
 from telethon.tl.functions.messages import GetStickerSetRequest
 from telethon.tl.types import (
@@ -34,6 +36,8 @@ KANGING_STR = [
     "Imprisoning this sticker...",
     "Mr.Steal Your Sticker is stealing this sticker... ",
 ]
+
+combot_stickers_url = "https://combot.org/telegram/stickers?q="
 
 
 @bot.on(admin_cmd(outgoing=True, pattern="kang ?(.*)"))
@@ -200,7 +204,7 @@ async def kang(args):
                         await catevent.edit(
                             f"Sticker added in a Different Pack !\
                             \nThis Pack is Newly created!\
-                            \nYour pack can be found [⚡️Here⚡️](t.me/addstickers/{packname}) and emoji of the sticker added is {emoji}",
+                            \nYour pack can be found [here](t.me/addstickers/{packname}) and emoji of the sticker added is {emoji}",
                             parse_mode="md",
                         )
                         return
@@ -277,37 +281,9 @@ async def kang(args):
                 await bot.send_read_acknowledge(conv.chat_id)
         await catevent.edit(
             f"Sticker kanged successfully!\
-            \nPack can be found [⚡️Here⚡️](t.me/addstickers/{packname}) and emoji of the sticker is {emoji}",
+            \nPack can be found [here](t.me/addstickers/{packname}) and emoji of the sticker is {emoji}",
             parse_mode="md",
         )
-
-
-async def resize_photo(photo):
-    """ Resize the given photo to 512x512 """
-    image = Image.open(photo)
-    if (image.width and image.height) < 512:
-        size1 = image.width
-        size2 = image.height
-        if image.width > image.height:
-            scale = 512 / size1
-            size1new = 512
-            size2new = size2 * scale
-        else:
-            scale = 512 / size2
-            size1new = size1 * scale
-            size2new = 512
-        size1new = math.floor(size1new)
-        size2new = math.floor(size2new)
-        sizenew = (size1new, size2new)
-        image = image.resize(sizenew)
-    else:
-        maxsize = (512, 512)
-        image.thumbnail(maxsize)
-    return image
-
-
-def char_is_emoji(character):
-    return character in emoji.UNICODE_EMOJI
 
 
 @bot.on(admin_cmd(pattern="stkrinfo$", outgoing=True))
@@ -354,6 +330,58 @@ async def get_pack_info(event):
     await catevent.edit(OUTPUT)
 
 
+@bot.on(admin_cmd(pattern="stickers ?(.*)", outgoing=True))
+@bot.on(sudo_cmd(pattern="stickers ?(.*)", allow_sudo=True))
+async def cb_sticker(event):
+    split = event.pattern_match.group(1)
+    if not split:
+        await edit_delete(event, "`Provide some name to search for pack.`", 5)
+        return
+    catevent = await edit_or_reply(event, "`Searching sticker packs....`")
+    text = requests.get(combot_stickers_url + split).text
+    soup = bs(text, "lxml")
+    results = soup.find_all("div", {"class": "sticker-pack__header"})
+    if not results:
+        await edit_delete(catevent, "`No results found :(.`", 5)
+        return
+    reply = f"**Sticker packs found for {split} are :**"
+    for pack in results:
+        if pack.button:
+            packtitle = (pack.find("div", "sticker-pack__title")).get_text()
+            packlink = (pack.a).get("href")
+            packid = (pack.button).get("data-popup")
+            reply += f"\n **• ID: **`{packid}`\n [{packtitle}]({packlink})"
+    await catevent.edit(reply)
+
+
+async def resize_photo(photo):
+    """ Resize the given photo to 512x512 """
+    image = Image.open(photo)
+    if (image.width and image.height) < 512:
+        size1 = image.width
+        size2 = image.height
+        if image.width > image.height:
+            scale = 512 / size1
+            size1new = 512
+            size2new = size2 * scale
+        else:
+            scale = 512 / size2
+            size1new = size1 * scale
+            size2new = 512
+        size1new = math.floor(size1new)
+        size2new = math.floor(size2new)
+        sizenew = (size1new, size2new)
+        image = image.resize(sizenew)
+    else:
+        maxsize = (512, 512)
+        image.thumbnail(maxsize)
+    return image
+
+
+def char_is_emoji(character):
+    return character in emoji.UNICODE_EMOJI
+
+
 CMD_HELP.update(
     {
         "stickers": "**Plugins : **`stickers`\
@@ -365,6 +393,8 @@ CMD_HELP.update(
 \n**Function : **__Kang's the sticker/image to the specified pack but uses 🤔 as emoji.__\
 \n\n**Syntax : **`.kang [emoji('s)] [number]`\
 \n**Function : **__Kang's the sticker/image to the specified pack and uses the emoji('s) you picked.__\
+\n\n**Syntax : **`.stickers name`\
+\n**Function : **__shows you the list of non-animated sticker packs with that name.__\
 \n\n**Syntax : **`.stkrinfo`\
 \n**Function : **__Gets info about the sticker pack.__"
     }
