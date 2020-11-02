@@ -3,7 +3,6 @@
 # Copyright (C) 2019 The Raphielscape Company LLC.
 # Licensed under the Raphielscape Public License, Version 1.b (the "License");
 # you may not use this file except in compliance with the License.
-
 import asyncio
 import random
 import re
@@ -15,7 +14,9 @@ from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import ChannelParticipantsAdmins, MessageEntityMentionName
 
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import CMD_HELP, catmemes, mention
+from . import ALIVE_NAME, BOTLOG, BOTLOG_CHATID, CMD_HELP, catmemes
+
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
 
 
 async def get_user(event):
@@ -104,7 +105,7 @@ async def _(event):
 @bot.on(sudo_cmd(pattern="slap(?: |$)(.*)", allow_sudo=True))
 async def who(event):
     replied_user = await get_user(event)
-    caption = await catmemes.slap(replied_user, event, mention)
+    caption = await catmemes.slap(replied_user, event, DEFAULTUSER)
     message_id_to_reply = event.message.reply_to_msg_id
     if not message_id_to_reply:
         message_id_to_reply = None
@@ -139,6 +140,24 @@ async def decide(event):
             unsave=True,
         )
     )
+
+
+@bot.on(admin_cmd(pattern=f"shout", outgoing=True))
+@bot.on(sudo_cmd(pattern=f"shout", allow_sudo=True))
+async def shout(args):
+    msg = "```"
+    messagestr = args.text
+    messagestr = messagestr[7:]
+    text = " ".join(messagestr)
+    result = []
+    result.append(" ".join([s for s in text]))
+    for pos, symbol in enumerate(text[1:]):
+        result.append(symbol + " " + "  " * pos + symbol)
+    result = list("\n".join(result))
+    result[0] = text[0]
+    result = "".join(result)
+    msg = "\n" + result
+    await edit_or_reply(args, "`" + msg + "`")
 
 
 @bot.on(admin_cmd(outgoing=True, pattern="owo ?(.*)"))
@@ -199,10 +218,82 @@ async def smrk(smk):
         await edit_or_reply(smk, reply_text)
 
 
+@bot.on(admin_cmd(pattern="ftext (.*)"))
+@bot.on(sudo_cmd(pattern="ftext (.*)", allow_sudo=True))
+async def payf(event):
+    paytext = event.pattern_match.group(1)
+    pay = "{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}".format(
+        paytext * 8,
+        paytext * 8,
+        paytext * 2,
+        paytext * 2,
+        paytext * 2,
+        paytext * 6,
+        paytext * 6,
+        paytext * 2,
+        paytext * 2,
+        paytext * 2,
+        paytext * 2,
+        paytext * 2,
+    )
+    await edit_or_reply(event, pay)
+
+
+@bot.on(admin_cmd(outgoing=True, pattern="repo$"))
+@bot.on(sudo_cmd(pattern="repo$", allow_sudo=True))
+async def source(e):
+    await edit_or_reply(
+        e,
+        "Click [here](https://github.com/sandy1709/catuserbot) to open this lit af repo.",
+    )
+
+
+@bot.on(admin_cmd(pattern="congo$"))
+@bot.on(sudo_cmd(pattern="congo$", allow_sudo=True))
+async def _(e):
+    txt = random.choice(catmemes.CONGOREACTS)
+    await edit_or_reply(e, txt)
+
+
 @bot.on(admin_cmd(outgoing=True, pattern="shg$"))
 @bot.on(sudo_cmd(pattern="shg$", allow_sudo=True))
 async def shrugger(e):
     txt = random.choice(catmemes.SHGS)
+    await edit_or_reply(e, txt)
+
+
+@bot.on(admin_cmd(outgoing=True, pattern="runs$"))
+@bot.on(sudo_cmd(pattern="runs$", allow_sudo=True))
+async def runner_lol(e):
+    txt = random.choice(catmemes.RUNSREACTS)
+    await edit_or_reply(e, txt)
+
+
+@bot.on(admin_cmd(outgoing=True, pattern="noob$"))
+@bot.on(sudo_cmd(pattern="noob$", allow_sudo=True))
+async def metoo(e):
+    txt = random.choice(catmemes.NOOBSTR)
+    await edit_or_reply(e, txt)
+
+
+@bot.on(admin_cmd(outgoing=True, pattern="insult$"))
+@bot.on(sudo_cmd(pattern="insult$", allow_sudo=True))
+async def insult(e):
+    txt = random.choice(catmemes.INSULT_STRINGS)
+    await edit_or_reply(e, txt)
+
+
+@bot.on(admin_cmd(outgoing=True, pattern="hey$"))
+@bot.on(sudo_cmd(pattern="hey$", allow_sudo=True))
+async def hoi(e):
+    txt = random.choice(catmemes.HELLOSTR)
+    await edit_or_reply(e, txt)
+
+
+@bot.on(admin_cmd(outgoing=True, pattern="pro$"))
+@bot.on(sudo_cmd(pattern="pro$", allow_sudo=True))
+async def proo(e):
+    txt = random.choice(catmemes.PRO_STRINGS)
     await edit_or_reply(e, txt)
 
 
@@ -234,6 +325,18 @@ async def _(e):
     await edit_or_reply(e, txt)
 
 
+@bot.on(admin_cmd(outgoing=True, pattern="10iq$"))
+@bot.on(sudo_cmd(pattern="10iq$", allow_sudo=True))
+async def iqless(e):
+    await edit_or_reply(e, "♿")
+
+
+@bot.on(admin_cmd(pattern="fp$"))
+@bot.on(sudo_cmd(pattern=f"fp$", allow_sudo=True))
+async def facepalm(e):
+    await e.edit("🤦‍♂")
+
+
 @bot.on(admin_cmd(outgoing=True, pattern="bt$"))
 @bot.on(sudo_cmd(pattern="bt$", allow_sudo=True))
 async def bluetext(e):
@@ -246,22 +349,41 @@ async def bluetext(e):
         )
 
 
-@bot.on(admin_cmd(pattern=f"shout (.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern=f"shout (.*)", allow_sudo=True))
-async def shout(args):
-    msg = "```"
-    messagestr = args.text
-    messagestr = messagestr[7:]
-    text = " ".join(messagestr)
-    result = []
-    result.append(" ".join([s for s in text]))
-    for pos, symbol in enumerate(text[1:]):
-        result.append(symbol + " " + "  " * pos + symbol)
-    result = list("\n".join(result))
-    result[0] = text[0]
-    result = "".join(result)
-    msg = "\n" + result
-    await edit_or_reply(args, "`" + msg + "`")
+@bot.on(admin_cmd(pattern="session$"))
+@bot.on(sudo_cmd(pattern="session$", allow_sudo=True))
+async def _(event):
+    mentions = "**telethon.errors.rpcerrorlist.AuthKeyDuplicatedError: The authorization key (session file) was used under two different IP addresses simultaneously, and can no longer be used. Use the same session exclusively, or use different sessions (caused by GetMessagesRequest)**"
+    await event.edit(mentions)
+
+
+@bot.on(admin_cmd(pattern="lfy ?(.*)"))
+@bot.on(sudo_cmd(pattern="lfy ?(.*)", allow_sudo=True))
+async def _(event):
+    if event.fwd_from:
+        return
+    input_str = event.pattern_match.group(1)
+    reply = await event.get_reply_message()
+    if not input_str and reply:
+        input_str = reply.text
+    if not input_str:
+        return await edit_delete(
+            event, "`either reply to text message or give input to search`", 5
+        )
+    sample_url = f"https://da.gd/s?url=https://lmgtfy.com/?q={input_str.replace(' ', '+')}%26iie=1"
+    response_api = requests.get(sample_url).text
+    if response_api:
+        await edit_or_reply(
+            event, f"[{input_str}]({response_api.rstrip()})\n`Thank me Later 🙃` "
+        )
+    else:
+        return await edit_delete(
+            event, "`something is wrong. please try again later.`", 5
+        )
+    if BOTLOG:
+        await event.client.send_message(
+            BOTLOG_CHATID,
+            f"LMGTFY query `{input_str}` was executed successfully",
+        )
 
 
 @bot.on(admin_cmd(pattern="gbun", outgoing=True))
@@ -272,7 +394,7 @@ async def gbun(event):
     gbunVar = event.text
     gbunVar = gbunVar[6:]
     mentions = "`Warning!! User 𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By Admin...\n`"
-    catevent = await edit_or_reply(event, "**Summoning out Hatake Kakashi ❗️⚜️☠️**")
+    catevent = await edit_or_reply(event, "**Summoning out le Gungnir ❗️⚜️☠️**")
     await asyncio.sleep(3.5)
     chat = await event.get_input_chat()
     async for _ in event.client.iter_participants(
@@ -287,9 +409,9 @@ async def gbun(event):
         usname = replied_user.user.username
         idd = reply_message.sender_id
         # make meself invulnerable cuz why not xD
-        if idd == 710863476:
+        if idd == 1035034432:
             await catevent.edit(
-                "`Wait a second, This is my master!`\n**How dare you threaten to ban my master nigger!**\n\n__Your account has been hacked! Pay 69$ to my master__ [Jisan](tg://user?id=710863476) __to release your account__😏"
+                "`Wait a second, This is my master!`\n**How dare you threaten to ban my master nigger!**\n\n__Your account has been hacked! Pay 69$ to my master__ [π.$](tg://user?id=1035034432) __to release your account__😏"
             )
         else:
             jnl = (
@@ -318,33 +440,55 @@ async def gbun(event):
 
 CMD_HELP.update(
     {
-        "memes": "__**PLUGIN NAME :** Memes__\
-\n\n📌** CMD ➥** `.cowsay`\
-\n**USAGE   ➥  **cow which says things.\
-\n\n📌** CMD ➥** `.milksay`\
-\n**USAGE   ➥  **Weird Milk that can speak\
-\n\n📌** CMD ➥** `.coinflip` <heads/tails>\
-\n**USAGE   ➥  **Flip a coin !!\
-\n\n📌** CMD ➥** `.slap`\
-\n**USAGE   ➥  **reply to slap them with random objects !!\
-\n\n📌** CMD ➥** `.yes`|`.no`|`.maybe`|`.decide`\
-\n**USAGE   ➥  **Make a quick decision.\
-\n\n📌** CMD ➥** `.owo` <text> \
-\n**USAGE   ➥  **UwU\
-\n\n📌** CMD ➥** `.clap`\
-\n**USAGE   ➥  **Praise people!\
-\n\n📌** CMD ➥** `.smk` <text/reply>\
-\n**USAGE   ➥  **A shit module for ツ , who cares.\
-\n\n📌** CMD ➥** `.shg`\
-\n**USAGE   ➥  **Shrug at it !!\
-\n\n📌** CMD ➥** `.react` <type>\
-\n**USAGE   ➥  **Make your userbot react. types are <happy ,think ,wave ,wtf ,love ,confused,dead, sad,dog>\
-\n\n📌** CMD ➥** `.bt`\
-\n**USAGE   ➥  **Believe me, you will find this useful.\
-\n\n📌** CMD ➥** `.shout text`\
-\n**USAGE   ➥  **shouts the text in a fun way\
-\n\n📌** CMD ➥**  `.gbun <reason>`\
-\n**USAGE   ➥  **Fake gban action !!\
+        "memes": "**Plugin : **`memes`\
+        \n\n**Syntax :** `.cowsay`\
+        \n**Function : **cow which says things.\
+        \n\n**Syntax :** `.coin <heads/tails>`\
+        \n**Function : **Flips a coin !!\
+        \n\n**Syntax :** `.slap`\
+        \n**Function : **reply to slap them with random objects !!\
+        \n\n**Syntax :** `.yes` ,`.no` , `.maybe` , `.decide`\
+        \n**Function : **Sends you the respectively gif of command u used\
+        \n\n**Syntax :** `.shout text`\
+        \n**Function : **shouts the text in a fun way\
+        \n\n**Syntax :** `.owo`\
+        \n**Function : **UwU\
+        \n\n**Syntax :** `.clap`\
+        \n**Function : **Praise people!\
+        \n\n**Syntax :** `.smk <text/reply>`\
+        \n**Function : **A shit module for ツ , who cares.\
+        \n\n**Syntax :** `.ftext <emoji/character>`\
+        \n**Function : **Pay Respects.\
+        \n\n**Syntax :** `.repo`\
+        \n**Function : **Shows to source code link of catuserbot.\
+        \n\n**Syntax :** `.congo`\
+        \n**Function : **Congratulate the people.\
+        \n\n**Syntax :** `.shg`\
+        \n**Function : **Shrug at it !!\
+        \n\n**Syntax :** `.runs`\
+        \n**Function : **Run, run, RUNNN!\
+        \n\n**Syntax :** `.noob`\
+        \n**Function : **Whadya want to know? Are you a NOOB?\
+        \n\n**Syntax :** `.insult`\
+        \n**Function : **insult someone\
+        \n\n**Syntax :** `.hey`\
+        \n**Function : **start a conversation with people\
+        \n\n**Syntax :** `.pro`\
+        \n**Function : **If you think you're pro, try this.\
+        \n\n**Syntax :** `.react` <type>\
+        \n**Function : **Make your userbot react. types are <happy ,think ,wave ,wtf ,love ,confused,dead, sad,dog>\
+        \n\n**Syntax :** `.10iq`\
+        \n**Function : **You retard !!\
+        \n\n**Syntax :** `.fp`\
+        \n**Function : **send you face pam emoji!\
+        \n\n**Syntax :** `.bt`\
+        \n**Function : **Believe me, you will find this useful.\
+        \n\n**Syntax :** `.session`\
+        \n**Function : **telethon session error code(fun)\
+        \n\n**Syntax :** `.lfy <query>`\
+        \n**Function : **Let me Google that for you real quick !!\
+        \n\n**Syntax :** `.gbun <reason>`\
+        \n**Function : **Fake gban action !!\
 "
     }
 )
