@@ -29,7 +29,7 @@ DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "Cat"
 FILLED_UP_DADDY = "Invalid pack selected."
 
 
-@bot(admin_cmd(pattern="steal ?(.*)"))
+@bot.on(admin_cmd(pattern="steal ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -228,7 +228,7 @@ async def _(event):
     )
 
 
-@bot(admin_cmd(pattern="packinfo"))
+@bot.on(admin_cmd(pattern="packinfo"))
 async def _(event):
     if event.fwd_from:
         return
@@ -266,7 +266,7 @@ async def _(event):
     )
 
 
-@bot(admin_cmd(pattern="getsticker ?(.*)"))
+@bot.on(admin_cmd(pattern="getsticker ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return
