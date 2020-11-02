@@ -63,7 +63,7 @@ async def _(event):
     end = datetime.now()
     ms = (end - start).microseconds / 1000
     await event.edit(
-        f"<b><i>☞ Pong</b></i>\n➥ {ms}\n➥ <b><i>Bot of {hmention}</b></i>",
+        f"<b><i>☞ Pong\n➥ {ms}\n➥ Bot of {hmention}</b></i>",
         parse_mode="html",
     )
 
@@ -71,9 +71,9 @@ async def _(event):
 CMD_HELP.update(
     {
         "ping": "__**PLUGIN NAME :** Ping__\
-    \n\n📌** CMD ➥** `.fping`\
+    \n\n** CMD ➥** `.fping`\
     \n**USAGE   ➥  **A kind ofping with extra animation\
-    \n\n📌** CMD ➥** `.ping`\
+    \n\n** CMD ➥** `.ping`\
     \n**USAGE   ➥  **Shows you the ping speed of server"
     }
 )
