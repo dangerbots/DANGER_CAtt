@@ -1,6 +1,5 @@
 import random
 
-
 RENDISTR = [
     "`I Know Uh ez Rendi Bhay Dont show Your Randi Pesa Here`",
     "`Jag Suna suna laage Sab #maderchod bhay`",
