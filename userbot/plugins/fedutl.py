@@ -23,14 +23,14 @@ if G_BAN_LOGGER_GROUP:
     G_BAN_LOGGER_GROUP = int(G_BAN_LOGGER_GROUP)
 
 
-@borg.on(admin_cmd("fstat ?(.*)"))
+@bot(admin_cmd("fstat ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return
     sysarg = event.pattern_match.group(1)
     if event.reply_to_msg_id and not event.pattern_match.group(1):
         previous_message = await event.get_reply_message()
-        replied_user = await event.client(GetFullUserRequest(previous_message.from_id))
+        replied_user = await event.client(GetFullUserRequest(previous_message.sender_id))
         getuser = str(replied_user.user.id)
         async with borg.conversation(bots) as conv:
             try:
@@ -97,14 +97,14 @@ async def _(event):
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
 
 
-@borg.on(admin_cmd("roseinfo ?(.*)"))
+@bot(admin_cmd("roseinfo ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return
     sysarg = event.pattern_match.group(1)
     if event.reply_to_msg_id and not event.pattern_match.group(1):
         previous_message = await event.get_reply_message()
-        replied_user = await event.client(GetFullUserRequest(previous_message.from_id))
+        replied_user = await event.client(GetFullUserRequest(previous_message.sender_id))
         getuser = str(replied_user.user.id)
         async with borg.conversation(bots) as conv:
             try:
@@ -151,7 +151,7 @@ async def _(event):
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
 
 
-@borg.on(admin_cmd(pattern=r"plist ?(.*)", outgoing=True))
+@bot(admin_cmd(pattern=r"plist ?(.*)", outgoing=True))
 async def get_users(show):
     await show.delete()
     if not show.text[0].isalpha() and show.text[0] not in ("/"):
@@ -190,7 +190,7 @@ async def get_users(show):
         )
 
 
-@borg.on(admin_cmd(pattern=r"blist ?(.*)", outgoing=True))
+@bot(admin_cmd(pattern=r"blist ?(.*)", outgoing=True))
 async def get_users(show):
     await show.delete()
     if not show.text[0].isalpha() and show.text[0] not in ("/"):
@@ -229,7 +229,7 @@ async def get_users(show):
         )
 
 
-@borg.on(admin_cmd(pattern="bgban ?(.*)"))
+@bot(admin_cmd(pattern="bgban ?(.*)"))
 async def _(event):
     if G_BAN_LOGGER_GROUP is None:
         await event.edit("ENV VAR is not set. This module will not work.")
@@ -240,17 +240,17 @@ async def _(event):
     if event.reply_to_msg_id:
         r = await event.get_reply_message()
         if r.forward:
-            r_from_id = r.forward.from_id or r.from_id
+            r_sender_id = r.forward.sender_id or r.sender_id
         else:
-            r_from_id = r.from_id
+            r_sender_id = r.sender_id
         await borg.send_message(
             G_BAN_LOGGER_GROUP,
-            "/gban [user](tg://user?id={}) {}".format(r_from_id, reason),
+            "/gban [user](tg://user?id={}) {}".format(r_sender_id, reason),
         )
     await event.delete()
 
 
-@borg.on(admin_cmd(pattern="bungban ?(.*)"))
+@bot(admin_cmd(pattern="bungban ?(.*)"))
 async def _(event):
     if G_BAN_LOGGER_GROUP is None:
         await event.edit("ENV VAR is not set. This module will not work.")
@@ -260,9 +260,9 @@ async def _(event):
     reason = event.pattern_match.group(1)
     if event.reply_to_msg_id:
         r = await event.get_reply_message()
-        r_from_id = r.from_id
+        r_sender_id = r.sender_id
         await borg.send_message(
             G_BAN_LOGGER_GROUP,
-            "/ungban [user](tg://user?id={}) {}".format(r_from_id, reason),
+            "/ungban [user](tg://user?id={}) {}".format(r_sender_id, reason),
         )
     await event.delete()
