@@ -23,7 +23,7 @@ SUR_USERNAME = os.environ.get("SUR_USERNAME", None)
 SUR_USERNAME = str(SUR_USERNAME) if SUR_USERNAME else "SurCat"
 
 
-@bot(admin_cmd(pattern="spp$"))
+@bot.on(admin_cmd(pattern="spp$"))
 async def autopic(event):
     await event.edit(f"Autopic by @Surv_ivor")
     downloaded_file_name = "userbot/original_pic.png"
