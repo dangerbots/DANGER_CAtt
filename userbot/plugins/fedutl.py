@@ -23,7 +23,7 @@ if G_BAN_LOGGER_GROUP:
     G_BAN_LOGGER_GROUP = int(G_BAN_LOGGER_GROUP)
 
 
-@bot(admin_cmd("fstat ?(.*)"))
+@bot.on(admin_cmd("fstat ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -32,7 +32,7 @@ async def _(event):
         previous_message = await event.get_reply_message()
         replied_user = await event.client(GetFullUserRequest(previous_message.sender_id))
         getuser = str(replied_user.user.id)
-        async with borg.conversation(bots) as conv:
+        async with event.client.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
@@ -41,14 +41,14 @@ async def _(event):
                 if "file" in fedstat.text:
                     await fedstat.click(0)
                     reply = await conv.get_response()
-                    await borg.forward_messages(event.chat_id, reply)
+                    await event.client.forward_messages(event.chat_id, reply)
                 else:
-                    await borg.send_message(event.chat_id, fedstat.text)
+                    await event.client.send_message(event.chat_id, fedstat.text)
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_bot `and retry!")
     if sysarg == "" and not event.reply_to_msg_id:
-        async with borg.conversation(bots) as conv:
+        async with event.client.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
@@ -57,14 +57,14 @@ async def _(event):
                 if "file" in fedstat.text:
                     await fedstat.click(0)
                     reply = await conv.get_response()
-                    await borg.forward_messages(event.chat_id, reply)
+                    await event.client.forward_messages(event.chat_id, reply)
                 else:
-                    await borg.send_message(event.chat_id, fedstat.text)
+                    await event.client.send_message(event.chat_id, fedstat.text)
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_bot `and retry!")
     if sysarg.startswith("@"):
-        async with borg.conversation(bots) as conv:
+        async with event.client.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
@@ -73,14 +73,14 @@ async def _(event):
                 if "file" in fedstat.text:
                     await fedstat.click(0)
                     reply = await conv.get_response()
-                    await borg.forward_messages(event.chat_id, reply)
+                    await event.client.forward_messages(event.chat_id, reply)
                 else:
-                    await borg.send_message(event.chat_id, fedstat.text)
+                    await event.client.send_message(event.chat_id, fedstat.text)
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
     if sysarg.isdigit():
-        async with borg.conversation(bots) as conv:
+        async with event.client.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
@@ -89,15 +89,15 @@ async def _(event):
                 if "file" in fedstat.text:
                     await fedstat.click(0)
                     reply = await conv.get_response()
-                    await borg.forward_messages(event.chat_id, reply)
+                    await event.client.forward_messages(event.chat_id, reply)
                 else:
-                    await borg.send_message(event.chat_id, fedstat.text)
+                    await event.client.send_message(event.chat_id, fedstat.text)
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
 
 
-@bot(admin_cmd("roseinfo ?(.*)"))
+@bot.on(admin_cmd("roseinfo ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -106,52 +106,52 @@ async def _(event):
         previous_message = await event.get_reply_message()
         replied_user = await event.client(GetFullUserRequest(previous_message.sender_id))
         getuser = str(replied_user.user.id)
-        async with borg.conversation(bots) as conv:
+        async with event.client.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
                 await conv.send_message("/info " + getuser)
                 audio = await conv.get_response()
-                await borg.send_message(event.chat_id, audio.text)
+                await event.client.send_message(event.chat_id, audio.text)
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_bot `and retry!")
     if sysarg == "" and not event.reply_to_msg_id:
-        async with borg.conversation(bots) as conv:
+        async with event.client.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
                 await conv.send_message("/info")
                 audio = await conv.get_response()
-                await borg.send_message(event.chat_id, audio.text)
+                await event.client.send_message(event.chat_id, audio.text)
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_bot `and retry!")
     if sysarg.startswith("@"):
-        async with borg.conversation(bots) as conv:
+        async with event.client.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
                 await conv.send_message("/info " + sysarg)
                 audio = await conv.get_response()
-                await borg.send_message(event.chat_id, audio.text)
+                await event.client.send_message(event.chat_id, audio.text)
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
     if sysarg.isdigit():
-        async with borg.conversation(bots) as conv:
+        async with event.client.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
                 await conv.send_message("/info " + sysarg)
                 audio = await conv.get_response()
-                await borg.send_message(event.chat_id, audio.text)
+                await event.client.send_message(event.chat_id, audio.text)
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
 
 
-@bot(admin_cmd(pattern=r"plist ?(.*)", outgoing=True))
+@bot.on(admin_cmd(pattern=r"plist ?(.*)", outgoing=True))
 async def get_users(show):
     await show.delete()
     if not show.text[0].isalpha() and show.text[0] not in ("/"):
@@ -190,7 +190,7 @@ async def get_users(show):
         )
 
 
-@bot(admin_cmd(pattern=r"blist ?(.*)", outgoing=True))
+@bot.on(admin_cmd(pattern=r"blist ?(.*)", outgoing=True))
 async def get_users(show):
     await show.delete()
     if not show.text[0].isalpha() and show.text[0] not in ("/"):
@@ -229,7 +229,7 @@ async def get_users(show):
         )
 
 
-@bot(admin_cmd(pattern="bgban ?(.*)"))
+@bot.on(admin_cmd(pattern="bgban ?(.*)"))
 async def _(event):
     if G_BAN_LOGGER_GROUP is None:
         await event.edit("ENV VAR is not set. This module will not work.")
@@ -243,14 +243,14 @@ async def _(event):
             r_sender_id = r.forward.sender_id or r.sender_id
         else:
             r_sender_id = r.sender_id
-        await borg.send_message(
+        await event.client.send_message(
             G_BAN_LOGGER_GROUP,
             "/gban [user](tg://user?id={}) {}".format(r_sender_id, reason),
         )
     await event.delete()
 
 
-@bot(admin_cmd(pattern="bungban ?(.*)"))
+@bot.on(admin_cmd(pattern="bungban ?(.*)"))
 async def _(event):
     if G_BAN_LOGGER_GROUP is None:
         await event.edit("ENV VAR is not set. This module will not work.")
@@ -261,7 +261,7 @@ async def _(event):
     if event.reply_to_msg_id:
         r = await event.get_reply_message()
         r_sender_id = r.sender_id
-        await borg.send_message(
+        await event.client.send_message(
             G_BAN_LOGGER_GROUP,
             "/ungban [user](tg://user?id={}) {}".format(r_sender_id, reason),
         )
