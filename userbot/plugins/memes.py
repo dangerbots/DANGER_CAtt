@@ -105,7 +105,7 @@ async def _(event):
 @bot.on(sudo_cmd(pattern="slap(?: |$)(.*)", allow_sudo=True))
 async def who(event):
     replied_user = await get_user(event)
-    caption = await catmemes.slap(replied_user, event, DEFAULTUSER)
+    caption = await catmemes.slap(replied_user, event, DEFAULTUSER, SURID)
     message_id_to_reply = event.message.reply_to_msg_id
     if not message_id_to_reply:
         message_id_to_reply = None
@@ -244,7 +244,7 @@ async def payf(event):
 async def source(e):
     await edit_or_reply(
         e,
-        "Click [here](https://github.com/sandy1709/catuserbot) to open this lit af repo.",
+        "Click [here](https://github.com/Sur-vivor/CatUserbot) to open this lit af repo.",
     )
 
 
@@ -409,9 +409,9 @@ async def gbun(event):
         usname = replied_user.user.username
         idd = reply_message.sender_id
         # make meself invulnerable cuz why not xD
-        if idd == 1035034432:
+        if idd == 1118936839:
             await catevent.edit(
-                "`Wait a second, This is my master!`\n**How dare you threaten to ban my master nigger!**\n\n__Your account has been hacked! Pay 69$ to my master__ [π.$](tg://user?id=1035034432) __to release your account__😏"
+                "`Wait a second, This is my master!`\n**How dare you threaten to ban my master nigger!**\n\n__Your account has been hacked! Pay 69$ to my master__ [✰Տմɾѵíѵօɾ™️✰⟁⃤](tg://user?id=1118936839) __to release your account__😏"
             )
         else:
             jnl = (
