@@ -1,8 +1,9 @@
 """command: .hack & .thack """
 # thx to @r4v4n4
 import asyncio
-from base64 import b64decode	
 import io
+from base64 import b64decode
+
 from telethon.tl.functions.users import GetFullUserRequest
 
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
