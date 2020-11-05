@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 from pathlib import Path
 
-from .. import ALIVE_NAME, hmention
+from .. import hmention
 from ..utils import admin_cmd, edit_or_reply, load_module, remove_plugin, sudo_cmd
 
 DELETE_TIMEOUT = 5
