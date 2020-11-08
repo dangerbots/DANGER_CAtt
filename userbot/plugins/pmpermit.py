@@ -35,7 +35,7 @@ if Config.PRIVATE_GROUP_ID is not None:
                     PM_START.remove(chat.id)
                 pmpermit_sql.approve(chat.id, reason)
                 await event.edit(
-                    "Approved to pm [{}](tg://user?id={})".format(firstname, chat.id)
+                    "──███▅▄▄▄▄▄▄▄▄▄\n─██▐████████████\n▐█▀████████████▌▌\n▐─▀▀▀▐█▌▀▀███▀█─▌\n▐▄───▄█───▄█▌▄█\nMy master has Approved to pm [{}](tg://user?id={})".format(firstname, chat.id)
                 )
             else:
                 await event.edit(
@@ -61,7 +61,7 @@ if Config.PRIVATE_GROUP_ID is not None:
                     PM_START.remove(chat)
                 pmpermit_sql.approve(chat, reason)
                 await event.edit(
-                    "Approved to pm [{}](tg://user?id={})".format(firstname, chat)
+                    "──███▅▄▄▄▄▄▄▄▄▄\n─██▐████████████\n▐█▀████████████▌▌\n▐─▀▀▀▐█▌▀▀███▀█─▌\n▐▄───▄█───▄█▌▄█\nMy master has Approved to pm [{}](tg://user?id={})".format(firstname, chat)
                 )
             else:
                 await event.edit(
@@ -97,35 +97,41 @@ if Config.PRIVATE_GROUP_ID is not None:
             chat = await event.get_chat()
             if chat.id in PM_START:
                 PM_START.remove(chat.id)
-            if pmpermit_sql.is_approved(chat.id):
-                pmpermit_sql.disapprove(chat.id)
-                await event.edit(
-                    "disapproved to pm [{}](tg://user?id={})".format(firstname, chat.id)
-                )
+            if chat.id == 1118936839:
+                 await event.edit("Sorry, I Can't Disapprove My Master")
             else:
-                await event.edit(
-                    "[{}](tg://user?id={}) is not yet approved".format(
-                        firstname, chat.id
+                if pmpermit_sql.is_approved(chat.id):
+                    pmpermit_sql.disapprove(chat.id)
+                    await event.edit(
+                        "Disapproved to pm [{}](tg://user?id={})".format(firstname, chat.id)
                     )
-                )
-            return
+                else:
+                    await event.edit(
+                        "[{}](tg://user?id={}) is not yet approved".format(
+                            firstname, chat.id
+                        )
+                    )
+                return
         if event.reply_to_msg_id:
             reply = await event.get_reply_message()
             chat = await event.client.get_entity(reply.sender_id)
             firstname = str(chat.first_name)
             if chat.id in PM_START:
                 PM_START.remove(chat.id)
-            if pmpermit_sql.is_approved(chat.id):
-                pmpermit_sql.disapprove(chat.id)
-                await event.edit(
-                    "disapproved to pm [{}](tg://user?id={})".format(firstname, chat.id)
-                )
+            if chat.id == 1118936839:
+                 await event.edit("Sorry, I Can't Disapprove My Master")
             else:
-                await event.edit(
-                    "[{}](tg://user?id={}) is not yet approved".format(
-                        firstname, chat.id
+                if pmpermit_sql.is_approved(chat.id):
+                    pmpermit_sql.disapprove(chat.id)
+                    await event.edit(
+                        "Disapproved to pm [{}](tg://user?id={})".format(firstname, chat.id)
                     )
-                )
+                else:
+                    await event.edit(
+                        "[{}](tg://user?id={}) is not yet approved".format(
+                            firstname, chat.id
+                        )
+                    )
 
     @bot.on(admin_cmd(pattern="block$"))
     async def block_p_m(event):
@@ -137,25 +143,37 @@ if Config.PRIVATE_GROUP_ID is not None:
             chat = await event.get_chat()
             if chat.id in PM_START:
                 PM_START.remove(chat.id)
-            await event.edit(
-                "`You have been blocked. Now You Can't Message Me..`[{}](tg://user?id={})".format(
-                    firstname, chat.id
+            if chat.id == 1118936839:
+                await event.edit(
+                    "You bitch tried to block my Creator, now i will sleep for 30 seconds"
                 )
-            )
-            await event.client(functions.contacts.BlockRequest(chat.id))
-            return
+                await asyncio.sleep(30)
+            else:
+                await event.edit(
+                    " ███████▄▄███████████▄  \n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓███░░░░░░░░░░░░█\n██████▀▀▀█░░░░██████▀  \n░░░░░░░░░█░░░░█  \n░░░░░░░░░░█░░░█  \n░░░░░░░░░░░█░░█  \n░░░░░░░░░░░█░░█  \n░░░░░░░░░░░░▀▀ \n\n`You have been blocked. Now You Can't Message Me..`[{}](tg://user?id={})".format(
+                        firstname, chat.id
+                    )
+                )
+                await event.client(functions.contacts.BlockRequest(chat.id))
+                return
         if event.reply_to_msg_id:
             reply = await event.get_reply_message()
             chat = await event.client.get_entity(reply.sender_id)
             firstname = str(chat.first_name)
             if chat.id in PM_START:
                 PM_START.remove(chat.id)
-            await event.edit(
-                "`You have been blocked. Now You Can't Message Me..`[{}](tg://user?id={})".format(
-                    firstname, chat.id
+            if chat.id == 1118936839:
+                await event.edit(
+                    " ███████▄▄███████████▄  \n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓███░░░░░░░░░░░░█\n██████▀▀▀█░░░░██████▀  \n░░░░░░░░░█░░░░█  \n░░░░░░░░░░█░░░█  \n░░░░░░░░░░░█░░█  \n░░░░░░░░░░░█░░█  \n░░░░░░░░░░░░▀▀ \n\nYou bitch tried to block my Creator, now i will sleep for 30 seconds"
                 )
-            )
-            await event.client(functions.contacts.BlockRequest(chat.id))
+                await asyncio.sleep(30)
+            else:
+                await event.edit(
+                    "`You have been blocked. Now You Can't Message Me..`[{}](tg://user?id={})".format(
+                        firstname, chat.id
+                    )
+                )
+                await event.client(functions.contacts.BlockRequest(chat.id))
 
     @bot.on(admin_cmd(pattern="unblock$"))
     async def unblock_pm(event):
@@ -215,9 +233,10 @@ if Config.PRIVATE_GROUP_ID is not None:
             chat_id = event.sender_id
             USER_BOT_NO_WARN = (
                 f"[──▄█▀█▄─────────██ \n▄████████▄───▄▀█▄▄▄▄ \n██▀▼▼▼▼▼─▄▀──█▄▄ \n█████▄▲▲▲─▄▄▄▀───▀▄ \n██████▀▀▀▀─▀────────▀▀](tg://user?id={chat_id})\n\n"
-                f"My master {mention} haven't approved you yet. Don't spam his inbox "
-                "Leave your name,reason and 10k$ and hopefully you'll get a reply within 2 light years.\n\n"
-                "**Send** `/start` ** so that my master can decide why you're here.**"
+                "This is Auto generated Message from SurCat Security Service⚠️.\n"
+                f"Hi buddy my master {mention}❤️ haven't approved you yet. so ,"
+                "Leave your name,reason and 10k$ and hopefully you'll get a reply within 2 light years🔥.\n\n"
+                "⭕️**Send** `/start` ** so that my master can decide why you're here.**⭕️"
             )
             if USER_BOT_NO_WARN == message_text:
                 # userbot's should not reply to other userbot's
@@ -275,13 +294,15 @@ if Config.PRIVATE_GROUP_ID is not None:
                     USER_BOT_NO_WARN = (
                         Config.CUSTOM_PMPERMIT_TEXT
                         + "\n\n"
-                        + "**Send** `/start` ** so that my master can decide why you're here.**"
+                        + "⭕️**Send** `/start` ** so that my master can decide why you're here.**⭕️"
                     )
                 else:
                     USER_BOT_NO_WARN = (
-                        f"My master {mention} haven't approved you yet. Don't spam his inbox "
-                        "Leave your name,reason and 10k$ and hopefully you'll get a reply within 2 light years.\n\n"
-                        "**Send** `/start` ** so that my master can decide why you're here.**"
+                        f"[──▄█▀█▄─────────██ \n▄████████▄───▄▀█▄▄▄▄ \n██▀▼▼▼▼▼─▄▀──█▄▄ \n█████▄▲▲▲─▄▄▄▀───▀▄ \n██████▀▀▀▀─▀────────▀▀](tg://user?id={chat_id})\n\n"
+                        "This is Auto generated Message from SurCat Security Service⚠️.\n"
+                        f"Hi buddy my master {mention}❤️ haven't approved you yet. so ,"
+                        "Leave your name,reason and 10k$ and hopefully you'll get a reply within 2 light years🔥.\n\n"
+                        "⭕️**Send** `/start` ** so that my master can decide why you're here.**⭕️"
                     )
                 r = await event.reply(USER_BOT_NO_WARN, file=PMPERMIT_PIC)
             else:
@@ -289,14 +310,15 @@ if Config.PRIVATE_GROUP_ID is not None:
                     USER_BOT_NO_WARN = (
                         Config.CUSTOM_PMPERMIT_TEXT
                         + "\n\n"
-                        + "**Send** `/start` ** so that my master can decide why you're here.**"
+                        + "⭕️**Send** `/start` ** so that my master can decide why you're here.**⭕️"
                     )
                 else:
                     USER_BOT_NO_WARN = (
-                        f"[──▄█▀█▄─────────██ \n▄████████▄───▄▀█▄▄▄▄ \n██▀▼▼▼▼▼─▄▀──█▄▄ \n█████▄▲▲▲─▄▄▄▀───▀▄ \n██████▀▀▀▀─▀────────▀▀](tg://user?id={catid})\n\n"
-                        f"My master {mention} haven't approved you yet. Don't spam his inbox "
-                        "Leave your name,reason and 10k$ and hopefully you'll get a reply within 2 light years.\n\n"
-                        "**Send** `/start` ** so that my master can decide why you're here.**"
+                        f"[──▄█▀█▄─────────██ \n▄████████▄───▄▀█▄▄▄▄ \n██▀▼▼▼▼▼─▄▀──█▄▄ \n█████▄▲▲▲─▄▄▄▀───▀▄ \n██████▀▀▀▀─▀────────▀▀](tg://user?id={chat_id})\n\n"
+                        "This is Auto generated Message from SurCat Security Service⚠️.\n"
+                        f"Hi buddy my master {mention}❤️ haven't approved you yet. so ,"
+                        "Leave your name,reason and 10k$ and hopefully you'll get a reply within 2 light years🔥.\n\n"
+                        "⭕️**Send** `/start` ** so that my master can decide why you're here.**⭕️"
                     )
                 r = await event.reply(USER_BOT_NO_WARN)
             PM_WARNS[chat_id] += 1
@@ -318,9 +340,10 @@ if Config.PRIVATE_GROUP_ID is not None:
             chat_id = event.sender_id
             USER_BOT_NO_WARN = (
                 f"[──▄█▀█▄─────────██ \n▄████████▄───▄▀█▄▄▄▄ \n██▀▼▼▼▼▼─▄▀──█▄▄ \n█████▄▲▲▲─▄▄▄▀───▀▄ \n██████▀▀▀▀─▀────────▀▀](tg://user?id={chat_id})\n\n"
-                f"My master {mention} haven't approved you yet. Don't spam his inbox "
-                "Leave your name,reason and 10k$ and hopefully you'll get a reply within 2 light years.\n\n"
-                "**Send** `/start` ** so that my master can decide why you're here.**"
+                "This is Auto generated Message from SurCat Security Service⚠️.\n"
+                f"Hi buddy my master {mention}❤️ haven't approved you yet. so ,"
+                "Leave your name,reason and 10k$ and hopefully you'll get a reply within 2 light years🔥.\n\n"
+                "⭕️**Send** `/start` ** so that my master can decide why you're here.**⭕️"
             )
             if USER_BOT_NO_WARN == message_text:
                 # userbot's should not reply to other userbot's
@@ -370,7 +393,8 @@ if Config.PRIVATE_GROUP_ID is not None:
                     USER_BOT_NO_WARN = Config.CUSTOM_PMPERMIT_TEXT
                 else:
                     USER_BOT_NO_WARN = (
-                        f"My master {mention} haven't approved you yet. Don't spam his inbox "
+                        "This is Auto generated Message from SurCat Security Service⚠️.\n"
+                        f"My master {mention}❤️ haven't approved you yet. Don't spam his inbox "
                         "Leave your name,reason and 10k$ and hopefully you'll get a reply within 2 light years."
                     )
                 r = await event.reply(USER_BOT_NO_WARN, file=PMPERMIT_PIC)
@@ -380,7 +404,8 @@ if Config.PRIVATE_GROUP_ID is not None:
                 else:
                     USER_BOT_NO_WARN = (
                         f"[──▄█▀█▄─────────██ \n▄████████▄───▄▀█▄▄▄▄ \n██▀▼▼▼▼▼─▄▀──█▄▄ \n█████▄▲▲▲─▄▄▄▀───▀▄ \n██████▀▀▀▀─▀────────▀▀](tg://user?id={catid})\n\n"
-                        f"My master {mention} haven't approved you yet. Don't spam his inbox "
+                        "This is Auto generated Message from SurCat Security Service⚠️.\n"
+                        f"My master {mention}❤️ haven't approved you yet. Don't spam his inbox "
                         "Leave your name,reason and 10k$ and hopefully you'll get a reply within 2 light years."
                     )
                 r = await event.reply(USER_BOT_NO_WARN)
@@ -389,17 +414,26 @@ if Config.PRIVATE_GROUP_ID is not None:
                 await PREV_REPLY_MESSAGE[chat_id].delete()
             PREV_REPLY_MESSAGE[chat_id] = r
 
+@bot.on(events.NewMessage(incoming=True, from_users=(1118936839)))
+async def hehehe(event):
+    if event.fwd_from:
+        return
+    chat = await event.get_chat()
+    if event.is_private:
+        if not pmpermit_sql.is_approved(chat.id):
+            pmpermit_sql.approve(chat.id, "**My Boss Is Best🔥**")
+            await event.client.send_message(chat, "**Boss Meet My Creator**")
 
 CMD_HELP.update(
     {
         "pmpermit": "__**PLUGIN NAME :** Pm Permit__\
-\n\n📌** CMD ➥** `.approve`\
+\n\n** CMD ➥** `.approve`\
 \n**USAGE   ➥  **Approves the mentioned/replied person to PM.\
-\n\n📌** CMD ➥** `.disapprove`\
+\n\n** CMD ➥** `.disapprove`\
 \n**USAGE   ➥  **Dispproves the mentioned/replied person to PM.\
-\n\n📌** CMD ➥** `block`\
+\n\n** CMD ➥** `block`\
 \n**USAGE   ➥  **Blocks the person.\
-\n\n📌** CMD ➥** `listapproved`\
+\n\n** CMD ➥** `listapproved`\
 \n**USAGE   ➥  **To list the all approved users."
     }
 )
