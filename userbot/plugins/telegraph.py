@@ -47,7 +47,7 @@ async def _(event):
                 resize_image(downloaded_file_name)
             try:
                 start = datetime.now()
-                media_urls = upload_file(downloaded_file_name)
+                upload_file(downloaded_file_name)
             except exceptions.TelegraphException as exc:
                 await catevent.edit("**Error : **" + str(exc))
                 os.remove(downloaded_file_name)
