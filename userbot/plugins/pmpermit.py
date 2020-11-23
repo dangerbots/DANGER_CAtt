@@ -3,7 +3,7 @@ import asyncio
 from telethon import events, functions
 
 from ..utils import admin_cmd
-from . import ALIVE_NAME, CMD_HELP, PM_START, PMMENU, check, get_user_from_event, mention
+from . import ALIVE_NAME, CMD_HELP, PM_START, PMMENU, check, get_user_from_event
 from .sql_helper import pmpermit_sql as pmpermit_sql
 
 PM_WARNS = {}
