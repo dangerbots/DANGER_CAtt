@@ -3,6 +3,7 @@
 import asyncio
 
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
+from . import CMD_HELP
 
 
 @bot.on(admin_cmd(pattern=f"loading$", outgoing=True))
@@ -93,7 +94,7 @@ async def _(event):
         "😧",
         "😡",
         "😢",
-        "__**[Good to see you guys....]**__(https://github.com/Sur-vivor/CatUserbot)",
+        "__**[Good to see you guys....]**__(github.com/sandy1709/catuserbot)",
     ]
     for i in animation_ttl:
         await asyncio.sleep(animation_interval)
@@ -239,3 +240,26 @@ async def _(event):
     for i in animation_ttl:
         await asyncio.sleep(animation_interval)
         await event.edit(animation_chars[i % 18])
+
+
+CMD_HELP.update(
+    {
+        "animation5": """**Plugin : **`animation5`
+        
+**Commands in animation5 are **
+  •  `.loading`
+  •  `.square`
+  •  `.up`
+  •  `.round`
+  •  `.hart`
+  •  `.anim`
+  •  `.fnl`
+  •  `.monkey`
+  •  `.herber`
+  •  `.hand`
+  •  `.gsg`
+  •  `.theart`
+  
+**Function : **__Different kinds of animation commands check yourself for their animation .__"""
+    }
+)

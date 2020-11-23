@@ -12,7 +12,11 @@ from .. import *
 from ..Config import Config
 
 # =================== CONSTANT ===================
-USERID = bot.uid
+
+USERID = Config.OWNER_ID or bot.uid
+ALIVE_NAME = Config.ALIVE_NAME
+AUTONAME = Config.AUTONAME
+DEFAULT_BIO = Config.DEFAULT_BIO
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
 
 # mention user
@@ -158,9 +162,9 @@ async def catalive():
         dyno = f"{AppHours}h {AppMinutes}m/{hours}h {minutes}m"
     except Exception as e:
         dyno = e
-    return f"🖤༄ Catuserbot Stats ༄🖤\
-                 \n\nღ Database : {check_sgnirts}\
-                  \nღ Sudo : {sudo}\
-                  \nღ Uptime : {uptime}\
-                  \nღ Dyno : {dyno}\
+    return f"Catuserbot Stats\
+                 \n\nDatabase : {check_sgnirts}\
+                  \nSudo : {sudo}\
+                  \nUptime : {uptime}\
+                  \nDyno : {dyno}\
                   "

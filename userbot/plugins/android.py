@@ -23,19 +23,37 @@ DEVICES_DATA = (
 @bot.on(admin_cmd(pattern=r"magisk"))
 @bot.on(sudo_cmd(pattern=r"magisk", allow_sudo=True))
 async def kakashi(magisk):
-    """magisk latest releases"""
-    releases = (
-        "__**Latest Magisk Releases:**__\n\n"
-        f"**Stable : **[APK v8.0.2](https://github.com/topjohnwu/Magisk/releases/download/manager-v8.0.2/MagiskManager-v8.0.2.apk) | [ZIP v20.4](https://github.com/topjohnwu/Magisk/releases/download/v20.4/Magisk-v20.4.zip) | [Uninstaller](https://github.com/topjohnwu/Magisk/releases/download/v20.4/Magisk-uninstaller-20200323.zip)\n"
-        f"**Beta : **[APK v8.0.2](https://github.com/topjohnwu/Magisk/releases/download/manager-v8.0.2/MagiskManager-v8.0.2.apk) | [ZIP v21.0](https://github.com/topjohnwu/Magisk/releases/download/v21.0/Magisk-v21.0.zip) | [Uninstaller](https://github.com/topjohnwu/Magisk/releases/download/v21.0/Magisk-uninstaller-20201003.zip)\n"
-        f"**Canary : **[APK v4e0a3f5e](https://github.com/topjohnwu/magisk_files/blob/canary/app-debug.apk) | [ZIP v4e0a3f5e](https://github.com/topjohnwu/magisk_files/blob/canary/magisk-debug.zip) | [Uninstaller](https://github.com/topjohnwu/magisk_files/blob/canary/magisk-uninstaller.zip)"
-    )
+    if magisk.fwd_from:
+        return
+    magisk_repo = "https://raw.githubusercontent.com/topjohnwu/magisk_files/"
+    magisk_dict = {
+        "⦁ **Stable**": magisk_repo + "master/stable.json",
+        "⦁ **Beta**": magisk_repo + "master/beta.json",
+        "⦁ **Canary**": magisk_repo + "canary/canary.json",
+    }
+    releases = "**Latest Magisk Releases**\n\n"
+    for name, release_url in magisk_dict.items():
+        data = get(release_url).json()
+        if "canary" in release_url:
+            data["app"]["link"] = magisk_repo + "canary/" + data["app"]["link"]
+            data["magisk"]["link"] = magisk_repo + "canary/" + data["magisk"]["link"]
+            data["uninstaller"]["link"] = (
+                magisk_repo + "canary/" + data["uninstaller"]["link"]
+            )
+
+        releases += (
+            f'{name}: [ZIP v{data["magisk"]["version"]}]({data["magisk"]["link"]}) | '
+            f'[APK v{data["app"]["version"]}]({data["app"]["link"]}) | '
+            f'[Uninstaller]({data["uninstaller"]["link"]})\n'
+        )
     await edit_or_reply(magisk, releases)
 
 
 @bot.on(admin_cmd(outgoing=True, pattern=r"device(?: |$)(\S*)"))
 @bot.on(sudo_cmd(pattern=r"device(?: |$)(\S*)", allow_sudo=True))
 async def device_info(request):
+    if request.fwd_from:
+        return
     """ get android device basic info from its codename """
     textx = await request.get_reply_message()
     codename = request.pattern_match.group(1)
@@ -69,6 +87,8 @@ async def device_info(request):
 @bot.on(admin_cmd(outgoing=True, pattern=r"codename(?: |)([\S]*)(?: |)([\s\S]*)"))
 @bot.on(sudo_cmd(pattern=r"codename(?: |)([\S]*)(?: |)([\s\S]*)", allow_sudo=True))
 async def codename_info(request):
+    if request.fwd_from:
+        return
     """ search for android codename """
     textx = await request.get_reply_message()
     brand = request.pattern_match.group(1).lower()
@@ -114,6 +134,8 @@ async def codename_info(request):
 @bot.on(admin_cmd(outgoing=True, pattern=r"specs(?: |)([\S]*)(?: |)([\s\S]*)"))
 @bot.on(sudo_cmd(pattern=r"specs(?: |)([\S]*)(?: |)([\s\S]*)", allow_sudo=True))
 async def devices_specifications(request):
+    if request.fwd_from:
+        return
     """ Mobile devices specifications """
     textx = await request.get_reply_message()
     brand = request.pattern_match.group(1).lower()
@@ -177,6 +199,8 @@ async def devices_specifications(request):
 @bot.on(admin_cmd(outgoing=True, pattern=r"twrp(?: |$)(\S*)"))
 @bot.on(sudo_cmd(pattern=r"twrp(?: |$)(\S*)", allow_sudo=True))
 async def twrp(request):
+    if request.fwd_from:
+        return
     """ get android device twrp """
     textx = await request.get_reply_message()
     device = request.pattern_match.group(1)
@@ -208,16 +232,16 @@ async def twrp(request):
 
 CMD_HELP.update(
     {
-        "android": "**android**\
-\n\n**Syntax : **`.magisk`\
-\n**Usage :** Get latest Magisk releases\
-\n\n**Syntax : **`.device <codename>`\
-\n**Usage :** Get info about android device codename or model.\
-\n\n**Syntax : **`.codename <brand> <device>`\
-\n**Usage :** Search for android device codename.\
-\n\n**Syntax : **`.specs <brand> <device>`\
-\n**Usage :** Get device specifications info.\
-\n\n**Syntax : **`.twrp <codename>`\
-\n**Usage :** Get latest twrp download for android device."
+        "android": "**Plugin : **`android`\
+\n\n  •  **Syntax : **`.magisk`\
+\n  •  **Function :** __Get latest Magisk releases__\
+\n\n  •  **Syntax : **`.device <codename>`\
+\n  •  **Function :** __Get info about android device codename or model.__\
+\n\n  •  **Syntax : **`.codename <brand> <device>`\
+\n  •  **Function :** __Search for android device codename.__\
+\n\n  •  **Syntax : **`.specs <brand> <device>`\
+\n  •  **Function :** __Get device specifications info.__\
+\n\n  •  **Syntax : **`.twrp <codename>`\
+\n  •  **Function : **__Get latest twrp download for android device.__"
     }
 )
