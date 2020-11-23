@@ -27,9 +27,9 @@ async def _(event):
     if event.fwd_from:
         return
     if event.pattern_match.group(1):
-         sysarg = event.pattern_match.group(1)
+        sysarg = event.pattern_match.group(1)
     else:
-         sysarg == ""
+        sysarg == ""
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         replied_user = await event.client(
