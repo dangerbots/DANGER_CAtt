@@ -47,7 +47,7 @@ async def _(event):
                     reply = await conv.get_response()
                     await event.client.forward_messages(event.chat_id, reply)
                 else:
-                    await event.client.forward_messages(event.chat_id, fedstat.text)
+                    await event.client.forward_messages(event.chat_id, fedstat)
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_bot `and retry!")
@@ -73,8 +73,11 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
-    sysarg = event.pattern_match.group(1)
-    if event.reply_to_msg_id and not event.pattern_match.group(1):
+    if event.pattern_match.group(1):
+        sysarg = event.pattern_match.group(1)
+    else:
+        sysarg = ""
+    if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         replied_user = await event.client(
             GetFullUserRequest(previous_message.sender_id)
@@ -86,40 +89,18 @@ async def _(event):
                 await conv.get_response()
                 await conv.send_message("/info " + getuser)
                 audio = await conv.get_response()
-                await event.client.forward_messages(event.chat_id, audio.text)
+                await event.client.forward_messages(event.chat_id, audio)
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_bot `and retry!")
-    if sysarg == "" and not event.reply_to_msg_id:
-        async with event.client.conversation(bots) as conv:
-            try:
-                await conv.send_message("/start")
-                await conv.get_response()
-                await conv.send_message("/info")
-                audio = await conv.get_response()
-                await event.client.forward_messages(event.chat_id, audio.text)
-                await event.delete()
-            except YouBlockedUserError:
-                await event.edit("**Error:** `unblock` @MissRose_bot `and retry!")
-    if sysarg.startswith("@"):
+    else:
         async with event.client.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
                 await conv.send_message("/info " + sysarg)
                 audio = await conv.get_response()
-                await event.client.forward_messages(event.chat_id, audio.text)
-                await event.delete()
-            except YouBlockedUserError:
-                await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
-    if sysarg.isdigit():
-        async with event.client.conversation(bots) as conv:
-            try:
-                await conv.send_message("/start")
-                await conv.get_response()
-                await conv.send_message("/info " + sysarg)
-                audio = await conv.get_response()
-                await event.client.forward_messages(event.chat_id, audio.text)
+                await event.client.forward_messages(event.chat_id, audio)
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
@@ -137,7 +118,7 @@ async def _(event):
                 await conv.get_response()
                 await conv.send_message("/fedinfo")
                 fedinfo = await conv.get_response()
-                await event.client.forward_messages(event.chat_id, fedinfo.text)
+                await event.client.forward_messages(event.chat_id, fedinfo)
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_bot `and retry!")
@@ -148,7 +129,7 @@ async def _(event):
                 await conv.get_response()
                 await conv.send_message("/fedinfo " + sysarg)
                 fedinfo = await conv.get_response()
-                await event.client.forward_messages(event.chat_id, fedinfo.text)
+                await event.client.forward_messages(event.chat_id, fedinfo)
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
@@ -169,7 +150,7 @@ async def _(event):
                 reply = await conv.get_response()
                 await event.client.forward_messages(event.chat_id, reply)
             else:
-                await event.client.forward_messages(event.chat_id, myfed.text)
+                await event.client.forward_messages(event.chat_id, myfed)
                 await event.delete()
         except YouBlockedUserError:
             await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
