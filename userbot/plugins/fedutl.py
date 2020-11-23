@@ -272,20 +272,20 @@ async def _(event):
         )
     await event.delete()
 
-    
+
+import asyncio
+
 #  (c)2020 Telebot
 #
 # You may not use this plugin without proper authorship and consent from @TelebotSupport
 #
 import os
-from telethon import events
-import random, re
+
 from userbot.utils import admin_cmd
-import asyncio
 
 FBAN_GROUP_ID = os.environ.get("FBAN_GROUP_ID", None)
 if FBAN_GROUP_ID:
-   FBAN_GROUP_ID = int(FBAN_GROUP_ID)
+    FBAN_GROUP_ID = int(FBAN_GROUP_ID)
 EXCLUDE_FED = os.environ.get("EXCLUDE_FED", None)
 
 # By @HeisenbergTheDanger, @its_xditya
@@ -299,11 +299,10 @@ async def _(event):
         previous_message = await event.get_reply_message()
         if previous_message.media:
             downloaded_file_name = await event.client.download_media(
-                    previous_message,
-                    "fedlist"
-                    )
+                previous_message, "fedlist"
+            )
             await asyncio.sleep(6)
-            file = open(downloaded_file_name, 'r')
+            file = open(downloaded_file_name, "r")
             lines = file.readlines()
             for line in lines:
                 try:
@@ -316,7 +315,7 @@ async def _(event):
                 FBAN = args[0]
                 REASON = ""
                 for a in args[1:]:
-                    REASON += (a + " ")
+                    REASON += a + " "
             else:
                 FBAN = arg
                 REASON = " #MassBanned "
@@ -332,7 +331,7 @@ async def _(event):
             FBAN = args[0]
             REASON = ""
             for a in args[1:]:
-                REASON += (a + " ")
+                REASON += a + " "
         else:
             FBAN = arg
             REASON = " #MassBanned "
@@ -342,7 +341,12 @@ async def _(event):
             await event.edit("Something went wrong.")
             return
     except:
-        if FBAN == "@Surv_ivor" or FBAN == "@Sur_ivor" or FBAN == "@HeisenbergTheDanger" or FBAN == "@xditya":
+        if (
+            FBAN == "@Surv_ivor"
+            or FBAN == "@Sur_ivor"
+            or FBAN == "@HeisenbergTheDanger"
+            or FBAN == "@xditya"
+        ):
             await event.edit("Something went wrong.")
             return
     if FBAN_GROUP_ID:
@@ -365,11 +369,10 @@ async def _(event):
                     await asyncio.sleep(3)
                     if fedfile.media:
                         downloaded_file_name = await event.client.download_media(
-                        fedfile,
-                        "fedlist"
+                            fedfile, "fedlist"
                         )
                         await asyncio.sleep(6)
-                        file = open(downloaded_file_name, 'r')
+                        file = open(downloaded_file_name, "r")
                         lines = file.readlines()
                         for line in lines:
                             try:
@@ -397,7 +400,7 @@ async def _(event):
                     tempFedId = ""
                 else:
                     In = True
-                    
+
             elif In:
                 tempFedId += x
         if len(fedList) == 0:
@@ -425,7 +428,8 @@ async def _(event):
         await event.client.send_message(chat, f"/fban {FBAN} {REASON}")
         await asyncio.sleep(3)
     await event.edit(f"SuperFBan Completed. Affected {len(fedList) - exCount} feds.")
- 
+
+
 # By @HeisenbergTheDanger, @its_xditya
 @bot.on(admin_cmd("superunfban ?(.*)"))
 async def _(event):
@@ -437,7 +441,7 @@ async def _(event):
         FBAN = previous_message.sender_id
     else:
         FBAN = event.pattern_match.group(1)
-    
+
     if FBAN_GROUP_ID:
         chat = FBAN_GROUP_ID
     else:
@@ -454,10 +458,9 @@ async def _(event):
                 fedfile = await bot_conv.get_response()
                 if fedfile.media:
                     downloaded_file_name = await event.client.download_media(
-                    fedfile,
-                    "fedlist"
+                        fedfile, "fedlist"
                     )
-                    file = open(downloaded_file_name, 'r')
+                    file = open(downloaded_file_name, "r")
                     lines = file.readlines()
                     for line in lines:
                         fedList.append(line[:36])
@@ -482,7 +485,7 @@ async def _(event):
                 tempFedId = ""
             else:
                 In = True
-                
+
         elif In:
             tempFedId += x
 
@@ -498,4 +501,4 @@ async def _(event):
         await asyncio.sleep(3)
         await event.client.send_message(chat, f"/unfban {FBAN}")
         await asyncio.sleep(3)
-    await event.edit(f"SuperUnFBan Completed. Affected {len(fedList)} feds.")    
+    await event.edit(f"SuperUnFBan Completed. Affected {len(fedList)} feds.")
