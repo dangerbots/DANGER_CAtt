@@ -7,7 +7,7 @@ from PIL import Image
 from telegraph import Telegraph, exceptions, upload_file
 
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import BOTLOG, BOTLOG_CHATID, CMD_HELP, hmention
+from . import BOTLOG, BOTLOG_CHATID, CMD_HELP
 
 telegraph = Telegraph()
 r = telegraph.create_account(short_name=Config.TELEGRAPH_SHORT_NAME)
@@ -19,7 +19,7 @@ auth_url = r["auth_url"]
 async def _(event):
     if event.fwd_from:
         return
-    catevent = await edit_or_reply(event, "<code>processing........</code>", "html")
+    catevent = await edit_or_reply(event, "`processing........`")
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     if BOTLOG:
@@ -54,13 +54,12 @@ async def _(event):
             else:
                 end = datetime.now()
                 ms_two = (end - start).seconds
-                media_urls = upload_file(downloaded_file_name)
-                cat = "https://telegra.ph{}".format(media_urls[0])
                 os.remove(downloaded_file_name)
                 await catevent.edit(
-                    f"<b><i>➥ Uploaded to :- <a href = {cat}>Telegraph</a></i></b>\
-                    \n<b><i>➥ Uploaded in {ms + ms_two} seconds .</i></b>\n<b><i>➥ Uploaded by :- {hmention}</i></b>",
-                    parse_mode="html",
+                    "**link : **[telegraph](https://telegra.ph{})\
+                    \n**Time Taken : **`{} seconds.`".format(
+                        media_urls[0], (ms + ms_two)
+                    ),
                     link_preview=True,
                 )
         elif input_str == "text":
@@ -86,11 +85,10 @@ async def _(event):
             response = telegraph.create_page(title_of_page, html_content=page_content)
             end = datetime.now()
             ms = (end - start).seconds
-            cats = f"https://telegra.ph/{response['path']}"
+            cat = f"https://telegra.ph/{response['path']}"
             await catevent.edit(
-                f"<b><i>➥ Pasted to :- <a href = {cats}>Telegraph</a></i></b>\
-                \n<b><i>➥ Pasted in {ms} seconds .</i></b>",
-                parse_mode="html",
+                f"**link : ** [telegraph]({cat})\
+                 \n**Time Taken : **`{ms} seconds.`",
                 link_preview=True,
             )
     else:
@@ -106,11 +104,11 @@ def resize_image(image):
 
 CMD_HELP.update(
     {
-        "telegraph": "__**PLUGIN NAME :** Telegraph__\
-     \n\n** CMD ➥** `.telegraph media`\
-     \n**USAGE   ➥  **Reply to any image or video to upload it to telgraph(video must be less than 5mb)\
-     \n\n** CMD ➥** `.telegraph text`\
-     \n**USAGE   ➥  **Reply to any text file or any message to paste it to telegraph\
+        "telegraph": "**Plugin :**`telegraph`\
+     \n\n**Syntax :** `.telegraph media`\
+     \n**Usage :** Reply to any image or video to upload it to telegraph (video must be less than 5mb)\
+     \n\n**Syntax :** `.telegraph text`\
+     \n**Usage :** reply to any text file or any message to paste it to telegraph\
     "
     }
 )
