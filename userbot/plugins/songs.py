@@ -13,7 +13,7 @@ from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 from validators.url import url
 
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import CMD_HELP, name_dl, reply_id, runcmd, song_dl, video_dl, yt_search
+from . import CMD_HELP, name_dl, reply_id, runcmd, song_dl, video_dl, yt_search, hmention
 
 # =========================================================== #
 #                           STRINGS                           #
@@ -88,9 +88,10 @@ async def _(event):
         event.chat_id,
         song_file,
         force_document=False,
-        caption=query,
+        caption=f"<b><i>➥ Song :- {query}</i></b>\n<b><i>➥ Uploaded by :- {hmention}</i></b>",
         thumb=catthumb,
         supports_streaming=True,
+        parse_mode="html",
         reply_to=reply_to_id,
     )
     await catevent.delete()
@@ -165,9 +166,10 @@ async def _(event):
         event.chat_id,
         vsong_file,
         force_document=False,
-        caption=query,
+        caption=f"<b><i>➥ Song :- {query}</i></b>\n<b><i>➥ Uploaded by :- {hmention}</i></b>",
         thumb=catthumb,
         supports_streaming=True,
+        parse_mode="html",
         reply_to=reply_to_id,
     )
     await catevent.delete()
@@ -212,7 +214,7 @@ async def cat_song_fetcer(event):
         await event.client.send_file(
             event.chat_id,
             music,
-            caption=f"<b>➥ Song :- <code>{song}</code></b>",
+            caption=f"<b><i>➥ Song :- {query}</i></b>\n<b><i>➥ Uploaded by :- {hmention}</i></b>",
             parse_mode="html",
             reply_to=reply_id_,
         )
