@@ -126,7 +126,7 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
-    sysarg = event.pattern_match.group(1)                
+    sysarg = event.pattern_match.group(1)
     if sysarg == "" and not event.reply_to_msg_id:
         async with event.client.conversation(bots) as conv:
             try:
@@ -144,12 +144,13 @@ async def _(event):
                 await conv.send_message("/start")
                 await conv.get_response()
                 await conv.send_message("/fedinfo " + sysarg)
-                fedinfo = await conv.get_response()             
+                fedinfo = await conv.get_response()
                 await event.client.send_message(event.chat_id, fedinfo.text)
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
-                
+
+
 @bot.on(admin_cmd("myfed ?(.*)"))
 async def _(event):
     if event.fwd_from:
@@ -168,8 +169,9 @@ async def _(event):
                 await event.client.send_message(event.chat_id, myfed.text)
                 await event.delete()
         except YouBlockedUserError:
-            await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")                
-                
+            await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
+
+
 @bot.on(admin_cmd(pattern=r"plist ?(.*)", outgoing=True))
 async def get_users(show):
     await show.delete()
