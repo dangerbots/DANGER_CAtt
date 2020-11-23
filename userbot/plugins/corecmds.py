@@ -4,8 +4,7 @@ from datetime import datetime
 from pathlib import Path
 
 from ..utils import admin_cmd, edit_or_reply, load_module, remove_plugin, sudo_cmd
-from . import ALIVE_NAME, CMD_HELP
-from . import hmention
+from . import ALIVE_NAME, CMD_HELP, hmention
 
 DELETE_TIMEOUT = 5
 thumb_image_path = Config.TMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
