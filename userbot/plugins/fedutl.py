@@ -63,7 +63,7 @@ async def _(event):
                     reply = await conv.get_response()
                     await event.client.forward_messages(event.chat_id, reply)
                 else:
-                    await event.client.forward_messages(event.chat_id, fedstat.text)
+                    await event.client.forward_messages(event.chat_id, fedstat)
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
