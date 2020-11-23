@@ -16,10 +16,10 @@ from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 from . import CMD_HELP, runcmd
 
-HEROKU_APP_NAME = Var.HEROKU_APP_NAME
-HEROKU_API_KEY = Var.HEROKU_API_KEY
-UPSTREAM_REPO_BRANCH = "master"
-UPSTREAM_REPO_URL = "https://github.com/Sur-vivor/CatUserbot"
+HEROKU_APP_NAME = Config.HEROKU_APP_NAME
+HEROKU_API_KEY = Config.HEROKU_API_KEY
+UPSTREAM_REPO_BRANCH = Config.UPSTREAM_REPO_BRANCH
+UPSTREAM_REPO_URL = Config.UPSTREAM_REPO_URL
 
 requirements_path = path.join(
     path.dirname(path.dirname(path.dirname(__file__))), "requirements.txt"
@@ -83,7 +83,7 @@ async def deploy(event, repo, ups_rem, ac_br, txt):
         heroku_applications = heroku.apps()
         if HEROKU_APP_NAME is None:
             await event.edit(
-                "`[HEROKU]`\n`Please set up the` **HEROKU_APP_NAME** `variable"
+                "`[HEROKU]`\n`Please set up the` **HEROKU_APP_NAME** `Var`"
                 " to be able to deploy your userbot...`"
             )
             repo.__del__()
@@ -125,7 +125,7 @@ async def deploy(event, repo, ups_rem, ac_br, txt):
         await event.edit("`Successfully deployed!\n" "Restarting, please wait...`")
     else:
         await event.edit(
-            "`[HEROKU]`\n" "`Please set up`  **HEROKU_API_KEY**  `variable...`"
+            "`[HEROKU]`\n" "`Please set up`  **HEROKU_API_KEY**  ` Var...`"
         )
     return
 
@@ -223,11 +223,11 @@ async def upstream(event):
     return
 
 
-@bot.on(admin_cmd(outgoing=True, pattern=r"goodcat$"))
-@bot.on(sudo_cmd(pattern="goodcat$", allow_sudo=True))
+@bot.on(admin_cmd(outgoing=True, pattern=r"badcat$"))
+@bot.on(sudo_cmd(pattern="badcat$", allow_sudo=True))
 async def upstream(event):
-    event = await edit_or_reply(event, "`Pulling the good cat repo wait a sec ....`")
-    off_repo = "https://github.com/sandy1709/catuserbot"
+    event = await edit_or_reply(event, "`Pulling the bad cat repo wait a sec ....`")
+    off_repo = "https://github.com/Jisan09/catuserbot"
     catcmd = f"rm -rf .git"
     try:
         await runcmd(catcmd)
@@ -273,7 +273,7 @@ CMD_HELP.update(
         "\n\n**Syntax : **`.update deploy`"
         "\n**Usage :** Deploy your userbot.So even you restart it doesnt go back to previous version"
         "\nThis will triggered deploy always, even no updates."
-        "\n\n**Syntax : **`.goodcat`"
-        "\n**Usage :** Shifts from sur cat repo to official repo"
+        "\n\n**Syntax : **`.badcat`"
+        "\n**Usage :** Shifts from official cat repo to jisan's repo(for gali commands)"
     }
 )
