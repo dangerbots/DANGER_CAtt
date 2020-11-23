@@ -1,6 +1,6 @@
 {
   "name": "Catuserbot",
-  "description": "A telethon userbot based on snapdragon code(xtratgbot) .Easy to use and friendly bot . Maintained by Sandeep and Sarath ",
+  "description": "A telethon userbot based on snapdragon code(xtratgbot) .Easy to use and friendly bot . Maintained by Sandeep ",
   "logo": "https://telegra.ph/file/3d60313110c58684b31ea.jpg",
   "keywords": [
     "telegram",
@@ -9,7 +9,7 @@
     "modular",
     "productivity"
   ],
-  "repository": "https://github.com/Sur-vivor/CatUserbot/",
+  "repository": "https://github.com/sandy1709/catuserbot/",
   "website": "#TODO",
   "success_url": "#TODO",
   "env": {
@@ -24,7 +24,7 @@
     },
     "ALIVE_NAME": {
       "description": "give your name",
-      "value": "" 
+      "value": ""
     },
     "APP_ID": {
       "description": "Get this value from my.telegram.org! Please do not steal",
@@ -56,16 +56,6 @@
       "value": "",
       "required": false
     },
-    "GITHUB_ACCESS_TOKEN": {
-      "description": "Your Github Access Token for gitcommit plugin.Google 'Github access token' to find.",
-      "value": "",
-      "required": false
-    },
-    "GIT_REPO_NAME": {
-      "description": "Your repo name Example: Sur-vivor/CatUserbot, but GITHUB_ACCESS_TOKEN must be setup first.",
-      "value": "",
-      "required": false  
-    },
     "DEFAULT_BIO": {
       "description": "Your bio here note bio must have only 70characters or less.",
       "value": "",
@@ -96,19 +86,14 @@
       "value": "",
       "required": false
     },
-    "PMPERMIT_PIC": {
-      "description": "the pic that to show in your pmpermit message url.",
-      "value": "",
-      "required": false  
-    },
     "LYDIA_API_KEY": {
       "description": "Needed for Lydia AI. Follow https://telegra.ph/Lydia-09-05 to get your API.",
       "value": "",
-      "required": false  
+      "required": false
     },
     "UB_BLACK_LIST_CHAT": {
       "description": "set blacklist_chats where you do not want userbot features",
-      "value": "",
+      "value": "-1051754159",
       "required": false
     },
     "DOWNLOAD_PFP_URL_CLOCK": {
@@ -141,7 +126,7 @@
   },{
     "url": "https://github.com/heroku/heroku-buildpack-apt.git"
   },{
-    "url": "https://github.com/chrismytton/heroku-buildpack-jq"  
+    "url": "https://github.com/chrismytton/heroku-buildpack-jq"
   },{
     "url": "heroku/python"
   }]
