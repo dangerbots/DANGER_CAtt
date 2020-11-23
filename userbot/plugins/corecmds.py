@@ -5,6 +5,7 @@ from pathlib import Path
 
 from ..utils import admin_cmd, edit_or_reply, load_module, remove_plugin, sudo_cmd
 from . import ALIVE_NAME, CMD_HELP
+from . import hmention
 
 DELETE_TIMEOUT = 5
 thumb_image_path = Config.TMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
@@ -73,7 +74,7 @@ async def send(event):
         ms = (end - start).seconds
         await event.delete()
         await caat.edit(
-            f"__**➥ Plugin Name:- {input_str} .**__\n__**➥ Uploaded in {ms} seconds.**__\n__**➥ Uploaded by :-**__ {DEFAULTUSER}"
+            f"__**➥ Plugin Name:- {input_str} .**__\n__**➥ Uploaded in {ms} seconds.**__\n__**➥ Uploaded by :-**__ {hmention}"
         )
     else:
         await edit_or_reply(event, "404: File Not Found")
