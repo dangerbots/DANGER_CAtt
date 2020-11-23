@@ -219,6 +219,7 @@ async def _(event):
         await asyncio.sleep(1)
         await event.edit(animation_chars[i % 13])
 
+
 @bot.on(admin_cmd(pattern=f"flower", outgoing=True))
 @bot.on(sudo_cmd(pattern=f"flower", allow_sudo=True))
 async def flower(event):
@@ -262,7 +263,8 @@ async def flower(event):
         + flower
         + flower
     )
-    await asyncio.sleep(sleepValue)        
+    await asyncio.sleep(sleepValue)
+
 
 CMD_HELP.update(
     {
