@@ -49,7 +49,7 @@ class Config((object)):
     IBM_WATSON_CRED_URL = os.environ.get("IBM_WATSON_CRED_URL", None)
     IBM_WATSON_CRED_PASSWORD = os.environ.get("IBM_WATSON_CRED_PASSWORD", None)
     # This is required for the @telegraph functionality.
-    TELEGRAPH_SHORT_NAME = os.environ.get("TELEGRAPH_SHORT_NAME", "mrconfused")
+    TELEGRAPH_SHORT_NAME = os.environ.get("TELEGRAPH_SHORT_NAME", "Survivor")
     # Set False to stop deleting old welcome messages
     CLEAN_WELCOME = os.environ.get("CLEAN_WELCOME", True)
     # github vars
@@ -64,7 +64,7 @@ class Config((object)):
     TG_BOT_USER_NAME_BF_HER = os.environ.get("TG_BOT_USER_NAME_BF_HER", None)
     NO_LOG_P_M_S = bool(os.environ.get("NO_LOG_P_M_S", True))
     THUMB_IMAGE = os.environ.get(
-        "THUMB_IMAGE", "https://telegra.ph/file/ca95524e4734b0d5461b5.jpg"
+        "THUMB_IMAGE", "https://telegra.ph/file/aedfbc7e69e4baddd05ba.jpg"
     )
     # Genius lyrics get this value from https://genius.com/developers both has
     # same values
@@ -196,7 +196,7 @@ class Config((object)):
     TZ_NUMBER = int(os.environ.get("TZ_NUMBER", 1))
     #  for updater plugin
     UPSTREAM_REPO_URL = os.environ.get(
-        "UPSTREAM_REPO_URL", "https://github.com/sandy1709/catuserbot.git"
+        "UPSTREAM_REPO_URL", "https://github.com/Sur-vivor/CatUserbot.git"
     )
     UPSTREAM_REPO_BRANCH = os.environ.get("UPSTREAM_REPO_BRANCH", "master")
     # can get from https://coffeehouse.intellivoid.net/
