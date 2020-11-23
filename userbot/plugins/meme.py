@@ -69,6 +69,8 @@ async def typewriter(typew):
 @bot.on(admin_cmd(pattern="repeat (\d*) (.*)", outgoing=True))
 @bot.on(sudo_cmd(pattern="repeat (\d*) (.*)", allow_sudo=True))
 async def _(event):
+    if event.fwd_from:
+        return
     cat = ("".join(event.text.split(maxsplit=1)[1:])).split(" ", 1)
     message = cat[1]
     count = int(cat[0])
@@ -194,6 +196,8 @@ async def give(event):
 @bot.on(admin_cmd(pattern=f"sadmin$", outgoing=True))
 @bot.on(sudo_cmd(pattern=f"sadmin$", allow_sudo=True))
 async def _(event):
+    if event.fwd_from:
+        return
     animation_ttl = range(13)
     event = await edit_or_reply(event, "sadmin")
     animation_chars = [
@@ -214,7 +218,6 @@ async def _(event):
     for i in animation_ttl:
         await asyncio.sleep(1)
         await event.edit(animation_chars[i % 13])
-
 
 @bot.on(admin_cmd(pattern=f"flower", outgoing=True))
 @bot.on(sudo_cmd(pattern=f"flower", allow_sudo=True))
@@ -259,8 +262,7 @@ async def flower(event):
         + flower
         + flower
     )
-    await asyncio.sleep(sleepValue)
-
+    await asyncio.sleep(sleepValue)        
 
 CMD_HELP.update(
     {
