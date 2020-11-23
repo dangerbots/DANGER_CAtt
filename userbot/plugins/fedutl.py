@@ -1,5 +1,4 @@
-# Plugin to show the feda you are banned in.
-# For TeleBot
+# Plugin to show the feds you are banned in.
 # Kangers keep credits
 # By @Surv_ivor
 
@@ -27,8 +26,8 @@ if G_BAN_LOGGER_GROUP:
 async def _(event):
     if event.fwd_from:
         return
-    sysarg = event.pattern_match.group(1)
-    if event.reply_to_msg_id and not event.pattern_match.group(1):
+    sysarg = event.pattern_match.group(1) or ""
+    if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         replied_user = await event.client(
             GetFullUserRequest(previous_message.sender_id)
@@ -38,7 +37,7 @@ async def _(event):
             try:
                 await conv.send_message("/start")
                 await conv.get_response()
-                await conv.send_message("/fedstat " + getuser)
+                await conv.send_message("/fedstat " + getuser + " " + sysarg)
                 fedstat = await conv.get_response()
                 if "file" in fedstat.text:
                     await fedstat.click(0)
@@ -49,39 +48,7 @@ async def _(event):
                 await event.delete()
             except YouBlockedUserError:
                 await event.edit("**Error:** `unblock` @MissRose_bot `and retry!")
-    if sysarg == "" and not event.reply_to_msg_id:
-        async with event.client.conversation(bots) as conv:
-            try:
-                await conv.send_message("/start")
-                await conv.get_response()
-                await conv.send_message("/fedstat")
-                fedstat = await conv.get_response()
-                if "file" in fedstat.text:
-                    await fedstat.click(0)
-                    reply = await conv.get_response()
-                    await event.client.forward_messages(event.chat_id, reply)
-                else:
-                    await event.client.send_message(event.chat_id, fedstat.text)
-                await event.delete()
-            except YouBlockedUserError:
-                await event.edit("**Error:** `unblock` @MissRose_bot `and retry!")
-    if sysarg.startswith("@"):
-        async with event.client.conversation(bots) as conv:
-            try:
-                await conv.send_message("/start")
-                await conv.get_response()
-                await conv.send_message("/fedstat " + sysarg)
-                fedstat = await conv.get_response()
-                if "file" in fedstat.text:
-                    await fedstat.click(0)
-                    reply = await conv.get_response()
-                    await event.client.forward_messages(event.chat_id, reply)
-                else:
-                    await event.client.send_message(event.chat_id, fedstat.text)
-                await event.delete()
-            except YouBlockedUserError:
-                await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
-    if sysarg.isdigit():
+    else:
         async with event.client.conversation(bots) as conv:
             try:
                 await conv.send_message("/start")
@@ -155,6 +122,54 @@ async def _(event):
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
 
 
+@bot.on(admin_cmd("fedinfo ?(.*)"))
+async def _(event):
+    if event.fwd_from:
+        return
+    sysarg = event.pattern_match.group(1)                
+    if sysarg == "" and not event.reply_to_msg_id:
+        async with event.client.conversation(bots) as conv:
+            try:
+                await conv.send_message("/start")
+                await conv.get_response()
+                await conv.send_message("/fedinfo")
+                fedinfo = await conv.get_response()
+                await event.client.send_message(event.chat_id, fedinfo.text)
+                await event.delete()
+            except YouBlockedUserError:
+                await event.edit("**Error:** `unblock` @MissRose_bot `and retry!")
+    else:
+        async with event.client.conversation(bots) as conv:
+            try:
+                await conv.send_message("/start")
+                await conv.get_response()
+                await conv.send_message("/fedinfo " + sysarg)
+                fedinfo = await conv.get_response()             
+                await event.client.send_message(event.chat_id, fedinfo.text)
+                await event.delete()
+            except YouBlockedUserError:
+                await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
+                
+@bot.on(admin_cmd("myfed ?(.*)"))
+async def _(event):
+    if event.fwd_from:
+        return
+    async with event.client.conversation(bots) as conv:
+        try:
+            await conv.send_message("/start")
+            await conv.get_response()
+            await conv.send_message("/myfed")
+            myfed = await conv.get_response()
+            if "file" in myfed.text:
+                await fedstat.click(0)
+                reply = await conv.get_response()
+                await event.client.forward_messages(event.chat_id, reply)
+            else:
+                await event.client.send_message(event.chat_id, myfed.text)
+                await event.delete()
+        except YouBlockedUserError:
+            await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")                
+                
 @bot.on(admin_cmd(pattern=r"plist ?(.*)", outgoing=True))
 async def get_users(show):
     await show.delete()
