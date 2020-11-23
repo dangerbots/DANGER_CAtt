@@ -3,7 +3,7 @@ import asyncio
 from telethon import events, functions
 
 from ..utils import admin_cmd
-from . import ALIVE_NAME, CMD_HELP, PM_START, PMMENU, check, get_user_from_event
+from . import ALIVE_NAME, CMD_HELP, PM_START, PMMENU, check, get_user_from_event, mention
 from .sql_helper import pmpermit_sql as pmpermit_sql
 
 PM_WARNS = {}
@@ -216,7 +216,7 @@ if Config.PRIVATE_GROUP_ID is not None:
                 )
             else:
                 USER_BOT_NO_WARN = (
-                    f"My master {DEFAULTUSER} haven't approved you yet. Don't spam his inbox "
+                    f"My master {mention} haven't approved you yet. Don't spam his inbox "
                     "Leave your name,reason and 10k$ and hopefully you'll get a reply within 2 light years.\n\n"
                     "**Send** `/start` ** so that my master can decide why you're here.**"
                 )
@@ -237,7 +237,7 @@ if Config.PRIVATE_GROUP_ID is not None:
                 )
             else:
                 USER_BOT_NO_WARN = (
-                    f"My master {DEFAULTUSER} haven't approved you yet. Don't spam his inbox "
+                    f"My master {mention} haven't approved you yet. Don't spam his inbox "
                     "Leave your name,reason and 10k$ and hopefully you'll get a reply within 2 light years."
                 )
         if PMPERMIT_PIC:
