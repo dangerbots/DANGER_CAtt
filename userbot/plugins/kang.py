@@ -22,8 +22,8 @@ from telethon.tl.types import (
     MessageMediaPhoto,
 )
 
-from userbot import ALIVE_NAME
-from userbot.utils import admin_cmd
+from .import ALIVE_NAME
+from ..utils import admin_cmd
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "Cat"
 FILLED_UP_DADDY = "Invalid pack selected."
