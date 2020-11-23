@@ -9,8 +9,8 @@ from telethon.errors import ChatAdminRequiredError
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.users import GetFullUserRequest
 
-from . import ALIVE_NAME
 from ..utils import admin_cmd
+from . import ALIVE_NAME
 
 naam = str(ALIVE_NAME)
 
