@@ -26,7 +26,10 @@ if G_BAN_LOGGER_GROUP:
 async def _(event):
     if event.fwd_from:
         return
-    sysarg = event.pattern_match.group(1) or ""
+    if event.pattern_match.group(1):
+         sysarg = event.pattern_match.group(1)
+    else:
+         sysarg == ""
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         replied_user = await event.client(
@@ -151,7 +154,7 @@ async def _(event):
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
 
 
-@bot.on(admin_cmd("myfed ?(.*)"))
+@bot.on(admin_cmd("myfeds ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -159,7 +162,7 @@ async def _(event):
         try:
             await conv.send_message("/start")
             await conv.get_response()
-            await conv.send_message("/myfed")
+            await conv.send_message("/myfeds")
             myfed = await conv.get_response()
             if "file" in myfed.text:
                 await fedstat.click(0)
