@@ -254,8 +254,8 @@ async def wish_check(event):
         else:
             reslt = f"What's your Wish? Should I consider you as Idiot by default ? 😜"
     await edit_or_reply(event, reslt)
-                        
-                        
+
+
 @bot.on(admin_cmd(outgoing=True, pattern="repo$"))
 @bot.on(sudo_cmd(pattern="repo$", allow_sudo=True))
 async def source(e):
@@ -453,6 +453,7 @@ async def gbun(event):
     else:
         mention = "`Warning!! User 𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By Admin...\nReason: Potential spammer. `"
         await catevent.edit(mention)
+
 
 CMD_HELP.update(
     {
