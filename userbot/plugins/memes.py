@@ -150,8 +150,7 @@ async def shout(args):
     messagestr = args.text
     messagestr = messagestr[7:]
     text = " ".join(messagestr)
-    result = []
-    result.append(" ".join([s for s in text]))
+    result = [" ".join([s for s in text])]
     for pos, symbol in enumerate(text[1:]):
         result.append(symbol + " " + "  " * pos + symbol)
     result = list("\n".join(result))
@@ -240,6 +239,23 @@ async def payf(event):
     await edit_or_reply(event, pay)
 
 
+@bot.on(admin_cmd(pattern="wish ?(.*)"))
+@bot.on(sudo_cmd(pattern="wish ?(.*)", allow_sudo=True))
+async def wish_check(event):
+    wishtxt = event.pattern_match.group(1)
+    chance = random.randint(0, 100)
+    if wishtxt:
+        reslt = f"**Your wish **__{wishtxt}__ **has been cast.** ✨\
+              \n\n__Chance of success :__ **{chance}%**"
+    else:
+        if event.is_reply:
+            reslt = f"**Your wish has been cast. **✨\
+                  \n\n__Chance of success :__ **{chance}%**"
+        else:
+            reslt = f"What's your Wish? Should I consider you as Idiot by default ? 😜"
+    await edit_or_reply(event, reslt)
+                        
+                        
 @bot.on(admin_cmd(outgoing=True, pattern="repo$"))
 @bot.on(sudo_cmd(pattern="repo$", allow_sudo=True))
 async def source(e):
@@ -438,58 +454,35 @@ async def gbun(event):
         mention = "`Warning!! User 𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By Admin...\nReason: Potential spammer. `"
         await catevent.edit(mention)
 
-
 CMD_HELP.update(
     {
         "memes": "**Plugin : **`memes`\
-        \n\n**Syntax :** `.cowsay`\
-        \n**Function : **cow which says things.\
-        \n\n**Syntax :** `.coin <heads/tails>`\
-        \n**Function : **Flips a coin !!\
-        \n\n**Syntax :** `.slap`\
-        \n**Function : **reply to slap them with random objects !!\
-        \n\n**Syntax :** `.yes` ,`.no` , `.maybe` , `.decide`\
-        \n**Function : **Sends you the respectively gif of command u used\
-        \n\n**Syntax :** `.shout text`\
-        \n**Function : **shouts the text in a fun way\
-        \n\n**Syntax :** `.owo`\
-        \n**Function : **UwU\
-        \n\n**Syntax :** `.clap`\
-        \n**Function : **Praise people!\
-        \n\n**Syntax :** `.smk <text/reply>`\
-        \n**Function : **A shit module for ツ , who cares.\
-        \n\n**Syntax :** `.ftext <emoji/character>`\
-        \n**Function : **Pay Respects.\
-        \n\n**Syntax :** `.repo`\
-        \n**Function : **Shows to source code link of catuserbot.\
-        \n\n**Syntax :** `.congo`\
-        \n**Function : **Congratulate the people.\
-        \n\n**Syntax :** `.shg`\
-        \n**Function : **Shrug at it !!\
-        \n\n**Syntax :** `.runs`\
-        \n**Function : **Run, run, RUNNN!\
-        \n\n**Syntax :** `.noob`\
-        \n**Function : **Whadya want to know? Are you a NOOB?\
-        \n\n**Syntax :** `.insult`\
-        \n**Function : **insult someone\
-        \n\n**Syntax :** `.hey`\
-        \n**Function : **start a conversation with people\
-        \n\n**Syntax :** `.pro`\
-        \n**Function : **If you think you're pro, try this.\
-        \n\n**Syntax :** `.react` <type>\
-        \n**Function : **Make your userbot react. types are <happy ,think ,wave ,wtf ,love ,confused,dead, sad,dog>\
-        \n\n**Syntax :** `.10iq`\
-        \n**Function : **You retard !!\
-        \n\n**Syntax :** `.fp`\
-        \n**Function : **send you face pam emoji!\
-        \n\n**Syntax :** `.bt`\
-        \n**Function : **Believe me, you will find this useful.\
-        \n\n**Syntax :** `.session`\
-        \n**Function : **telethon session error code(fun)\
-        \n\n**Syntax :** `.lfy <query>`\
-        \n**Function : **Let me Google that for you real quick !!\
-        \n\n**Syntax :** `.gbun <reason>`\
-        \n**Function : **Fake gban action !!\
+        \n\n  •  **Syntax :** `.cowsay`\
+        \n  •  **Function : **cow which says things.\
+        \n\n  •  **Syntax :** `.coin <heads/tails>`\
+        \n  •  **Function : **Flips a coin !!\
+        \n\n  •  **Syntax :** `.slap`\
+        \n  •  **Function : **reply to slap them with random objects !!\
+        \n\n  •  **Syntax :** `.yes` ,`.no` , `.maybe` , `.decide`\
+        \n  •  **Function : **Sends you the respectively gif of command u used\
+        \n\n  •  **Syntax :** `.shout text`\
+        \n  •  **Function : **shouts the text in a fun way\
+        \n\n  •  **Syntax :** `.owo`\
+        \n  •  **Function : **UwU\
+        \n\n  •  **Syntax :** `.clap`\
+        \n  •  **Function : **Praise people!\
+        \n\n  •  **Syntax :** `.smk <text/reply>`\
+        \n  •  **Function : **A shit module for ツ , who cares.\
+        \n\n  •  **Syntax :** `.ftext <emoji/character>`\
+        \n  •  **Function : **Pay Respects.\
+        \n\n  •  **Syntax :** `.wish <reply/text>`\
+        \n  •  **Function : **Shows the chance of your success inspired from @CalsiBot.\
+        \n\n  •  **Syntax :** `.repo`\
+        \n  •  **Function : **Shows to source code link of catuserbot.\
+        \n\n  •  **Syntax :** `.lfy <query>`\
+        \n  •  **Function : **Let me Google that for you real quick !!\
+        \n\n  •  **Syntax :** `.gbun <reason>`\
+        \n  •  **Function : **Fake gban action !!\
 "
     }
 )
