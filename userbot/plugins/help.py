@@ -80,7 +80,7 @@ async def cmd_list(event):
                 \n<b>Usage:</b> <code>.help plugin name</code> \n\n"
             catcount = 0
             for i in sorted(CMD_LIST):
-                string += "• " + f"<code>{str(i)}</code>"
+                string += "◆ " + f"<code>{str(i)}</code>"
                 string += " "
                 catcount += 1
             await event.edit(string.format(count=catcount), parse_mode="HTML")
@@ -141,7 +141,7 @@ async def info(event):
             \n<b>Usage:</b> <code>.help plugin name</code>\n\n"
         catcount = 0
         for i in sorted(SUDO_LIST):
-            string += "• " + f"<code>{str(i)}</code>"
+            string += "◆ " + f"<code>{str(i)}</code>"
             string += " "
             catcount += 1
         await event.reply(string.format(count=catcount), parse_mode="HTML")
@@ -165,7 +165,7 @@ async def info(event):
             \n<b>Usage : </b><code>.info plugin name</code>\n\n"
         catcount = 0
         for i in sorted(CMD_HELP):
-            string += "• " + f"<code>{str(i)}</code>"
+            string += "◆ " + f"<code>{str(i)}</code>"
             string += " "
             catcount += 1
         if event.sender_id in Config.SUDO_USERS:
@@ -220,16 +220,12 @@ async def _(event):
 CMD_HELP.update(
     {
         "help": """**Plugin : **`help`
-
   •  **Syntax : **`.help/.help plugin_name`
   •  **Function : **__If you just type .help then shows you help menu, if plugin name is given then shows you only commands in thst plugin and if you use `.help text` then shows you all commands in your userbot__
-
   •  **Syntax : **`.info/.info plugin_name`
   •  **Function : **__To get details/information/usage of that plugin__
-
   •  **Syntax : **`.dc`
   •  **Function : **__Shows your dc id and dc ids list__
-
   •  **Syntax : **`.setinline (true|false)`
   •  **Function : **__Sets help menu either in inline or text format__"""
     }
