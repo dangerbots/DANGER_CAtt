@@ -28,7 +28,7 @@ async def amireallyalive(alive):
         cat_caption += f"**{EMOJI} Python Version :** `{python_version()}\n`"
         cat_caption += f"**{EMOJI} Uptime :** `{uptime}\n`"
         cat_caption += f"**{EMOJI} Master:** {mention}\n\n"
-        cat_caption += "   **[SurCat](https://github.com/Sur-vivor/CatUserbot)**  |  **[GoodCat](https://github.com/sandy1709/catuserbot)**  |  **[Support](https://t.me/catuserbot_support)**\n  "
+        cat_caption += "   **[SurCat]**(https://github.com/Sur-vivor/CatUserbot)  |  **[GoodCat]**(https://github.com/sandy1709/catuserbot)  |  **[Support]**(https://t.me/catuserbot_support)  "
         await alive.client.send_file(
             alive.chat_id, CAT_IMG, caption=cat_caption, reply_to=reply_to_id
         )
@@ -43,7 +43,7 @@ async def amireallyalive(alive):
             f"**{EMOJI} Python Version :** `{python_version()}\n`"
             f"**{EMOJI} Uptime :** `{uptime}\n`"
             f"**{EMOJI} Master:** {mention}\n\n",
-            "   **[SurCat](https://github.com/Sur-vivor/CatUserbot)**  |  **[GoodCat](https://github.com/sandy1709/catuserbot)**  |  **[Support](https://t.me/catuserbot_support)**\n  ",
+            "   [SurCat](https://github.com/Sur-vivor/CatUserbot)  |  [GoodCat](https://github.com/sandy1709/catuserbot)  |  [Support](https://t.me/catuserbot_support)  ",
         )
 
 
