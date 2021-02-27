@@ -31,21 +31,16 @@ if [ -d "$FILE" ] ; then
 else
     rm -rf userbot
     rm -rf .github
-    rm -rf requirements.txt
+    rm -rf sample_config.py
     git clone https://github.com/Sur-vivor/CatUserbot cat_ub
     mv cat_ub/userbot .
     mv cat_ub/.github . 
     mv cat_ub/.git .
+    mv cat_ub/sample_config.py .
+    python ./.github/update.py
+    rm -rf requirements.txt
     mv cat_ub/requirements.txt .
     rm -rf cat_ub
-    python ./.github/update.py
-fi
-
-FILE=/app/bin/
-if [ -d "$FILE" ] ; then
-    echo "$FILE directory exists already."
-else
-    bash ./.github/bins.sh
 fi
 
 python -m userbot
