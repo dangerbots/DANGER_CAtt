@@ -1,24 +1,15 @@
-import asyncio
-import os
-import shlex
 from os import getcwd
-from os.path import basename, join
+from os.path import join
 from textwrap import wrap
-from typing import Optional, Tuple
 
 import numpy as np
-
-try:
-    from colour import Color as asciiColor
-except:
-    os.system("pip install colour")
+from colour import Color as asciiColor
 from PIL import Image, ImageDraw, ImageFont
-from telethon.errors.rpcerrorlist import YouBlockedUserError
 from wand.color import Color
 from wand.drawing import Drawing
 from wand.image import Image as catimage
 
-from . import unzip
+from .utils import _catutils
 
 MARGINS = [50, 150, 250, 350, 450]
 
@@ -59,17 +50,17 @@ def get_warp_length(width):
     return int((20.0 / 1024.0) * (width + 0.0))
 
 
-async def cat_meme(topString, bottomString, filename, endname):
+async def cat_meme(CNG_FONTS, topString, bottomString, filename, endname):
     img = Image.open(filename)
     imageSize = img.size
     # find biggest font size that works
     fontSize = int(imageSize[1] / 5)
-    font = ImageFont.truetype("userbot/helpers/styles/impact.ttf", fontSize)
+    font = ImageFont.truetype(CNG_FONTS, fontSize)
     topTextSize = font.getsize(topString)
     bottomTextSize = font.getsize(bottomString)
     while topTextSize[0] > imageSize[0] - 20 or bottomTextSize[0] > imageSize[0] - 20:
         fontSize -= 1
-        font = ImageFont.truetype("userbot/helpers/styles/impact.ttf", fontSize)
+        font = ImageFont.truetype(CNG_FONTS, fontSize)
         topTextSize = font.getsize(topString)
         bottomTextSize = font.getsize(bottomString)
 
@@ -105,7 +96,7 @@ async def cat_meme(topString, bottomString, filename, endname):
     img.save(endname)
 
 
-async def cat_meeme(upper_text, lower_text, picture_name, endname):
+async def cat_meeme(upper_text, lower_text, CNG_FONTS, picture_name, endname):
     main_image = catimage(filename=picture_name)
     main_image.resize(
         1024, int(((main_image.height * 1.0) / (main_image.width * 1.0)) * 1024.0)
@@ -114,7 +105,7 @@ async def cat_meeme(upper_text, lower_text, picture_name, endname):
     lower_text = "\n".join(wrap(lower_text, get_warp_length(main_image.width))).upper()
     lower_margin = MARGINS[lower_text.count("\n")]
     text_draw = Drawing()
-    text_draw.font = join(getcwd(), "userbot/helpers/styles/impact.ttf")
+    text_draw.font = join(getcwd(), CNG_FONTS)
     text_draw.font_size = 100
     text_draw.text_alignment = "center"
     text_draw.stroke_color = Color("black")
@@ -130,63 +121,6 @@ async def cat_meeme(upper_text, lower_text, picture_name, endname):
     main_image.save(filename=endname)
 
 
-# executing of terminal commands
-
-
-async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
-    args = shlex.split(cmd)
-    process = await asyncio.create_subprocess_exec(
-        *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
-    )
-    stdout, stderr = await process.communicate()
-    return (
-        stdout.decode("utf-8", "replace").strip(),
-        stderr.decode("utf-8", "replace").strip(),
-        process.returncode,
-        process.pid,
-    )
-
-
-# For using gif , animated stickers and videos in some parts , this
-# function takes  take a screenshot and stores ported from userge
-
-
-async def take_screen_shot(
-    video_file: str, duration: int, path: str = ""
-) -> Optional[str]:
-    print(
-        "[[[Extracting a frame from %s ||| Video duration => %s]]]",
-        video_file,
-        duration,
-    )
-    ttl = duration // 2
-    thumb_image_path = path or os.path.join("./temp/", f"{basename(video_file)}.jpg")
-    command = f"ffmpeg -ss {ttl} -i '{video_file}' -vframes 1 '{thumb_image_path}'"
-    err = (await runcmd(command))[1]
-    if err:
-        print(err)
-    return thumb_image_path if os.path.exists(thumb_image_path) else None
-
-
-async def make_gif(event, file):
-    chat = "@tgstogifbot"
-    async with event.client.conversation(chat) as conv:
-        try:
-            await silently_send_message(conv, "/start")
-            await event.client.send_file(chat, file)
-            response = await conv.get_response()
-            await event.client.send_read_acknowledge(conv.chat_id)
-            if response.text.startswith("Send me an animated sticker!"):
-                return "`This file is not supported`"
-            response = response if response.media else await conv.get_response()
-            catresponse = response if response.media else await conv.get_response()
-            await event.client.send_read_acknowledge(conv.chat_id)
-            catfile = await event.client.download_media(catresponse, "./temp")
-            return await unzip(catfile)
-        except YouBlockedUserError:
-            return "Unblock @tgstogifbot"
-
-
 async def silently_send_message(conv, text):
     await conv.send_message(text)
     response = await conv.get_response()
@@ -195,4 +129,6 @@ async def silently_send_message(conv, text):
 
 
 async def thumb_from_audio(audio_path, output):
-    await runcmd(f"ffmpeg -i {audio_path} -filter:v scale=500:500 -an {output}")
+    await _catutils.runcmd(
+        f"ffmpeg -i {audio_path} -filter:v scale=500:500 -an {output}"
+    )
