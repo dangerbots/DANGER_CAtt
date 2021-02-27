@@ -7,8 +7,7 @@
 
 import os
 
-from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import CMD_HELP, make_gif, runcmd
+from . import make_gif
 
 
 @bot.on(admin_cmd(pattern="collage(?: |$)(.*)", outgoing=True))
@@ -56,7 +55,7 @@ async def collage(cat):
         collagefile = catsticker
     endfile = "./temp/collage.png"
     catcmd = f"vcsi -g {catinput}x{catinput} '{collagefile}' -o {endfile}"
-    stdout, stderr = (await runcmd(catcmd))[:2]
+    stdout, stderr = (await _catutils.runcmd(catcmd))[:2]
     if not os.path.exists(endfile):
         for files in (catsticker, collagefile):
             if files and os.path.exists(files):

@@ -1,10 +1,7 @@
 import asyncio
 from collections import deque
 
-from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import ALIVE_NAME, CMD_HELP
-
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
+from . import mention
 
 
 @bot.on(admin_cmd(pattern=r"star$", outgoing=True))
@@ -56,8 +53,8 @@ async def _(event):
     event = await edit_or_reply(event, "`Deploying...`")
     animation_chars = [
         "**Heroku Connecting To Latest Github Build **",
-        f"**Build started by user** {DEFAULTUSER}",
-        f"**Deploy** `535a74f0` **by user** {DEFAULTUSER}",
+        f"**Build started by user** {mention}",
+        f"**Deploy** `535a74f0` **by user** {mention}",
         "**Restarting Heroku Server...**",
         "**State changed from up to starting**",
         "**Stopping all processes with SIGTERM**",
@@ -73,10 +70,10 @@ async def _(event):
         await event.edit(animation_chars[i % 12])
 
 
-@bot.on(admin_cmd(pattern=r"dump$", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"dump$", allow_sudo=True))
+@bot.on(admin_cmd(pattern=r"dump ?(.*)", outgoing=True))
+@bot.on(sudo_cmd(pattern=r"dump ?(.*)", allow_sudo=True))
 async def _(message):
-    if event.fwd_from:
+    if message.fwd_from:
         return
     try:
         obj = message.pattern_match.group(1)
@@ -235,7 +232,7 @@ async def _(event):
         "🔴🔴🔴⬜⬜⬜🔵🔵🔵\n🔴🔴🔴⬜⬜⬜🔵🔵🔵\n🔴🔴🔴⬜⬜⬜🔵🔵🔵",
         "🔵🔵🔵⬜⬜⬜🔴🔴🔴\n🔵🔵🔵⬜⬜⬜🔴🔴🔴\n🔵🔵🔵⬜⬜⬜🔴🔴🔴",
         "🔴🔴🔴⬜⬜⬜🔵🔵🔵\n🔴🔴🔴⬜⬜⬜🔵🔵🔵\n🔴🔴🔴⬜⬜⬜🔵🔵🔵",
-        f"[{DEFAULTUSER}]({USERNAME}) **Police iz Here**",
+        f"{mention} **Police iz Here**",
     ]
     for i in animation_ttl:
         await asyncio.sleep(animation_interval)

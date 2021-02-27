@@ -5,8 +5,6 @@ Userbot plugin for CatUserbot
 """
 import emoji
 
-from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import CMD_HELP
 from . import fonts as emojify
 
 
@@ -47,7 +45,7 @@ async def itachi(event):
         return
     try:
         emoji, arg = args.split(" ", 1)
-    except:
+    except Exception:
         arg = args
         emoji = "😺"
     if not char_is_emoji(emoji):
@@ -65,7 +63,7 @@ async def itachi(event):
 
 
 def char_is_emoji(character):
-    return character in emoji.UNICODE_EMOJI
+    return character in emoji.UNICODE_EMOJI["en"]
 
 
 CMD_HELP.update(

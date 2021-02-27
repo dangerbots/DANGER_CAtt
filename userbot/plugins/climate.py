@@ -7,7 +7,6 @@
 #
 import io
 import json
-import logging
 from datetime import datetime
 
 import aiohttp
@@ -16,17 +15,8 @@ from pytz import country_names as c_n
 from pytz import country_timezones as c_tz
 from pytz import timezone as tz
 
-from .. import CMD_HELP
-from ..utils import admin_cmd, edit_or_reply, errors_handler, sudo_cmd
-
-logging.basicConfig(
-    format="[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s", level=logging.WARNING
-)
-
-# ===== CONSTANT =====
-DEFCITY = "Delhi"
-# ====================
-OWM_API = Config.OPEN_WEATHER_MAP_APPID
+from ..utils import errors_handler
+from .sql_helper.globals import addgvar, gvarstatus
 
 
 async def get_tz(con):
@@ -45,22 +35,17 @@ async def get_tz(con):
 @bot.on(sudo_cmd(pattern="climate( (.*)|$)", allow_sudo=True))
 @errors_handler
 async def get_weather(weather):
-    """ For .weather command, gets the current weather of a city. """
-    if not OWM_API:
-        await edit_or_reply(
+    if weather.fwd_from:
+        return
+    if not Config.OPEN_WEATHER_MAP_APPID:
+        return await edit_or_reply(
             weather, "`Get an API key from` https://openweathermap.org/ `first.`"
         )
-        return
-    APPID = OWM_API
-    if not weather.pattern_match.group(1):
-        CITY = DEFCITY
-        if not CITY:
-            await edit_or_reply(
-                weather, "`Please specify a city or set it as default.`"
-            )
-            return
+    input_str = "".join(weather.text.split(maxsplit=1)[1:])
+    if not input_str:
+        CITY = gvarstatus("DEFCITY") or "Delhi"
     else:
-        CITY = weather.pattern_match.group(1)
+        CITY = input_str
     timezone_countries = {
         timezone: country
         for country, timezones in c_tz.items()
@@ -75,15 +60,16 @@ async def get_weather(weather):
             try:
                 countrycode = timezone_countries[f"{country}"]
             except KeyError:
-                await weather.edit("`Invalid country.`")
-                return
+                return await edit_or_reply(weather, "`Invalid country.`")
             CITY = newcity[0].strip() + "," + countrycode.strip()
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={APPID}"
-    request = requests.get(url)
-    result = json.loads(request.text)
-    if request.status_code != 200:
-        await weather.edit(f"`Invalid country.`")
-        return
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={Config.OPEN_WEATHER_MAP_APPID}"
+    async with aiohttp.ClientSession() as _session:
+        async with _session.get(url) as request:
+            requeststatus = request.status
+            requesttext = await request.text()
+    result = json.loads(requesttext)
+    if requeststatus != 200:
+        return await edit_or_reply(weather, "`Invalid country.`")
     cityname = result["name"]
     curtemp = result["main"]["temp"]
     humidity = result["main"]["humidity"]
@@ -144,19 +130,14 @@ async def get_weather(weather):
 @bot.on(sudo_cmd(pattern="setcity(?: |$)(.*)", allow_sudo=True))
 @errors_handler
 async def set_default_city(city):
-    """ For .ctime command, change the default userbot country for date and time commands. """
-    if not OWM_API:
-        await edit_or_reply(
+    if city.fwd_from:
+        return
+    if not Config.OPEN_WEATHER_MAP_APPID:
+        return await edit_or_reply(
             city, "`Get an API key from` https://openweathermap.org/ `first.`"
         )
-        return
-    global DEFCITY
-    APPID = OWM_API
     if not city.pattern_match.group(1):
-        CITY = DEFCITY
-        if not CITY:
-            await edit_or_reply(city, "`Please specify a city to set it as default.`")
-            return
+        CITY = gvarstatus("DEFCITY") or "Delhi"
     else:
         CITY = city.pattern_match.group(1)
     timezone_countries = {
@@ -173,20 +154,30 @@ async def set_default_city(city):
             try:
                 countrycode = timezone_countries[f"{country}"]
             except KeyError:
-                await edit_or_reply(city, "`Invalid country.`")
-                return
+                return await edit_or_reply(city, "`Invalid country.`")
             CITY = newcity[0].strip() + "," + countrycode.strip()
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={APPID}"
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={Config.OPEN_WEATHER_MAP_APPID}"
     request = requests.get(url)
     result = json.loads(request.text)
     if request.status_code != 200:
-        await city.edit(f"`Invalid country.`")
-        return
-    DEFCITY = CITY
+        return await edit_or_reply(city, "`Invalid country.`")
+    addgvar("DEFCITY", CITY)
     cityname = result["name"]
     country = result["sys"]["country"]
     fullc_n = c_n[f"{country}"]
     await edit_or_reply(city, f"`Set default city as {cityname}, {fullc_n}.`")
+
+
+@bot.on(admin_cmd(pattern="weather ?(.*)"))
+@bot.on(sudo_cmd(pattern="weather ?(.*)", allow_sudo=True))
+async def _(event):
+    if event.fwd_from:
+        return
+    input_str = event.pattern_match.group(1)
+    if not input_str:
+        input_str = gvarstatus("DEFCITY") or "Delhi"
+    output = requests.get(f"https://wttr.in/{input_str}?mnTC0&lang=en").text
+    await edit_or_reply(event, output, parse_mode=parse_pre)
 
 
 @bot.on(admin_cmd(pattern="wttr ?(.*)"))
@@ -194,13 +185,10 @@ async def set_default_city(city):
 async def _(event):
     if event.fwd_from:
         return
-    global DEFCITY
-    reply_to_id = None
-    if event.reply_to_msg_id:
-        reply_to_id = event.reply_to_msg_id
+    reply_to_id = await reply_id(event)
     input_str = event.pattern_match.group(1)
     if not input_str:
-        input_str = DEFCITY
+        input_str = gvarstatus("DEFCITY") or "Delhi"
     async with aiohttp.ClientSession() as session:
         sample_url = "https://wttr.in/{}.png"
         response_api_zero = await session.get(sample_url.format(input_str))
@@ -211,18 +199,20 @@ async def _(event):
             )
     try:
         await event.delete()
-    except:
-        pass
+    except Exception as e:
+        LOGS.info(str(e))
 
 
 CMD_HELP.update(
     {
         "climate": "**Plugin : **`climate`\
-        \n\n  •  **Syntax : **`.climate <city>`\
-        \n  •  **Function : **__Gets the weather of a city. By default it is Delhi, change it by setcity__\n\
-        \n\n  •  **Syntax : **`.setcity <city> or .setcity <city>, <country name/code>`\
-        \n  •  **Function : **__Sets your default city so you can just use .weather.__\
-        \n\n  •  **Syntax : **`.wttr <city> `\
-        \n  •  **Function : **__Shows you the climate data of 3 days from today in a image.__"
+        \n\n•  **Syntax : **`.climate <city>`\
+        \n•  **Function : **__Gets the weather of a city. By default it is Delhi, change it by setcity__\
+        \n\n•  **Syntax : **`.setcity <city> or <country name/code>`\
+        \n•  **Function : **__Sets your default city so you can just use .weather or .climate.__\
+        \n\n•  **Syntax : **`.weather <city>`\
+        \n•  **Function : **__Gets the simple climate/weather information a city. By default it is Delhi, change it by setcity cmd__\
+        \n\n•  **Syntax : **`.wttr <city> `\
+        \n•  **Function : **__sends you the weather information for upcoming 3 days from today.__"
     }
 )

@@ -1,8 +1,7 @@
 # ported from paperplaneExtended by avinashreddy3108 for media support
 import re
 
-from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import BOTLOG, BOTLOG_CHATID, CMD_HELP
+from . import BOTLOG, BOTLOG_CHATID
 from .sql_helper.filter_sql import (
     add_filter,
     get_filters,
@@ -14,7 +13,10 @@ from .sql_helper.filter_sql import (
 @bot.on(admin_cmd(incoming=True))
 async def filter_incoming_handler(handler):
     try:
-        if not (await handler.get_sender()).bot:
+        if (
+            not (await handler.get_sender()).bot
+            and (handler.sender_id) != handler.client.uid
+        ):
             name = handler.raw_text
             filters = get_filters(handler.chat_id)
             if not filters:
@@ -61,7 +63,7 @@ async def add_new_filter(new_handler):
         else:
             await edit_or_reply(
                 new_handler,
-                "`Saving media as reply to the filter requires the BOTLOG_CHATID to be set.`",
+                "`Saving media as reply to the filter requires the PRIVATE_GROUP_BOT_API_ID to be set.`",
             )
             return
     elif new_handler.reply_to_msg_id and not string:
@@ -123,15 +125,14 @@ async def on_all_snip_delete(event):
 CMD_HELP.update(
     {
         "filters": "**Plugin :**`filters`\
-    \n\n**Synatx :** `.filters`\
-    \n**Usage: **Lists all active (of your userbot) filters in a chat.\
-    \n\n*Synatx :** `.filter`  reply to a message with .filter <keyword>\
-    \n**Usage: **Saves the replied message as a reply to the 'keyword'.\
-    \nThe bot will reply to the message whenever 'keyword' is mentioned.\
-    \nWorks with everything from files to stickers.\
-    \n\n*Synatx :** `.stop <keyword>`\
-    \n**Usage: **Stops the specified keyword.\
-    \n\n*Synatx :** `.rmfilters` \
-    \n**Usage: **Removes all filters of your userbot in the chat."
+    \n\n  •  **Syntax :** `.filters`\
+    \n  •  **Usage: **Lists all active (of your userbot) filters in a chat.\
+    \n\n  •  **Syntax :** `.filter`  reply to a message with .filter <keyword>\
+    \n  •  **Usage: **Saves the replied message as a reply to the 'keyword'.\
+    \nThe bot will reply to the message whenever 'keyword' is mentioned. Works with everything from files to stickers.\
+    \n\n  •  **Syntax :** `.stop <keyword>`\
+    \n  •  **Usage: **Stops the specified keyword.\
+    \n\n  •  **Syntax :** `.rmfilters` \
+    \n  •  **Usage: **Removes all filters of your userbot in the chat."
     }
 )

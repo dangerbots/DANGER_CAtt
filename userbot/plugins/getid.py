@@ -1,8 +1,5 @@
 from telethon.utils import pack_bot_file_id
 
-from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import CMD_HELP
-
 
 @bot.on(admin_cmd(pattern="(get_id|id)( (.*)|$)"))
 @bot.on(sudo_cmd(pattern="(get_id|id)( (.*)|$)", allow_sudo=True))
@@ -20,14 +17,14 @@ async def _(event):
                 return await edit_or_reply(
                     event, f"The id of the user `{input_str}` is `{p.id}`"
                 )
-        except:
+        except Exception:
             try:
                 if p.title:
                     return await edit_or_reply(
                         event, f"The id of the chat/channel `{p.title}` is `{p.id}`"
                     )
-            except:
-                pass
+            except Exception as e:
+                LOGS.info(str(e))
         await edit_or_reply(event, "`Either give input as username or reply to user`")
     elif event.reply_to_msg_id:
         await event.get_input_chat()

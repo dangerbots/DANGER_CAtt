@@ -1,9 +1,6 @@
 import asyncio
 from collections import deque
 
-from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import CMD_HELP
-
 
 @bot.on(admin_cmd(pattern="think$", outgoing=True))
 @bot.on(sudo_cmd(pattern="think$", allow_sudo=True))
@@ -153,8 +150,8 @@ async def _(event):
         return
     event = await edit_or_reply(event, "tmoon")
     animation_interval = 0.1
-    animation_ttl = range(117)
-    await event.edit("tmoon")
+    animation_ttl = range(96)
+    await event.edit("tmoon..")
     animation_chars = [
         "🌗",
         "🌘",

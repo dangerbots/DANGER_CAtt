@@ -13,13 +13,9 @@ from telethon import events
 
 import userbot.plugins.sql_helper.blacklist_sql as sql
 
-from .. import CMD_HELP
-from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-
 
 @bot.on(events.NewMessage(incoming=True))
 async def on_new_message(event):
-    # TODO: exempt admins from locks
     name = event.raw_text
     snips = sql.get_chat_blacklist(event.chat_id)
     for snip in snips:

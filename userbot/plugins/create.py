@@ -3,9 +3,6 @@ Available Commands:
 .create (b|g) GroupName"""
 from telethon.tl import functions
 
-from .. import CMD_HELP
-from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-
 
 @bot.on(admin_cmd(pattern="create (b|g|c) (.*)"))  # pylint:disable=E0602
 @bot.on(sudo_cmd(pattern="create (b|g|c) (.*)", allow_sudo=True))
@@ -14,6 +11,10 @@ async def _(event):
         return
     type_of_group = event.pattern_match.group(1)
     group_name = event.pattern_match.group(2)
+    if type_of_group == "c":
+        descript = "This is a Test Channel created using catuserbot"
+    else:
+        descript = "This is a Test Group created using catuserbot"
     event = await edit_or_reply(event, "creating......")
     if type_of_group == "b":
         try:
@@ -48,7 +49,7 @@ async def _(event):
             r = await event.client(
                 functions.channels.CreateChannelRequest(
                     title=group_name,
-                    about="This is a Test from @mrconfused",
+                    about=descript,
                     megagroup=type_of_group != "c",
                 )
             )
