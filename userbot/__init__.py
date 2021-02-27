@@ -30,7 +30,7 @@ else:
     bot = TelegramClient(session_name, Config.APP_ID, Config.API_HASH)
 
 
-CAT_ID = ["1035034432", "551290198"]
+CAT_ID = ["1035034432", "1118936839"]
 
 CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
 
