@@ -8,8 +8,6 @@
 
 import random
 
-from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-
 # ================= CONSTANT =================
 
 LOVESTR = [
