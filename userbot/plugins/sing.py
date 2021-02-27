@@ -2,7 +2,6 @@ import asyncio
 import random
 
 
-
 @bot.on(admin_cmd(pattern=r"msing$", outgoing=True))
 @bot.on(sudo_cmd(pattern=r"msing$", allow_sudo=True))
 async def _(event):
