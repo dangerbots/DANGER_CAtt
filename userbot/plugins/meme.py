@@ -1,8 +1,5 @@
 import asyncio
 
-from .. import CMD_HELP
-from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-
 
 @bot.on(admin_cmd(outgoing=True, pattern="^\:/$"))
 @bot.on(sudo_cmd(pattern="^\:/$", allow_sudo=True))
@@ -218,52 +215,6 @@ async def _(event):
     for i in animation_ttl:
         await asyncio.sleep(1)
         await event.edit(animation_chars[i % 13])
-
-
-@bot.on(admin_cmd(pattern=f"flower", outgoing=True))
-@bot.on(sudo_cmd(pattern=f"flower", allow_sudo=True))
-async def flower(event):
-    if event.fwd_from:
-        return
-    flower = " 🌹"
-    sleepValue = 5
-
-    await event.edit(flower + "        ")
-    await event.edit(flower + flower + "       ")
-    await event.edit(flower + flower + flower + "      ")
-    await event.edit(flower + flower + flower + flower + "     ")
-    await event.edit(flower + flower + flower + flower + flower + "    ")
-    await event.edit(
-        flower + flower + flower + flower + flower + flower + flower + "   "
-    )
-    await event.edit(
-        flower + flower + flower + flower + flower + flower + flower + flower + "  "
-    )
-    await event.edit(
-        flower
-        + flower
-        + flower
-        + flower
-        + flower
-        + flower
-        + flower
-        + flower
-        + flower
-        + " "
-    )
-    await event.edit(
-        flower
-        + flower
-        + flower
-        + flower
-        + flower
-        + flower
-        + flower
-        + flower
-        + flower
-        + flower
-    )
-    await asyncio.sleep(sleepValue)
 
 
 CMD_HELP.update(

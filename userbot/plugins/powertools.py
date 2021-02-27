@@ -2,8 +2,7 @@ import sys
 from os import execl
 from time import sleep
 
-from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import BOTLOG, BOTLOG_CHATID, CMD_HELP, HEROKU_APP, bot
+from . import BOTLOG, BOTLOG_CHATID, HEROKU_APP, bot
 
 
 @bot.on(admin_cmd(pattern="restart$"))
@@ -26,19 +25,13 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
+    if BOTLOG:
+        await event.client.send_message(BOTLOG_CHATID, "#SHUTDOWN \n" "Bot shut down")
+    await edit_or_reply(event, "`Turning off bot now ...Manually turn me on later`")
     if HEROKU_APP is not None:
-        if BOTLOG:
-            await event.client.send_message(
-                BOTLOG_CHATID, "#SHUTDOWN \n" "Bot shut down"
-            )
-        await edit_or_reply(event, "`Turning off bot now ...Manually turn me on later`")
         HEROKU_APP.process_formation()["userbot"].scale(0)
     else:
-        await edit_or_reply(
-            event,
-            "`Set HEROKU_APP_NAME and HEROKU_API_KEY to work this function properly`",
-        )
-        await bot.disconnect()
+        sys.exit(0)
 
 
 @bot.on(admin_cmd(pattern="sleep( [0-9]+)?$"))

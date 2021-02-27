@@ -32,8 +32,8 @@ from urllib.error import HTTPError
 
 from pySmartDL import SmartDL
 
-from ..utils import admin_cmd, edit_or_reply, humanbytes, sudo_cmd
-from . import CMD_HELP, LOGS, time_formatter
+from ..utils import humanbytes
+from . import LOGS, time_formatter
 
 TMP_DOWNLOAD_DIRECTORY = Config.TMP_DOWNLOAD_DIRECTORY
 
@@ -138,8 +138,8 @@ async def mega_downloader(megadl):
                 await catevent.edit(current_message)
                 await asyncio.sleep(1)
                 display_message = current_message
-        except Exception:
-            pass
+        except Exception as e:
+            LOGS.info(str(e))
         finally:
             if status == "Combining":
                 wait = round(downloader.get_eta())

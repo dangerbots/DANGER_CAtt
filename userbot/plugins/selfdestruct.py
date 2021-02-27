@@ -1,8 +1,5 @@
 from asyncio import sleep
 
-from ..utils import admin_cmd, sudo_cmd
-from . import CMD_HELP
-
 
 @bot.on(admin_cmd(pattern="sdm (\d*) (.*)", outgoing=True))
 @bot.on(sudo_cmd(pattern="sdm (\d*) (.*)", allow_sudo=True))
@@ -12,8 +9,8 @@ async def selfdestruct(destroy):
     ttl = int(cat[0])
     try:
         await destroy.delete()
-    except:
-        pass
+    except Exception as e:
+        LOGS.info(str(e))
     smsg = await destroy.client.send_message(destroy.chat_id, message)
     await sleep(ttl)
     await smsg.delete()
@@ -30,8 +27,8 @@ async def selfdestruct(destroy):
     )
     try:
         await destroy.delete()
-    except:
-        pass
+    except Exception as e:
+        LOGS.info(str(e))
     smsg = await destroy.client.send_message(destroy.chat_id, text)
     await sleep(ttl)
     await smsg.delete()

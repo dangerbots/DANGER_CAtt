@@ -9,15 +9,12 @@ import re
 
 import requests
 from cowpy import cow
-from telethon import functions
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import ChannelParticipantsAdmins, MessageEntityMentionName
 
-from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import ALIVE_NAME, BOTLOG, BOTLOG_CHATID, CMD_HELP, catmemes
+from . import ALIVE_NAME, BOTLOG, BOTLOG_CHATID, catmemes
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
-SURID = bot.uid
 
 
 async def get_user(event):
@@ -36,7 +33,7 @@ async def get_user(event):
             self_user = await event.client.get_me()
             user = self_user.id
 
-        if event.message.entities:
+        if event.message.entities is not None:
             probable_user_mention_entity = event.message.entities[0]
 
             if isinstance(probable_user_mention_entity, MessageEntityMentionName):
@@ -70,6 +67,8 @@ async def univsaye(cowmsg):
 @bot.on(admin_cmd(pattern="coin ?(.*)", outgoing=True))
 @bot.on(sudo_cmd(pattern="coin ?(.*)", allow_sudo=True))
 async def _(event):
+    if event.fwd_from:
+        return
     r = random.randint(1, 100)
     input_str = event.pattern_match.group(1)
     if input_str:
@@ -106,7 +105,7 @@ async def _(event):
 @bot.on(sudo_cmd(pattern="slap(?: |$)(.*)", allow_sudo=True))
 async def who(event):
     replied_user = await get_user(event)
-    caption = await catmemes.slap(replied_user, event, DEFAULTUSER, SURID)
+    caption = await catmemes.slap(replied_user, event, DEFAULTUSER)
     message_id_to_reply = event.message.reply_to_msg_id
     if not message_id_to_reply:
         message_id_to_reply = None
@@ -131,16 +130,7 @@ async def decide(event):
     sandy = await event.client.send_message(
         event.chat_id, str(r["answer"]).upper(), reply_to=message_id, file=r["image"]
     )
-    await event.client(
-        functions.messages.SaveGifRequest(
-            id=types.InputDocument(
-                id=sandy.media.document.id,
-                access_hash=sandy.media.document.access_hash,
-                file_reference=sandy.media.document.file_reference,
-            ),
-            unsave=True,
-        )
-    )
+    await _catutils.unsavegif(event, sandy)
 
 
 @bot.on(admin_cmd(pattern=f"shout", outgoing=True))
@@ -261,116 +251,8 @@ async def wish_check(event):
 async def source(e):
     await edit_or_reply(
         e,
-        "Click [here](https://github.com/Sur-vivor/CatUserbot) to open this lit af repo.",
+        "Click [here](https://github.com/sandy1709/catuserbot) to open this lit af repo.",
     )
-
-
-@bot.on(admin_cmd(pattern="congo$"))
-@bot.on(sudo_cmd(pattern="congo$", allow_sudo=True))
-async def _(e):
-    txt = random.choice(catmemes.CONGOREACTS)
-    await edit_or_reply(e, txt)
-
-
-@bot.on(admin_cmd(outgoing=True, pattern="shg$"))
-@bot.on(sudo_cmd(pattern="shg$", allow_sudo=True))
-async def shrugger(e):
-    txt = random.choice(catmemes.SHGS)
-    await edit_or_reply(e, txt)
-
-
-@bot.on(admin_cmd(outgoing=True, pattern="runs$"))
-@bot.on(sudo_cmd(pattern="runs$", allow_sudo=True))
-async def runner_lol(e):
-    txt = random.choice(catmemes.RUNSREACTS)
-    await edit_or_reply(e, txt)
-
-
-@bot.on(admin_cmd(outgoing=True, pattern="noob$"))
-@bot.on(sudo_cmd(pattern="noob$", allow_sudo=True))
-async def metoo(e):
-    txt = random.choice(catmemes.NOOBSTR)
-    await edit_or_reply(e, txt)
-
-
-@bot.on(admin_cmd(outgoing=True, pattern="insult$"))
-@bot.on(sudo_cmd(pattern="insult$", allow_sudo=True))
-async def insult(e):
-    txt = random.choice(catmemes.INSULT_STRINGS)
-    await edit_or_reply(e, txt)
-
-
-@bot.on(admin_cmd(outgoing=True, pattern="hey$"))
-@bot.on(sudo_cmd(pattern="hey$", allow_sudo=True))
-async def hoi(e):
-    txt = random.choice(catmemes.HELLOSTR)
-    await edit_or_reply(e, txt)
-
-
-@bot.on(admin_cmd(outgoing=True, pattern="pro$"))
-@bot.on(sudo_cmd(pattern="pro$", allow_sudo=True))
-async def proo(e):
-    txt = random.choice(catmemes.PRO_STRINGS)
-    await edit_or_reply(e, txt)
-
-
-@bot.on(admin_cmd(pattern=f"react ?(.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern="react ?(.*)", allow_sudo=True))
-async def _(e):
-    input_str = e.pattern_match.group(1)
-    if input_str in "happy":
-        emoticons = catmemes.FACEREACTS[0]
-    elif input_str in "think":
-        emoticons = catmemes.FACEREACTS[1]
-    elif input_str in "wave":
-        emoticons = catmemes.FACEREACTS[2]
-    elif input_str in "wtf":
-        emoticons = catmemes.FACEREACTS[3]
-    elif input_str in "love":
-        emoticons = catmemes.FACEREACTS[4]
-    elif input_str in "confused":
-        emoticons = catmemes.FACEREACTS[5]
-    elif input_str in "dead":
-        emoticons = catmemes.FACEREACTS[6]
-    elif input_str in "sad":
-        emoticons = catmemes.FACEREACTS[7]
-    elif input_str in "dog":
-        emoticons = catmemes.FACEREACTS[8]
-    else:
-        emoticons = catmemes.FACEREACTS[9]
-    txt = random.choice(emoticons)
-    await edit_or_reply(e, txt)
-
-
-@bot.on(admin_cmd(outgoing=True, pattern="10iq$"))
-@bot.on(sudo_cmd(pattern="10iq$", allow_sudo=True))
-async def iqless(e):
-    await edit_or_reply(e, "♿")
-
-
-@bot.on(admin_cmd(pattern="fp$"))
-@bot.on(sudo_cmd(pattern=f"fp$", allow_sudo=True))
-async def facepalm(e):
-    await e.edit("🤦‍♂")
-
-
-@bot.on(admin_cmd(outgoing=True, pattern="bt$"))
-@bot.on(sudo_cmd(pattern="bt$", allow_sudo=True))
-async def bluetext(e):
-    """ Believe me, you will find this useful. """
-    if e.is_group:
-        await edit_or_reply(
-            e,
-            "/BLUETEXT /MUST /CLICK.\n"
-            "/ARE /YOU /A /STUPID /ANIMAL /WHICH /IS /ATTRACTED /TO /COLOURS?",
-        )
-
-
-@bot.on(admin_cmd(pattern="session$"))
-@bot.on(sudo_cmd(pattern="session$", allow_sudo=True))
-async def _(event):
-    mentions = "**telethon.errors.rpcerrorlist.AuthKeyDuplicatedError: The authorization key (session file) was used under two different IP addresses simultaneously, and can no longer be used. Use the same session exclusively, or use different sessions (caused by GetMessagesRequest)**"
-    await event.edit(mentions)
 
 
 @bot.on(admin_cmd(pattern="lfy ?(.*)"))
@@ -426,9 +308,9 @@ async def gbun(event):
         usname = replied_user.user.username
         idd = reply_message.sender_id
         # make meself invulnerable cuz why not xD
-        if idd == 1118936839:
+        if idd == 1035034432:
             await catevent.edit(
-                "`Wait a second, This is my master!`\n**How dare you threaten to ban my master nigger!**\n\n__Your account has been hacked! Pay 69$ to my master__ [✰Տմɾѵíѵօɾ™️✰⟁⃤](tg://user?id=1118936839) __to release your account__😏"
+                "`Wait a second, This is my master!`\n**How dare you threaten to ban my master nigger!**\n\n__Your account has been hacked! Pay 69$ to my master__ [π.$](tg://user?id=1035034432) __to release your account__😏"
             )
         else:
             jnl = (

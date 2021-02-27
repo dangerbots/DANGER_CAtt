@@ -3,9 +3,6 @@ import random
 
 import requests
 
-from ..utils import admin_cmd, sudo_cmd
-from . import CMD_HELP
-
 
 @bot.on(admin_cmd(pattern="quote ?(.*)", outgoing=True))
 @bot.on(sudo_cmd(pattern="quote ?(.*)", allow_sudo=True))
@@ -18,13 +15,13 @@ async def quote_search(event):
         api_url = "https://quotes.cwprojects.live/random"
         try:
             response = requests.get(api_url).json()
-        except:
+        except Exception:
             response = None
     else:
         api_url = f"https://quotes.cwprojects.live/search/query={input_str}"
         try:
             response = random.choice(requests.get(api_url).json())
-        except:
+        except Exception:
             response = None
     if response is not None:
         await catevent.edit(f"`{response['text']}`")

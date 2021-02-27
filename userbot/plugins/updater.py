@@ -13,9 +13,6 @@ from os import environ, execle, path, remove
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
 
-from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import CMD_HELP, runcmd
-
 HEROKU_APP_NAME = Config.HEROKU_APP_NAME or None
 HEROKU_API_KEY = Config.HEROKU_API_KEY or None
 UPSTREAM_REPO_BRANCH = Config.UPSTREAM_REPO_BRANCH
@@ -114,8 +111,8 @@ async def deploy(event, repo, ups_rem, ac_br, txt):
         except Exception as error:
             await event.edit(f"{txt}\n`Here is the error log:\n{error}`")
             return repo.__del__()
-        build = app.builds(order_by="created_at", sort="desc")[0]
-        if build.status == "failed":
+        build_status = app.builds(order_by="created_at", sort="desc")[0]
+        if build_status.status == "failed":
             await event.edit(
                 "`Build failed!\n" "Cancelled or there were some errors...`"
             )
@@ -210,9 +207,7 @@ async def upstream(event):
     if conf == "" and not force_update:
         await print_changelogs(event, ac_br, changelog)
         await event.delete()
-        return await event.respond(
-            'do "[`.update now`] or [`.update deploy`]" to update.Check `.info updater` for details'
-        )
+        return await event.respond("do `.update deploy` to update the catuserbot")
 
     if force_update:
         await event.edit(
@@ -224,14 +219,14 @@ async def upstream(event):
     return
 
 
-@bot.on(admin_cmd(outgoing=True, pattern=r"goodcat$"))
-@bot.on(sudo_cmd(pattern="goodcat$", allow_sudo=True))
+@bot.on(admin_cmd(outgoing=True, pattern=r"badcat$"))
+@bot.on(sudo_cmd(pattern="badcat$", allow_sudo=True))
 async def upstream(event):
     event = await edit_or_reply(event, "`Pulling the bad cat repo wait a sec ....`")
-    off_repo = "https://github.com/sandy1709/catuserbot"
+    off_repo = "https://github.com/Jisan09/catuserbot"
     catcmd = f"rm -rf .git"
     try:
-        await runcmd(catcmd)
+        await _catutils.runcmd(catcmd)
     except BaseException:
         pass
     try:
@@ -274,7 +269,7 @@ CMD_HELP.update(
         "\n\n  •  **Syntax : **`.update deploy`"
         "\n  •  **Function :** Deploy your userbot.So even you restart it doesnt go back to previous version"
         "\nThis will triggered deploy always, even no updates."
-        "\n\n  •  **Syntax : **`.goodcat`"
+        "\n\n  •  **Syntax : **`.badcat`"
         "\n  •  **Function :** Shifts from official cat repo to jisan's repo(for gali commands)"
     }
 )

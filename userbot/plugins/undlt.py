@@ -1,8 +1,5 @@
 import asyncio
 
-from .. import CMD_HELP
-from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-
 
 @bot.on(admin_cmd(pattern="undlt ?(.*)"))
 @bot.on(sudo_cmd(pattern="undlt ?(.*)", allow_sudo=True))
@@ -13,7 +10,7 @@ async def _(event):
         try:
             cat = int(event.pattern_match.group(1))
             input_str = cat
-        except:
+        except Exception:
             input_str = 5
     else:
         input_str = 5

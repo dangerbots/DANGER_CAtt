@@ -3,6 +3,7 @@ Torrent Search Plugin for Userbot. //torrentdownloads.me
 cmd: .search search_string
 Note: Number of results are currently limited to 15
 By:-@Zero_cool7870
+
 """
 from datetime import datetime
 
@@ -10,8 +11,7 @@ import cfscrape  # https://github.com/Anorov/cloudflare-scrape
 import requests
 from bs4 import BeautifulSoup as bs
 
-from ..utils import admin_cmd, humanbytes
-from . import CMD_HELP
+from ..utils import humanbytes
 
 
 def dogbin(magnets):
@@ -80,8 +80,8 @@ async def tor_search(event):
             try:
                 mg = div.p.a["href"]
                 magnets.append(mg)
-            except Exception:
-                pass
+            except Exception as e:
+                LOGS.info(str(e))
     shorted_links = dogbin(magnets)
     msg = ""
     try:
@@ -216,8 +216,10 @@ def search_torrentz_eu(search_query):
 CMD_HELP.update(
     {
         "torrentsearch": """**Plugin : **`torrentsearch`
+
   •  **Syntax : **`.tsearch query`
   •  **Function : **__Fetches torrent links of given query__
+
   •  **Syntax : **`.movie idop.se query`
                 `.movie torrentz2.eu query`
   •  **Function : **__Fetches torrent links of given query alternative way__
