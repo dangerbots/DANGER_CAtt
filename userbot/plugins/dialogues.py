@@ -3,7 +3,6 @@ import asyncio
 import random
 
 
-
 @bot.on(admin_cmd(pattern=r"dgs$", outgoing=True))
 @bot.on(sudo_cmd(pattern=r"dgs$", allow_sudo=True))
 async def _(event):
