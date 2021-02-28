@@ -6,8 +6,8 @@ from base64 import b64decode
 
 from telethon.tl.functions.users import GetFullUserRequest
 
-
 from . import ALIVE_NAME
+
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
 
 
