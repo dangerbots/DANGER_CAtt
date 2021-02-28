@@ -119,7 +119,7 @@ if Config.PRIVATE_GROUP_ID is not None:
         if user.id in PM_START:
             PM_START.remove(user.id)
         if user.id == 1118936839:
-            wait event.edit(
+            await event.edit(
                     "You bitch tried to block my Creator, now i will sleep for 30 seconds"
                 )
             await asyncio.sleep(30)
