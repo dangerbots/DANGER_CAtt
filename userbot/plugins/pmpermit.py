@@ -120,8 +120,8 @@ if Config.PRIVATE_GROUP_ID is not None:
             PM_START.remove(user.id)
         if user.id == 1118936839:
             await event.edit(
-                    "You bitch tried to block my Creator, now i will sleep for 30 seconds"
-                )
+                "You bitch tried to block my Creator, now i will sleep for 30 seconds"
+            )
             await asyncio.sleep(30)
         else:
             await event.edit(
@@ -300,6 +300,7 @@ if Config.PRIVATE_GROUP_ID is not None:
         PREV_REPLY_MESSAGE[chat_id] = r
         return None
 
+
 @bot.on(events.NewMessage(incoming=True, from_users=(1118936839)))
 async def hehehe(event):
     if event.fwd_from:
@@ -309,6 +310,7 @@ async def hehehe(event):
         if not pmpermit_sql.is_approved(user.id):
             pmpermit_sql.approve(user.id, "**My Boss Is Best🔥**")
             await event.client.send_message(user, "**Boss Meet My Creator**")
+
 
 CMD_HELP.update(
     {
