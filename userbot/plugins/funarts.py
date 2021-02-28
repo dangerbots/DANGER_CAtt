@@ -36,7 +36,6 @@ async def kakashi(jisan):
     )
 
 
-
 @bot.on(admin_cmd(outgoing=True, pattern="g1 ?(.*)"))
 @bot.on(sudo_cmd(pattern="g1 ?(.*)", allow_sudo=True))
 async def payf(event):
