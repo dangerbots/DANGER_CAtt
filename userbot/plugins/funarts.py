@@ -185,6 +185,7 @@ async def payf(event):
     )
     await edit_or_reply(event, pay)
 
+
 @bot.on(admin_cmd(pattern="join$"))
 @bot.on(sudo_cmd(pattern="join$", allow_sudo=True))
 async def _(event):
@@ -316,6 +317,7 @@ async def test(event):
   🌴/               |                \🌲""",
     )
 
+
 @bot.on(admin_cmd(pattern=r"ohh$"))
 @bot.on(sudo_cmd(pattern="ohh$", allow_sudo=True))
 async def kakashi(event):
@@ -335,9 +337,8 @@ async def kakashi(fail):
 @bot.on(sudo_cmd(pattern="nih$", allow_sudo=True))
 async def kakashi(lol):
     await edit_or_reply(lol, B)
-    
-    
-    
+
+
 CMD_HELP.update(
     {
         "funarts": """**Plugin : **`funarts`
