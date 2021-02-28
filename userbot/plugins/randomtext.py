@@ -12,7 +12,6 @@ import random
 from asyncio import sleep
 
 
-
 @bot.on(admin_cmd(pattern=f"hps$", outgoing=True))
 @bot.on(sudo_cmd(pattern=f"hps$", allow_sudo=True))
 async def _(event):
