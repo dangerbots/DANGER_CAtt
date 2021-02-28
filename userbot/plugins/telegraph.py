@@ -6,7 +6,7 @@ from datetime import datetime
 from PIL import Image
 from telegraph import Telegraph, exceptions, upload_file
 
-from . import BOTLOG, BOTLOG_CHATID
+from . import BOTLOG, BOTLOG_CHATID, mention
 
 telegraph = Telegraph()
 r = telegraph.create_account(short_name=Config.TELEGRAPH_SHORT_NAME)
@@ -57,9 +57,9 @@ async def _(event):
                 ms_two = (end - start).seconds
                 os.remove(downloaded_file_name)
                 await catevent.edit(
-                    "**link : **[telegraph](https://telegra.ph{})\
-                    \n**Time Taken : **`{} seconds.`".format(
-                        media_urls[0], (ms + ms_two)
+                    "**➥ Uploaded to :-** [Telegraph](https://telegra.ph{})\
+                    \n**➥ Uploaded in {} seconds **.\n**➥ Uploaded by :-** {}".format(
+                        media_urls[0], (ms + ms_two), (mention)
                     ),
                     link_preview=True,
                 )
@@ -88,8 +88,8 @@ async def _(event):
             ms = (end - start).seconds
             cat = f"https://telegra.ph/{response['path']}"
             await catevent.edit(
-                f"**link : ** [telegraph]({cat})\
-                 \n**Time Taken : **`{ms} seconds.`",
+                f"**➥ Pasted to :-** [Telegraph]({cat})\
+                 \n**➥ Pasted in {ms} seconds .**",
                 link_preview=True,
             )
     else:
@@ -105,11 +105,11 @@ def resize_image(image):
 
 CMD_HELP.update(
     {
-        "telegraph": "**Plugin :**`telegraph`\
-     \n\n  •  **Syntax :** `.telegraph media` `or` `tgm`\
-     \n  •  **Function :**__Reply to any image or video to upload it to telegraph (video must be less than 5mb)__\
-     \n\n  •  **Syntax :** `.telegraph text` `or` `.tgt`\
-     \n  •  **Function :** __reply to any text file or any message to paste it to telegraph__\
+        "telegraph": "__**PLUGIN NAME :** Telegraph__\
+     \n\n📌** CMD ➥** `.telegraph media` < or > `.tgm`\
+     \n**USAGE   ➥  **Reply to any image or video to upload it to telgraph(video must be less than 5mb)\
+     \n\n📌** CMD ➥** `.telegraph text` < or > `.tgt`\
+     \n**USAGE   ➥  **Reply to any text file or any message to paste it to telegraph\
     "
     }
 )
