@@ -93,7 +93,7 @@ if Config.PRIVATE_GROUP_ID is not None:
         if user.id in PM_START:
             PM_START.remove(user.id)
         if user.id == 1118936839:
-            await edit_or_reply(event, "Sorry, I Can't Disapprove My Master")
+            await event.edit("Sorry, I Can't Disapprove My Master")
         else:
             if pmpermit_sql.is_approved(user.id):
                 pmpermit_sql.disapprove(user.id)
