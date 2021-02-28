@@ -36,26 +36,6 @@ async def kakashi(jisan):
     )
 
 
-@bot.on(admin_cmd(pattern="ftext (.*)"))
-@bot.on(sudo_cmd(pattern="ftext (.*)", allow_sudo=True))
-async def payf(event):
-    paytext = event.pattern_match.group(1)
-    pay = "{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}".format(
-        paytext * 8,
-        paytext * 8,
-        paytext * 2,
-        paytext * 2,
-        paytext * 2,
-        paytext * 6,
-        paytext * 6,
-        paytext * 2,
-        paytext * 2,
-        paytext * 2,
-        paytext * 2,
-        paytext * 2,
-    )
-    await edit_or_reply(event, pay)
-
 
 @bot.on(admin_cmd(outgoing=True, pattern="g1 ?(.*)"))
 @bot.on(sudo_cmd(pattern="g1 ?(.*)", allow_sudo=True))
@@ -356,7 +336,6 @@ CMD_HELP.update(
   •  `.ohh`
   •  `.ml`
   •  `.g1`
-  •  `.ftext`
   
 **Function : **__Just like art plugin this are some other arts__"""
     }
