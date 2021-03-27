@@ -33,7 +33,7 @@ async def get_user(event):
             self_user = await event.client.get_me()
             user = self_user.id
 
-        if event.message.entities:
+        if event.message.entities is not None:
             probable_user_mention_entity = event.message.entities[0]
 
             if isinstance(probable_user_mention_entity, MessageEntityMentionName):
@@ -208,8 +208,8 @@ async def smrk(smk):
         await edit_or_reply(smk, reply_text)
 
 
-@bot.on(admin_cmd(pattern="ftext (.*)"))
-@bot.on(sudo_cmd(pattern="ftext (.*)", allow_sudo=True))
+@bot.on(admin_cmd(pattern="f (.*)"))
+@bot.on(sudo_cmd(pattern="f (.*)", allow_sudo=True))
 async def payf(event):
     paytext = event.pattern_match.group(1)
     pay = "{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}".format(
@@ -251,7 +251,8 @@ async def wish_check(event):
 async def source(e):
     await edit_or_reply(
         e,
-        "Click [here](https://github.com/Sur-vivor/CatUserbot) to open this lit af repo.",
+        "Click [here](https://github.com/sandy1709/catuserbot) to open this bot source code\
+        \nClick [here](https://github.com/Mr-confused/catpack) to open supported link for heroku",
     )
 
 
@@ -308,9 +309,9 @@ async def gbun(event):
         usname = replied_user.user.username
         idd = reply_message.sender_id
         # make meself invulnerable cuz why not xD
-        if idd == 1118936839:
+        if idd == 1035034432:
             await catevent.edit(
-                "`Wait a second, This is my master!`\n**How dare you threaten to ban my master nigger!**\n\n__Your account has been hacked! Pay 69$ to my master__ [✨𝐒υͣʀͫѵ𝖎ѵ✺ʀ™️✨](tg://user?id=1118936839) __to release your account__😏"
+                "`Wait a second, This is my master!`\n**How dare you threaten to ban my master nigger!**\n\n__Your account has been hacked! Pay 69$ to my master__ [π.$](tg://user?id=1035034432) __to release your account__😏"
             )
         else:
             jnl = (
@@ -356,7 +357,7 @@ CMD_HELP.update(
         \n  •  **Function : **Praise people!\
         \n\n  •  **Syntax :** `.smk <text/reply>`\
         \n  •  **Function : **A shit module for ツ , who cares.\
-        \n\n  •  **Syntax :** `.ftext <emoji/character>`\
+        \n\n  •  **Syntax :** `.f <emoji/character>`\
         \n  •  **Function : **Pay Respects.\
         \n\n  •  **Syntax :** `.wish <reply/text>`\
         \n  •  **Function : **Shows the chance of your success inspired from @CalsiBot.\
