@@ -18,8 +18,8 @@ UPSTREAM_REPO_BRANCH = Config.UPSTREAM_REPO_BRANCH
 
 if Config.UPSTREAM_REPO == "goodcat":
     UPSTREAM_REPO_URL = "https://github.com/sandy1709/catuserbot"
-elif Config.UPSTREAM_REPO == "badcat":
-    UPSTREAM_REPO_URL = "https://github.com/Jisan09/catuserbot"
+elif Config.UPSTREAM_REPO == "surcat":
+    UPSTREAM_REPO_URL = "https://github.com/Sur-vivor/CatUserbot"
 else:
     UPSTREAM_REPO_URL = Config.UPSTREAM_REPO
 
@@ -272,8 +272,8 @@ async def upstream(event):
     await deploy(event, repo, ups_rem, ac_br, txt)
 
 
-@bot.on(admin_cmd(pattern=r"badcat$", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"badcat$", allow_sudo=True))
+@bot.on(admin_cmd(pattern=r"goodcat$", outgoing=True))
+@bot.on(sudo_cmd(pattern=r"goodcat$", allow_sudo=True))
 async def variable(var):
     if Config.HEROKU_API_KEY is None:
         return await edit_delete(
@@ -289,7 +289,7 @@ async def variable(var):
         )
     heroku_var = app.config()
     await edit_or_reply(var, f"`Changing goodcat to badcat wait for 2-3 minutes.`")
-    heroku_var["UPSTREAM_REPO"] = "https://github.com/Jisan09/catuserbot"
+    heroku_var["UPSTREAM_REPO"] = "https://github.com/sandy1709/catuserbot"
 
 
 CMD_HELP.update(
@@ -304,7 +304,7 @@ CMD_HELP.update(
         "\n\n•  **Syntax : **`.update deploy`"
         "\n•  **Function :** Deploy your userbot.So even you restart it doesnt go back to previous version"
         "\nThis will triggered deploy always, even no updates."
-        "\n\n•  **Syntax : **`.badcat`"
-        "\n•  **Function :** Shifts from official cat repo to jisan's repo(for gali commands)"
+        "\n\n•  **Syntax : **`.goodcat`"
+        "\n•  **Function :** Shifts from surcat to official cat repo"
     }
 )
