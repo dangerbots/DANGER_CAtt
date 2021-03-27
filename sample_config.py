@@ -31,7 +31,7 @@ class Config(object):
     TZ = os.environ.get("TZ", "Asia/Kolkata")
     # set this with required cat repo link
     UPSTREAM_REPO = os.environ.get(
-        "UPSTREAM_REPO", "https://github.com/Sur-vivor/CatUserbot.git"
+        "UPSTREAM_REPO", "https://github.com/sandy1709/catuserbot.git"
     )
 
     # BASIC and MAIN CONFIG VARS
@@ -48,7 +48,7 @@ class Config(object):
     # set this with same app name you given for heroku
     HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
     # Owner id to show profile link of given id as owner
-    OWNER_ID = int(os.environ.get("OWNER_ID") or -777000)
+    OWNER_ID = int(os.environ.get("OWNER_ID") or 0)
     # Maximum no of pms should be sent before he get block will work only if you set PRIVATE_GROUP_ID
     MAX_FLOOD_IN_PMS = int(os.environ.get("MAX_FLOOD_IN_PMS", 5))
     # set this with group id so it keeps notifying about your tagged messages or pms
