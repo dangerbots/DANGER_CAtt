@@ -1,38 +1,54 @@
-import os
-import sys
 import time
-from distutils.util import strtobool as sb
-from logging import DEBUG, INFO, basicConfig, getLogger
 
 import heroku3
-from dotenv import load_dotenv
-from requests import get
-from telethon import TelegramClient
-from telethon.sessions import StringSession
 
 from .Config import Config
+from .core.logger import logging
+from .core.session import catub
+from .sql_helper.globals import addgvar, delgvar, gvarstatus
+
+__version__ = "3.0.2"
+__license__ = "GNU Affero General Public License v3.0"
+__author__ = "CatUserBot <https://github.com/sandy1709/catuserbot>"
+__copyright__ = "CatUserBot Copyright (C) 2020 - 2021  " + __author__
+
+catub.version = __version__
+catub.tgbot.version = __version__
+LOGS = logging.getLogger("CatUserbot")
+bot = catub
 
 StartTime = time.time()
-catversion = "2.10.6"
+catversion = "3.0.3"
 
-
-CAT_ID = ["1035034432", "1118936839"]
-
-CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
-
-if CONSOLE_LOGGER_VERBOSE:
-    basicConfig(
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        level=DEBUG,
-    )
+if Config.UPSTREAM_REPO == "badcat":
+    UPSTREAM_REPO_URL = "https://github.com/Jisan09/catuserbot"
+elif Config.UPSTREAM_REPO == "goodcat":
+    UPSTREAM_REPO_URL = "https://github.com/sandy1709/catuserbot"
 else:
-    basicConfig(
-        format="[%(asctime)s]- %(name)s- %(levelname)s- %(message)s",
-        level=INFO,
-        datefmt="%m-%d %H:%M:%S",
-    )
-LOGS = getLogger(__name__)
+    UPSTREAM_REPO_URL = Config.UPSTREAM_REPO
 
+if Config.PRIVATE_GROUP_BOT_API_ID == 0:
+    if gvarstatus("PRIVATE_GROUP_BOT_API_ID") is None:
+        Config.BOTLOG = False
+        Config.BOTLOG_CHATID = "me"
+    else:
+        Config.BOTLOG_CHATID = int(gvarstatus("PRIVATE_GROUP_BOT_API_ID"))
+        Config.PRIVATE_GROUP_BOT_API_ID = int(gvarstatus("PRIVATE_GROUP_BOT_API_ID"))
+        Config.BOTLOG = True
+else:
+    if str(Config.PRIVATE_GROUP_BOT_API_ID)[0] != "-":
+        Config.BOTLOG_CHATID = int("-" + str(Config.PRIVATE_GROUP_BOT_API_ID))
+    else:
+        Config.BOTLOG_CHATID = Config.PRIVATE_GROUP_BOT_API_ID
+    Config.BOTLOG = True
+
+if Config.PM_LOGGER_GROUP_ID == 0:
+    if gvarstatus("PM_LOGGER_GROUP_ID") is None:
+        Config.PM_LOGGER_GROUP_ID = -100
+    else:
+        Config.PM_LOGGER_GROUP_ID = int(gvarstatus("PM_LOGGER_GROUP_ID"))
+elif str(Config.PM_LOGGER_GROUP_ID)[0] != "-":
+    Config.PM_LOGGER_GROUP_ID = int("-" + str(Config.PM_LOGGER_GROUP_ID))
 
 try:
     if Config.HEROKU_API_KEY is not None or Config.HEROKU_APP_NAME is not None:
@@ -43,6 +59,7 @@ try:
         HEROKU_APP = None
 except Exception:
     HEROKU_APP = None
+
 
 # Global Configiables
 COUNT_MSG = 0
@@ -58,20 +75,7 @@ SUDO_LIST = {}
 INT_PLUG = ""
 LOAD_PLUG = {}
 
-if Config.STRING_SESSION:
-    session_name = str(Config.STRING_SESSION)
-    try:
-        if session_name.endswith("="):
-            bot = TelegramClient(
-                StringSession(session_name), Config.APP_ID, Config.API_HASH
-            )
-        else:
-            bot = TelegramClient(
-                "TG_BOT_TOKEN", api_id=Config.APP_ID, api_hash=Config.API_HASH
-            ).start(bot_token=Config.STRING_SESSION)
-    except Exception as e:
-        LOGS.warn(f"STRING_SESSION - {str(e)}")
-        sys.exit()
-else:
-    session_name = "startup"
-    bot = TelegramClient(session_name, Config.APP_ID, Config.API_HASH)
+# Variables
+BOTLOG = Config.BOTLOG
+BOTLOG_CHATID = Config.BOTLOG_CHATID
+PM_LOGGER_GROUP_ID = Config.PM_LOGGER_GROUP_ID
