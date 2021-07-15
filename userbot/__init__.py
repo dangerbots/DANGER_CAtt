@@ -20,8 +20,8 @@ bot = catub
 StartTime = time.time()
 catversion = "3.0.4"
 
-if Config.UPSTREAM_REPO == "badcat":
-    UPSTREAM_REPO_URL = "https://github.com/Jisan09/catuserbot"
+if Config.UPSTREAM_REPO == "surcat":
+    UPSTREAM_REPO_URL = "https://github.com/Sur-vivor/CatUserbot"
 elif Config.UPSTREAM_REPO == "goodcat":
     UPSTREAM_REPO_URL = "https://github.com/sandy1709/catuserbot"
 else:
