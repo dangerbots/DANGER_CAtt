@@ -1,20 +1,45 @@
 import asyncio
-from datetime import datetime
 from random import choice, randint
 
+from telethon.errors import BadRequestError
 from telethon.tl.functions.channels import EditAdminRequest
 from telethon.tl.types import ChatAdminRights
 
+from userbot import catub
+
+from ..core.managers import edit_delete, edit_or_reply
+from ..helpers.utils import get_user_from_event
 from . import ALIVE_NAME
 
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
+plugin_category = "fun"
 
 
-@bot.on(admin_cmd(pattern="scam(?: |$)(.*)"))
-@bot.on(sudo_cmd(pattern="scam(?: |$)(.*)", allow_sudo=True))
+@catub.cat_cmd(
+    pattern="scam(?:\s|$)([\s\S]*)",
+    command=("scam", plugin_category),
+    info={
+        "header": "To show fake actions for a paticular period of time",
+        "description": "if time is not mentioned then it may choose random time 5 or 6 mintues for mentioning time use in seconds",
+        "usage": [
+            "{tr}scam <action> <time(in seconds)>",
+            "{tr}scam <action>",
+            "{tr}scam",
+        ],
+        "examples": "{tr}scam photo 300",
+        "actions": [
+            "typing",
+            "contact",
+            "game",
+            "location",
+            "voice",
+            "round",
+            "video",
+            "photo",
+            "document",
+        ],
+    },
+)
 async def _(event):
-    if event.fwd_from:
-        return
     options = [
         "typing",
         "contact",
@@ -34,7 +59,7 @@ async def _(event):
     elif len(args) == 1:
         try:
             scam_action = str(args[0]).lower()
-            scam_time = randint(200, 300)
+            scam_time = randint(300, 360)
         except ValueError:
             scam_action = choice(options)
             scam_time = int(args[0])
@@ -53,37 +78,53 @@ async def _(event):
         return
 
 
-@bot.on(admin_cmd(pattern="prankpromote ?(.*)"))
-@bot.on(sudo_cmd(pattern="prankpromote ?(.*)", allow_sudo=True))
+@catub.cat_cmd(
+    pattern="prankpromote(?:\s|$)([\s\S]*)",
+    command=("prankpromote", plugin_category),
+    info={
+        "header": "To promote a person without admin rights",
+        "note": "You need proper rights for this",
+        "usage": [
+            "{tr}prankpromote <userid/username/reply>",
+            "{tr}prankpromote <userid/username/reply> <custom title>",
+        ],
+    },
+    groups_only=True,
+    require_admin=True,
+)
 async def _(event):
-    if event.fwd_from:
+    "To promote a person without admin rights"
+    new_rights = ChatAdminRights(post_messages=True)
+    catevent = await edit_or_reply(event, "`Promoting...`")
+    user, rank = await get_user_from_event(event, catevent)
+    if not rank:
+        rank = "Admin"
+    if not user:
         return
-    datetime.now()
-    to_promote_id = None
-    rights = ChatAdminRights(post_messages=True)
-    input_str = event.pattern_match.group(1)
-    reply_msg_id = event.message.id
-    if reply_msg_id:
-        r_mesg = await event.get_reply_message()
-        to_promote_id = r_mesg.sender_id
-    elif input_str:
-        to_promote_id = input_str
     try:
-        await event.client(EditAdminRequest(event.chat_id, to_promote_id, rights, ""))
-    except (Exception) as exc:
-        await edit_or_reply(event, str(exc))
-    else:
-        await edit_or_reply(event, "Successfully Promoted")
+        await event.client(EditAdminRequest(event.chat_id, user.id, new_rights, rank))
+    except BadRequestError:
+        return await catevent.edit(NO_PERM)
+    except Exception as e:
+        return await edit_delete(catevent, f"__{str(e)}__", time=10)
+    await catevent.edit("`Promoted Successfully! Now gib Party`")
 
 
-@bot.on(admin_cmd(pattern=f"padmin$", outgoing=True))
-@bot.on(sudo_cmd(pattern="padmin$", allow_sudo=True))
+@catub.cat_cmd(
+    pattern="padmin$",
+    command=("padmin", plugin_category),
+    info={
+        "header": "Fun animation for faking user promotion",
+        "description": "An animation that shows enabling all permissions to him that he is admin(fake promotion)",
+        "usage": "{tr}padmin",
+    },
+    groups_only=True,
+)
 async def _(event):
-    if event.fwd_from:
-        return
+    "Fun animation for faking user promotion."
     animation_interval = 1
     animation_ttl = range(20)
-    event = await edit_or_reply(event, "promoting.......")
+    event = await edit_or_reply(event, "`promoting.......`")
     animation_chars = [
         "**Promoting User As Admin...**",
         "**Enabling All Permissions To User...**",
@@ -104,22 +145,8 @@ async def _(event):
         "**(8) Change Chat Info: ☑️**",
         "**(8) Change Chat Info: ✅**",
         "**Permission Granted Successfully**",
-        f"**pRoMooTeD SuCcEsSfUlLy bY: {DEFAULTUSER}**",
+        f"**pRoMooTeD SuCcEsSfUlLy bY: {ALIVE_NAME}**",
     ]
     for i in animation_ttl:
         await asyncio.sleep(animation_interval)
         await event.edit(animation_chars[i % 20])
-
-
-CMD_HELP.update(
-    {
-        "fake": "**fake**\
-    \n\n**Syntax :** `.scam <action> <time>` \
-    \n**Usage : **Type .scam (action name) This shows the fake action in the group, The actions are typing ,contact ,game, location, voice, round, video,photo,document, cancel.\
-    \n\n**Syntax :** `.prankpromote` reply to user to whom you want to prank promote\
-    \n**Usage : **it promotes him to admin but he will not have any permission to take action that is he can see rection actions but cant take any admin action\
-    \n\n**Syntax :** `.padmin`\
-    \n**Usage : ** An animation that shows enabling all permissions to him that he is admin(fake promotion)\
-    "
-    }
-)

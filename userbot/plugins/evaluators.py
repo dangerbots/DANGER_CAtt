@@ -1,19 +1,26 @@
-# Execute GNU/Linux commands inside Telegram
-
 import asyncio
 import io
 import os
 import sys
 import traceback
 
+from ..helpers.utils import _format
 from . import *
 
+plugin_category = "tools"
 
-@bot.on(admin_cmd(pattern="exec(?: |$|\n)(.*)", command="exec"))
-@bot.on(sudo_cmd(pattern="exec(?: |$|\n)(.*)", command="exec", allow_sudo=True))
+
+@catub.cat_cmd(
+    pattern="exec(?:\s|$)([\s\S]*)",
+    command=("exec", plugin_category),
+    info={
+        "header": "To Execute terminal commands in a subprocess.",
+        "usage": "{tr}exec <command>",
+        "examples": "{tr}exec cat stringsetup.py",
+    },
+)
 async def _(event):
-    if event.fwd_from:
-        return
+    "To Execute terminal commands in a subprocess."
     cmd = "".join(event.message.message.split(maxsplit=1)[1:])
     if not cmd:
         return await edit_delete(event, "`What should i execute?..`")
@@ -27,14 +34,14 @@ async def _(event):
     curruser = catuser.username or "catuserbot"
     uid = os.geteuid()
     if uid == 0:
-        cresult = f"`{curruser}:~#` `{cmd}`\n`{result}`"
+        cresult = f"```{curruser}:~#``` ```{cmd}```\n```{result}```"
     else:
-        cresult = f"`{curruser}:~$` `{cmd}`\n`{result}`"
+        cresult = f"```{curruser}:~$``` ```{cmd}```\n```{result}```"
     await edit_or_reply(
         catevent,
         text=cresult,
         aslink=True,
-        linktext=f"**•  Exec : **\n`{cmd}` \n\n**•  Result : **\n",
+        linktext=f"**•  Exec : **\n```{cmd}``` \n\n**•  Result : **\n",
     )
     if BOTLOG:
         await event.client.send_message(
@@ -43,14 +50,25 @@ async def _(event):
         )
 
 
-@bot.on(admin_cmd(pattern="eval(?: |$|\n)(.*)", command="eval"))
-@bot.on(sudo_cmd(pattern="eval(?: |$|\n)(.*)", command="eval", allow_sudo=True))
+@catub.cat_cmd(
+    pattern="eval(?:\s|$)([\s\S]*)",
+    command=("eval", plugin_category),
+    info={
+        "header": "To Execute python script/statements in a subprocess.",
+        "usage": "{tr}eval <command>",
+        "examples": "{tr}eval print('catuserbot')",
+    },
+)
 async def _(event):
-    if event.fwd_from:
-        return
+    "To Execute python script/statements in a subprocess."
     cmd = "".join(event.message.message.split(maxsplit=1)[1:])
     if not cmd:
         return await edit_delete(event, "`What should i run ?..`")
+    cmd = (
+        cmd.replace("sendmessage", "send_message")
+        .replace("sendfile", "send_file")
+        .replace("editmessage", "edit_message")
+    )
     catevent = await edit_or_reply(event, "`Running ...`")
     old_stderr = sys.stderr
     old_stdout = sys.stdout
@@ -74,12 +92,14 @@ async def _(event):
         evaluation = stdout
     else:
         evaluation = "Success"
-    final_output = f"**•  Eval : **\n`{cmd}` \n\n**•  Result : **\n`{evaluation}` \n"
+    final_output = (
+        f"**•  Eval : **\n```{cmd}``` \n\n**•  Result : **\n```{evaluation}``` \n"
+    )
     await edit_or_reply(
         catevent,
         text=final_output,
         aslink=True,
-        linktext=f"**•  Eval : **\n`{cmd}` \n\n**•  Result : **\n",
+        linktext=f"**•  Eval : **\n```{cmd}``` \n\n**•  Result : **\n",
     )
     if BOTLOG:
         await event.client.send_message(
@@ -99,15 +119,3 @@ async def aexec(code, smessatatus):
     return await locals()["__aexec"](
         message, event, reply, message.client, p, message.chat_id
     )
-
-
-CMD_HELP.update(
-    {
-        "evaluators": "**Plugin : **`evaluators`\
-        \n\n  •  **Synatax : **`.eval <expr>`:\
-        \n  •  **Function : **__Execute Python script.__\
-        \n\n  •  **Synatax : **`.exec <command>`:\
-        \n  •  **Function : **__Execute a Terminal command on catuserbot server and shows details.__\
-     "
-    }
-)

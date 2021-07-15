@@ -1,11 +1,3 @@
-# CatUserbot module containing various sites direct links generators
-
-# Copyright (C) 2019 The Raphielscape Company LLC.
-#
-# Licensed under the Raphielscape Public License, Version 1.c (the "License");
-# you may not use this file except in compliance with the License.
-#
-
 import json
 import re
 import urllib.parse
@@ -16,21 +8,45 @@ import requests
 from bs4 import BeautifulSoup
 from humanize import naturalsize
 
+from userbot import catub
 
-@bot.on(admin_cmd(outgoing=True, pattern=r"direct(?: |$)([\s\S]*)"))
-@bot.on(sudo_cmd(allow_sudo=True, pattern=r"direct(?: |$)([\s\S]*)"))
-async def direct_link_generator(request):
-    """direct links generator"""
-    catevent = await edit_or_reply(request, "`Processing...`")
-    textx = await request.get_reply_message()
-    message = request.pattern_match.group(1)
-    if message:
-        pass
-    elif textx:
-        message = textx.text
-    else:
-        await catevent.edit("`Usage: .direct <url>`")
-        return
+from ..core.logger import logging
+from ..core.managers import edit_or_reply
+
+LOGS = logging.getLogger(__name__)
+plugin_category = "misc"
+
+
+@catub.cat_cmd(
+    pattern="direct(?: |$)([\s\S]*)",
+    command=("direct", plugin_category),
+    info={
+        "header": "To generate a direct download link from a URL.",
+        "description": "Reply to a link or paste a URL to generate a direct download link.",
+        "supported links": [
+            "Google Drive",
+            "Cloud Mail",
+            "Yandex.Disk",
+            "AFH",
+            "ZippyShare",
+            "MediaFire",
+            "SourceForge",
+            "OSDN",
+            "GitHub",
+        ],
+        "usage": "{tr}direct <url>",
+    },
+)
+async def direct_link_generator(event):
+    """To generate a direct download link from a URL."""
+    textx = await event.get_reply_message()
+    message = event.pattern_match.group(1)
+    if not message:
+        if textx:
+            message = textx.text
+        else:
+            return await edit_delete(event, "`Usage: .direct <url>`")
+    catevent = await edit_or_reply(event, "`Processing...`")
     reply = ""
     links = re.findall(r"\bhttps?://.*\.\S+", message)
     if not links:
@@ -168,7 +184,7 @@ def mega_dl(url: str) -> str:
     result = popen(command).read()
     try:
         data = json.loads(result)
-        print(data)
+        LOGS.info(data)
     except json.JSONDecodeError:
         reply += "`Error: Can't extract the link`\n"
         return reply
@@ -227,7 +243,7 @@ def sourceforge(url: str) -> str:
     except IndexError:
         reply = "`No SourceForge links found`\n"
         return reply
-    file_path = re.findall(r"files(.*)/download", link)[0]
+    file_path = re.findall(r"files([\s\S]*)/download", link)[0]
     reply = f"Mirrors for __{file_path.split('/')[-1]}__\n"
     project = re.findall(r"projects?/(.*?)/files", link)[0]
     mirrors = (
@@ -237,7 +253,7 @@ def sourceforge(url: str) -> str:
     page = BeautifulSoup(requests.get(mirrors).content, "html.parser")
     info = page.find("ul", {"id": "mirrorList"}).findAll("li")
     for mirror in info[1:]:
-        name = re.findall(r"\((.*)\)", mirror.text.strip())[0]
+        name = re.findall(r"\(([\s\S]*)\)", mirror.text.strip())[0]
         dl_url = (
             f'https://{mirror["id"]}.dl.sourceforge.net/project/{project}/{file_path}'
         )
@@ -260,8 +276,8 @@ def osdn(url: str) -> str:
     mirrors = page.find("form", {"id": "mirror-select-form"}).findAll("tr")
     for data in mirrors[1:]:
         mirror = data.find("input")["value"]
-        name = re.findall(r"\((.*)\)", data.findAll("td")[-1].text.strip())[0]
-        dl_url = re.sub(r"m=(.*)&f", f"m={mirror}&f", link)
+        name = re.findall(r"\(([\s\S]*)\)", data.findAll("td")[-1].text.strip())[0]
+        dl_url = re.sub(r"m=([\s\S]*)&f", f"m={mirror}&f", link)
         reply += f"[{name}]({dl_url}) "
     return reply
 
@@ -292,7 +308,7 @@ def androidfilehost(url: str) -> str:
     except IndexError:
         reply = "`No AFH links found`\n"
         return reply
-    fid = re.findall(r"\?fid=(.*)", link)[0]
+    fid = re.findall(r"\?fid=([\s\S]*)", link)[0]
     session = requests.Session()
     user_agent = useragent()
     headers = {"user-agent": user_agent}
@@ -346,16 +362,3 @@ def useragent():
     ).findAll("td", {"class": "useragent"})
     user_agent = choice(useragents)
     return user_agent.text
-
-
-CMD_HELP.update(
-    {
-        "direct_links": "**Plugin : **`direct`\
-        \n\n**Syntax : **`.direct <url>`\n"
-        "**Function : **Reply to a link or paste a URL to\n"
-        "generate a direct download link\n\n"
-        "List of supported URLs:\n"
-        "`Google Drive - Cloud Mail - Yandex.Disk - AFH - "
-        "ZippyShare - MediaFire - SourceForge - OSDN - GitHub`"
-    }
-)

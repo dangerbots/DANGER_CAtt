@@ -1,14 +1,27 @@
 # Urban Dictionary for catuserbot by @mrconfused
 from PyDictionary import PyDictionary
 
-from . import AioHttp
+from userbot import catub
+
+from ..core.logger import logging
+from ..core.managers import edit_delete, edit_or_reply
+from ..helpers import AioHttp
+from ..helpers.utils import _format
+
+LOGS = logging.getLogger(__name__)
+plugin_category = "utils"
 
 
-@bot.on(admin_cmd(pattern="ud (.*)"))
-@bot.on(sudo_cmd(pattern="ud (.*)", allow_sudo=True))
+@catub.cat_cmd(
+    pattern="ud ([\s\S]*)",
+    command=("ud", plugin_category),
+    info={
+        "header": "To fetch meaning of the given word from urban dictionary.",
+        "usage": "{tr}ud <word>",
+    },
+)
 async def _(event):
-    if event.fwd_from:
-        return
+    "To fetch meaning of the given word from urban dictionary."
     word = event.pattern_match.group(1)
     try:
         response = await AioHttp().get_json(
@@ -26,16 +39,21 @@ async def _(event):
     except Exception as e:
         await edit_delete(
             event,
-            text="`The Unban Dictionary API could not be reached`",
+            text="`The Urban Dictionary API could not be reached`",
         )
-        print(e)
+        LOGS.info(e)
 
 
-@bot.on(admin_cmd(pattern="meaning (.*)"))
-@bot.on(sudo_cmd(pattern="meaning (.*)", allow_sudo=True))
+@catub.cat_cmd(
+    pattern="meaning ([\s\S]*)",
+    command=("meaning", plugin_category),
+    info={
+        "header": "To fetch meaning of the given word from dictionary.",
+        "usage": "{tr}meaning <word>",
+    },
+)
 async def _(event):
-    if event.fwd_from:
-        return
+    "To fetch meaning of the given word from dictionary."
     word = event.pattern_match.group(1)
     dictionary = PyDictionary()
     cat = dictionary.meaning(word)
@@ -48,15 +66,3 @@ async def _(event):
         await edit_or_reply(event, output)
     except Exception:
         await edit_or_reply(event, f"Couldn't fetch meaning of {word}")
-
-
-CMD_HELP.update(
-    {
-        "dictionary": "**Plugin :** `dictionary`\
-    \n\n  •  **Syntax :** `.ud query`\
-    \n  •  **Function : **fetches meaning from Urban dictionary\
-    \n\n  •  **Syntax : **`.meaning query`\
-    \n  •  **Function : **Fetches meaning of the given word\
-    "
-    }
-)
