@@ -1,18 +1,47 @@
 """Check your internet speed powered by speedtest.net
 Syntax: .speedtest
 Available Options: image, file, text"""
-from datetime import datetime
+
+from time import time
 
 import speedtest
 
-from . import reply_id
+from userbot import catub
+
+from ..core.managers import edit_or_reply
+from ..helpers.utils import reply_id
+
+plugin_category = "utils"
 
 
-@bot.on(admin_cmd(pattern="speedtest ?(.*)"))
-@bot.on(sudo_cmd(pattern="speedtest ?(.*)", allow_sudo=True))
+def convert_from_bytes(size):
+    power = 2 ** 10
+    n = 0
+    units = {0: "", 1: "Kbps", 2: "Mbps", 3: "Gbps", 4: "Tbps"}
+    while size > power:
+        size /= power
+        n += 1
+    return f"{round(size, 2)} {units[n]}"
+
+
+@catub.cat_cmd(
+    pattern="speedtest(?:\s|$)([\s\S]*)",
+    command=("speedtest", plugin_category),
+    info={
+        "header": "Botserver's speedtest by ookla.",
+        "options": {
+            "text": "will give output as text",
+            "image": (
+                "Will give output as image this is default option if "
+                "no input is given."
+            ),
+            "file": "will give output as png file.",
+        },
+        "usage": ["{tr}speedtest <option>", "{tr}speedtest"],
+    },
+)
 async def _(event):
-    if event.fwd_from:
-        return
+    "Botserver's speedtest by ookla."
     input_str = event.pattern_match.group(1)
     as_text = False
     as_document = False
@@ -25,13 +54,13 @@ async def _(event):
     catevent = await edit_or_reply(
         event, "`Calculating my internet speed. Please wait!`"
     )
-    start = datetime.now()
+    start = time()
     s = speedtest.Speedtest()
     s.get_best_server()
     s.download()
     s.upload()
-    end = datetime.now()
-    ms = (end - start).microseconds / 1000
+    end = time()
+    ms = round(end - start, 2)
     response = s.results.dict()
     download_speed = response.get("download")
     upload_speed = response.get("upload")
@@ -47,14 +76,16 @@ async def _(event):
             await catevent.edit(
                 """`SpeedTest completed in {} seconds`
 
-`Download: {}`
-`Upload: {}`
-`Ping: {}`
+`Download: {} (or) {} MB/s`
+`Upload: {} (or) {} MB/s`
+`Ping: {} ms`
 `Internet Service Provider: {}`
 `ISP Rating: {}`""".format(
                     ms,
                     convert_from_bytes(download_speed),
+                    round(download_speed / 8e6, 2),
                     convert_from_bytes(upload_speed),
+                    round(upload_speed / 8e6, 2),
                     ping_time,
                     i_s_p,
                     i_s_p_rating,
@@ -73,36 +104,18 @@ async def _(event):
     except Exception as exc:
         await catevent.edit(
             """**SpeedTest** completed in {} seconds
-Download: {}
-Upload: {}
-Ping: {}
+Download: {} (or) {} MB/s
+Upload: {} (or) {} MB/s
+Ping: {} ms
 
 __With the Following ERRORs__
 {}""".format(
                 ms,
                 convert_from_bytes(download_speed),
+                round(download_speed / 8e6, 2),
                 convert_from_bytes(upload_speed),
+                round(upload_speed / 8e6, 2),
                 ping_time,
                 str(exc),
             )
         )
-
-
-def convert_from_bytes(size):
-    power = 2 ** 10
-    n = 0
-    units = {0: "", 1: "kilobytes", 2: "megabytes", 3: "gigabytes", 4: "terabytes"}
-    while size > power:
-        size /= power
-        n += 1
-    return f"{round(size, 2)} {units[n]}"
-
-
-CMD_HELP.update(
-    {
-        "speedtest": """**Plugin : **`speedtest`
-
-  •  **Syntax : **`.speedtest text/image/file`
-  •  **function : **__Shows your server speed in the given format if nothing is given then shows as image__"""
-    }
-)

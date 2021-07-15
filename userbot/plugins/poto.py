@@ -1,41 +1,40 @@
-#    Friendly Telegram (telegram userbot)
-#    Copyright (C) 2018-2019 The Authors
-
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
 """
-----------------------------------------------------------------
-All Thenks goes to Emily ( The creater of This Plugin)
-\nSome credits goes to me ( @kirito6969 ) for ported this plugin
-\nand `SnapDragon for` Helping me.
-----------------------------------------------------------------
-
-Type `.poto` for get **All profile pics of that User**
-\nOr type `.poto (number)` to get the **desired number of photo of a User** .
+Thenks goes to Emily ( The creater of Poto cmd) from ftg userbot
 """
 
+from PIL import Image, ImageFilter, UnidentifiedImageError
+
+from userbot import catub
+
+from ..core.managers import edit_delete, edit_or_reply
+
+plugin_category = "extra"
 
 name = "Profile Photos"
 
 
-@bot.on(admin_cmd(pattern="poto ?(.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern="poto ?(.*)", allow_sudo=True))
+@catub.cat_cmd(
+    pattern="poto(?:\s|$)([\s\S]*)",
+    command=("poto", plugin_category),
+    info={
+        "header": "To get user or group profile pic.",
+        "description": "Reply to a user to get his profile pic or use command along\
+        with profile pic number to get desired pic else use .poto all to get\
+        all pics. If you don't reply to any one\
+        then the bot will get the chat profile pic.",
+        "usage": [
+            "{tr}poto <number>",
+            "{tr}poto all",
+            "{tr}poto",
+        ],
+    },
+)
 async def potocmd(event):
+    "To get user or group profile pic"
     uid = "".join(event.raw_text.split(maxsplit=1)[1:])
     user = await event.get_reply_message()
     chat = event.input_chat
-    if user:
+    if user and user.sender:
         photos = await event.client.get_profile_photos(user.sender)
         u = True
     else:
@@ -73,7 +72,7 @@ async def potocmd(event):
             await edit_or_reply(event, "`Are you comedy me ?`")
             return
         if int(uid) > (len(photos)):
-            return await edit_delere(
+            return await edit_delete(
                 event, "`No photo found of this NIBBA / NIBBI. Now u Die!`"
             )
 
@@ -82,12 +81,38 @@ async def potocmd(event):
     await event.delete()
 
 
-CMD_HELP.update(
-    {
-        "poto": """**Plugin : **`poto`
-
-•  **Syntax : **`.poto`
-•  **Function : **__reply to user to get his profile pic use command along \
-with profile pic number to get desired pic else use .poto all to get all if you dont reply then gets group pics__"""
-    }
+@catub.cat_cmd(
+    pattern="blur(?:\s|$)([\s\S]*)",
+    command=("blur", plugin_category),
+    info={
+        "header": "To blur picture.",
+        "description": "Reply to a user to blur his profile picture , or reply to a photo to blur that.",
+        "usage": [
+            "{tr}blur <number> <reply to a picture / user text>",
+            "{tr}blur <reply to a picture / user text>",
+        ],
+    },
 )
+async def potocmd(event):
+    "To blur pic"
+    reply_to_id = await reply_id(event)
+    rinp = event.pattern_match.group(1)
+    rimg = await event.get_reply_message()
+    red = int(rinp) if rinp else 10
+    pic_name = "blur.png"
+    try:
+        if rimg and rimg.media:
+            await event.client.download_media(rimg, pic_name)
+        else:
+            user = rimg.sender_id
+            await event.client.download_profile_photo(user, pic_name)
+    except AttributeError:
+        return await edit_delete(event, "`Replay to a user message... `")
+    try:
+        im1 = Image.open(pic_name)
+        im2 = im1.filter(ImageFilter.GaussianBlur(radius=red))
+        im2.save(pic_name)
+    except UnidentifiedImageError:
+        return await edit_delete(event, "`Replay to a picture or user message... `")
+    await event.delete()
+    await event.client.send_file(event.chat_id, pic_name, reply_to=reply_to_id)
