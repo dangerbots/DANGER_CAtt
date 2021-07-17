@@ -4,6 +4,7 @@ import random
 
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
+from userbot import catub
 
 from . import ALIVE_NAME
 
