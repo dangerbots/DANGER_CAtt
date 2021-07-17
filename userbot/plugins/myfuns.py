@@ -232,20 +232,27 @@ async def alone(alone):
     await alone.edit(reply_text)
 
 
-@catub.cat_cmd(pattern="mkozhi$", command=("mkozhi", plugin_category))
+@catub.cat_cmd(pattern="kozhi$", command=("kozhi", plugin_category))
 async def hating(hated):
     index = random.randint(0, len(HATE_STRINGS) - 1)
     reply_text = HATE_STRINGS[index]
     await hated.edit(reply_text)
 
 
-@catub.cat_cmd(pattern="mslap$", command=("mslap", plugin_category))
+@catub.cat_cmd(
+    pattern="mslap(?:\s|$)([\s\S]*)",
+    command=("mslap", plugin_category),
+    info={
+        "header": "To slap a person with random objects !!",
+        "usage": "{tr}slap reply/username>",
+    },
+)
 async def who(event):
+    "To slap a person with random objects !!"
     replied_user = await get_user(event)
-    caption = await slap(replied_user, event)
-    message_id_to_reply = event.message.reply_to_msg_id
-    if not message_id_to_reply:
-        message_id_to_reply = None
+    if replied_user is None:
+        return
+    caption = await catmemes.slap(replied_user, event, mention)
     try:
         await edit_or_reply(event, caption)
     except BaseException:
