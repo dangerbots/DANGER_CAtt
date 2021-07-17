@@ -12,6 +12,7 @@ import urllib
 from telethon.tl import functions
 
 from userbot import catub
+
 plugin_category = "extra"
 
 OFFLINE_TAG = "[OFFLINE]"
@@ -20,9 +21,7 @@ PROFILE_IMAGE = os.environ.get(
 )
 
 
-@catub.cat_cmd(
-    pattern="offline$",
-    command=("offline", plugin_category))
+@catub.cat_cmd(pattern="offline$", command=("offline", plugin_category))
 async def _(event):
     if event.fwd_from:
         return
@@ -69,9 +68,7 @@ async def _(event):
         await event.edit(str(e))
 
 
-@catub.cat_cmd(
-    pattern="online$",
-    command=("online", plugin_category))
+@catub.cat_cmd(pattern="online$", command=("online", plugin_category))
 async def _(event):
     if event.fwd_from:
         return

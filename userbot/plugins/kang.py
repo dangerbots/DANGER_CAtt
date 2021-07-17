@@ -16,18 +16,19 @@ from telethon.errors.rpcerrorlist import StickersetInvalidError
 from telethon.tl.functions.messages import GetStickerSetRequest
 from telethon.tl.types import (
     DocumentAttributeSticker,
-    InputStickerSetID,
     InputStickerSetShortName,
     MessageMediaPhoto,
 )
 
 from userbot import catub
+
 from . import ALIVE_NAME
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "Cat"
 FILLED_UP_DADDY = "Invalid pack selected."
 
 plugin_category = "fun"
+
 
 @catub.cat_cmd(
     pattern="steal(?:\s|$)([\s\S]*)",
@@ -236,9 +237,7 @@ async def _(event):
     )
 
 
-@catub.cat_cmd(
-    pattern="getsticker ?([\s\S]*)",
-    command=("getsticker", plugin_category))
+@catub.cat_cmd(pattern="getsticker ?([\s\S]*)", command=("getsticker", plugin_category))
 async def _(event):
     if event.fwd_from:
         return

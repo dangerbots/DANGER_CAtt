@@ -4,6 +4,7 @@ import random
 
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
+
 from userbot import catub
 
 from . import ALIVE_NAME
@@ -210,45 +211,35 @@ AYINU_STRINGS = [
 ]
 
 
-@catub.cat_cmd(
-    pattern="ayinu$",
-    command=("ayinu", plugin_category))
+@catub.cat_cmd(pattern="ayinu$", command=("ayinu", plugin_category))
 async def ayinu(ayinu):
     index = random.randint(0, len(AYINU_STRINGS) - 1)
     reply_text = AYINU_STRINGS[index]
     await ayinu.edit(reply_text)
 
 
-@catub.cat_cmd(
-    pattern="mulla$",
-    command=("mulla", plugin_category))
+@catub.cat_cmd(pattern="mulla$", command=("mulla", plugin_category))
 async def mulla(mulla):
     index = random.randint(0, len(MULLA_STRINGS) - 1)
     reply_text = MULLA_STRINGS[index]
     await mulla.edit(reply_text)
 
 
-@catub.cat_cmd(
-    pattern="alone$",
-    command=("alone", plugin_category))
+@catub.cat_cmd(pattern="alone$", command=("alone", plugin_category))
 async def alone(alone):
     index = random.randint(0, len(ALONE_STRINGS) - 1)
     reply_text = ALONE_STRINGS[index]
     await alone.edit(reply_text)
 
 
-@catub.cat_cmd(
-    pattern="mkozhi$",
-    command=("mkozhi", plugin_category))
+@catub.cat_cmd(pattern="mkozhi$", command=("mkozhi", plugin_category))
 async def hating(hated):
     index = random.randint(0, len(HATE_STRINGS) - 1)
     reply_text = HATE_STRINGS[index]
     await hated.edit(reply_text)
 
 
-@catub.cat_cmd(
-    pattern="mslap$",
-    command=("mslap", plugin_category))
+@catub.cat_cmd(pattern="mslap$", command=("mslap", plugin_category))
 async def who(event):
     replied_user = await get_user(event)
     caption = await slap(replied_user, event)
@@ -312,54 +303,42 @@ async def slap(replied_user, event):
     return caption
 
 
-@catub.cat_cmd(
-    pattern="mrape$",
-    command=("mrape", plugin_category))
+@catub.cat_cmd(pattern="mrape$", command=("mrape", plugin_category))
 async def raping(raped):
     index = random.randint(0, len(RAPE_STRINGS) - 1)
     reply_text = RAPE_STRINGS[index]
     await raped.edit(reply_text)
 
 
-@catub.cat_cmd(
-    pattern="mshe$",
-    command=("mshe", plugin_category))
+@catub.cat_cmd(pattern="mshe$", command=("mshe", plugin_category))
 async def thanos(thanos):
     index = random.randint(0, len(THANOS_STRINGS) - 1)
     reply_text = THANOS_STRINGS[index]
     await thanos.edit(reply_text)
 
 
-@catub.cat_cmd(
-    pattern="mabuse$",
-    command=("mabuse", plugin_category))
+@catub.cat_cmd(pattern="mabuse$", command=("mabuse", plugin_category))
 async def fuckedd(abusehard):
     index = random.randint(0, len(ABUSEHARD_STRING) - 1)
     reply_text = ABUSEHARD_STRING[index]
     await abusehard.edit(reply_text)
 
 
-@catub.cat_cmd(
-    pattern="mruns$",
-    command=("mruns", plugin_category))
+@catub.cat_cmd(pattern="mruns$", command=("mruns", plugin_category))
 async def fuckedd(abusehard):
     index = random.randint(0, len(RUNSREACTS) - 1)
     reply_text = RUNSREACTS[index]
     await abusehard.edit(reply_text)
 
 
-@catub.cat_cmd(
-    pattern="minsult$",
-    command=("minsult", plugin_category))
+@catub.cat_cmd(pattern="minsult$", command=("minsult", plugin_category))
 async def proo(pros):
     index = random.randint(0, len(PRO_STRINGS) - 1)
     reply_text = PRO_STRINGS[index]
     await pros.edit(reply_text)
 
 
-@catub.cat_cmd(
-    pattern="foryou$",
-    command=("foryou", plugin_category))
+@catub.cat_cmd(pattern="foryou$", command=("foryou", plugin_category))
 async def _(event):
     if event.fwd_from:
         return
@@ -562,10 +541,8 @@ async def _(event):
             "എന്റെ ഹൃദയത്തിൽ ചുവന്ന റോസാപുഷ്പ്പങ്ങൾ വളരുന്നുണ്ട്. പക്ഷെ, അവ ഒരിക്കലും കൊഴിയാറില്ല. കാരണം, ഞാൻ നിന്റെ പുഞ്ചിരി കാണുമ്പോഴും നിന്നെ കുറിച്ച് ചിന്തിക്കുമ്പോഴുമെല്ലാം അവ വിടരുന്നു☺️☺️.."
         )
 
-        
-@catub.cat_cmd(
-    pattern="msing$",
-    command=("msing", plugin_category))
+
+@catub.cat_cmd(pattern="msing$", command=("msing", plugin_category))
 async def _(event):
     if event.fwd_from:
         return
@@ -719,4 +696,4 @@ async def _(event):
     if x == 44:
         await event.edit(
             "🎶 പണ്ടു പണ്ടേ പൂത്ത മലരുകൾ മിന്നും മിന്നാമിനുങ്ങുകൾ ഒരു കുറി ഇനി വരുമോ...🎶"
-        )        
+        )

@@ -1,14 +1,12 @@
 import asyncio
 import random
-from userbot import catub
 
+from userbot import catub
 
 plugin_category = "fun"
 
 
-@catub.cat_cmd(
-    pattern="xtx$",
-    command=("xtx", plugin_category))
+@catub.cat_cmd(pattern="xtx$", command=("xtx", plugin_category))
 async def _(event):
     if event.fwd_from:
         return
@@ -135,9 +133,7 @@ async def _(event):
         )
 
 
-@catub.cat_cmd(
-    pattern="pyavam$",
-    command=("pyavam", plugin_category))
+@catub.cat_cmd(pattern="pyavam$", command=("pyavam", plugin_category))
 async def _(event):
     if event.fwd_from:
         return

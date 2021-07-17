@@ -7,9 +7,7 @@ from userbot import catub
 plugin_category = "fun"
 
 
-@catub.cat_cmd(
-    pattern="dgs$",
-    command=("dgs", plugin_category))
+@catub.cat_cmd(pattern="dgs$", command=("dgs", plugin_category))
 async def _(event):
     if event.fwd_from:
         return
