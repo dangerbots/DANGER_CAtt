@@ -112,7 +112,7 @@ async def bot_start(event):
                 Button.url("Repo", "https://github.com/Sur-vivor/CatUserbot"),
                 Button.url(
                     "Deploy",
-                    "https://dashboard.heroku.com/new?button-url=https%3A%2F%2Fgithub.com%2FMr-confused%2Fcatpack&template=https%3A%2F%2Fgithub.com%2FMr-confused%2Fcatpack",
+                    "https://dashboard.heroku.com/new?button-url=https%3A%2F%2Fgithub.com%2FSur-vivor%2Fnekopack&template=https%3A%2F%2Fgithub.com%2FSur-vivor%2Fnekopack",
                 ),
             )
         ]
