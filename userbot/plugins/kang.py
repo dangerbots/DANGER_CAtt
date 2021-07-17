@@ -1,7 +1,6 @@
 """Make / Download Telegram Sticker Packs without installing Third Party applications
 Available Commands:
 .steal [Optional Emoji]
-.stkrinfo
 .getsticker"""
 import asyncio
 import datetime
@@ -28,8 +27,17 @@ from . import ALIVE_NAME
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "Cat"
 FILLED_UP_DADDY = "Invalid pack selected."
 
+plugin_category = "fun"
 
-@bot.on(admin_cmd(pattern="steal ?(.*)"))
+@catub.cat_cmd(
+    pattern="steal(?:\s|$)([\s\S]*)",
+    command=("steal", plugin_category),
+    info={
+        "header": "To kang a sticker.",
+        "description": "Kang's the sticker/image to the specified pack and uses the emoji('s) you picked",
+        "usage": "{tr}kang [emoji('s)] [number]",
+    },
+)
 async def _(event):
     if event.fwd_from:
         return
@@ -228,45 +236,9 @@ async def _(event):
     )
 
 
-@bot.on(admin_cmd(pattern="packinfo"))
-async def _(event):
-    if event.fwd_from:
-        return
-    if not event.is_reply:
-        await event.edit("Reply to any sticker to get it's pack info.")
-        return
-    rep_msg = await event.get_reply_message()
-    if not rep_msg.document:
-        await event.edit("Reply to any sticker to get it's pack info.")
-        return
-    stickerset_attr_s = rep_msg.document.attributes
-    stickerset_attr = find_instance(stickerset_attr_s, DocumentAttributeSticker)
-    if not stickerset_attr.stickerset:
-        await event.edit("sticker does not belong to a pack.")
-        return
-    get_stickerset = await borg(
-        GetStickerSetRequest(
-            InputStickerSetID(
-                id=stickerset_attr.stickerset.id,
-                access_hash=stickerset_attr.stickerset.access_hash,
-            )
-        )
-    )
-    pack_emojis = []
-    for document_sticker in get_stickerset.packs:
-        if document_sticker.emoticon not in pack_emojis:
-            pack_emojis.append(document_sticker.emoticon)
-    await event.edit(
-        f"**Sticker Title:** `{get_stickerset.set.title}\n`"
-        f"**Sticker Short Name:** `{get_stickerset.set.short_name}`\n"
-        f"**Official:** `{get_stickerset.set.official}`\n"
-        f"**Archived:** `{get_stickerset.set.archived}`\n"
-        f"**Stickers In Pack:** `{len(get_stickerset.packs)}`\n"
-        f"**Emojis In Pack:** {' '.join(pack_emojis)}"
-    )
-
-
-@bot.on(admin_cmd(pattern="getsticker ?(.*)"))
+@catub.cat_cmd(
+    pattern="getsticker ?([\s\S]*)",
+    command=("getsticker", plugin_category))
 async def _(event):
     if event.fwd_from:
         return
