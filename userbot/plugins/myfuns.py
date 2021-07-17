@@ -241,7 +241,7 @@ async def hating(hated):
 
 
 @bot.on(admin_cmd(pattern=r"mslap(?: |$)(.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern="Mmslap(?: |$)(.*)", allow_sudo=True))
+@bot.on(sudo_cmd(pattern="mslap(?: |$)(.*)", allow_sudo=True))
 async def who(event):
     replied_user = await get_user(event)
     caption = await slap(replied_user, event)
