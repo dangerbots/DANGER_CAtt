@@ -1,8 +1,8 @@
 import asyncio
 from datetime import datetime
 
-from userbot import catub, hmention
-
+from userbot import catub
+from . import hmention
 from ..core.managers import edit_or_reply
 
 plugin_category = "tools"
