@@ -281,7 +281,7 @@ async def upstream(event):
 )
 async def upstream(event):
     event = await edit_or_reply(event, "`Pulling the nekopack repo wait a sec ....`")
-    off_repo = "https://github.com/Mr-confused/nekopack"
+    off_repo = "https://github.com/Sur-vivor/nekopack"
     os.chdir("/app")
     try:
         txt = "`Oops.. Updater cannot continue due to "
@@ -312,11 +312,11 @@ async def upstream(event):
 
 
 @catub.cat_cmd(
-    pattern="badcat$",
-    command=("badcat", plugin_category),
+    pattern="goodcat$",
+    command=("goodcat", plugin_category),
     info={
-        "header": "To update to badcat( for extra masala and gali).",
-        "usage": "{tr}badcat",
+        "header": "To update to goodcat( for official cat).",
+        "usage": "{tr}goodcat",
     },
 )
 async def variable(var):
@@ -334,5 +334,5 @@ async def variable(var):
             "Set the required var in heroku to function this normally `HEROKU_APP_NAME`.",
         )
     heroku_var = app.config()
-    await edit_or_reply(var, f"`Changing goodcat to badcat wait for 2-3 minutes.`")
-    heroku_var["UPSTREAM_REPO"] = "https://github.com/Jisan09/catuserbot"
+    await edit_or_reply(var, f"`Changing surcat to goodcat wait for 2-3 minutes.`")
+    heroku_var["UPSTREAM_REPO"] = "https://github.com/sandy1709/catuserbot"
