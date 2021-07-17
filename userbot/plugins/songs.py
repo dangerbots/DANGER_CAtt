@@ -104,7 +104,7 @@ async def _(event):
         event.chat_id,
         song_file,
         force_document=False,
-        caption=f"<b><i>➥ Song :- {query}</i></b>\n<b><i>➥ Uploaded by :- {hmention}</i></b>",,
+        caption=f"<b><i>➥ Song :- {query}</i></b>\n<b><i>➥ Uploaded by :- {hmention}</i></b>",
         thumb=catthumb,
         supports_streaming=True,
         parse_mode="html",
