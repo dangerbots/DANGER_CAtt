@@ -252,7 +252,7 @@ async def who(event):
     replied_user = await get_user(event)
     if replied_user is None:
         return
-    caption = await catmemes.slap(replied_user, event, mention)
+    caption = await slap(replied_user, event)
     try:
         await edit_or_reply(event, caption)
     except BaseException:
