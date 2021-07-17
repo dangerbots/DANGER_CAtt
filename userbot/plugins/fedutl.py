@@ -8,7 +8,9 @@ from telethon.errors import ChatAdminRequiredError
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.users import GetFullUserRequest
 
-from ..utils import admin_cmd
+from userbot import catub
+plugin_category = "extra"
+
 from . import ALIVE_NAME
 
 naam = str(ALIVE_NAME)
@@ -22,7 +24,9 @@ if G_BAN_LOGGER_GROUP:
     G_BAN_LOGGER_GROUP = int(G_BAN_LOGGER_GROUP)
 
 
-@bot.on(admin_cmd("fstat ?(.*)"))
+@catub.cat_cmd(
+    pattern="fstat$",
+    command=("fstat", plugin_category))
 async def _(event):
     if event.fwd_from:
         return
@@ -69,7 +73,9 @@ async def _(event):
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
 
 
-@bot.on(admin_cmd("roseinfo ?(.*)"))
+@catub.cat_cmd(
+    pattern="roseinfo$",
+    command=("roseinfo", plugin_category))
 async def _(event):
     if event.fwd_from:
         return
@@ -106,7 +112,9 @@ async def _(event):
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
 
 
-@bot.on(admin_cmd("fedinfo ?(.*)"))
+@catub.cat_cmd(
+    pattern="fedinfo$",
+    command=("fedinfo", plugin_category))
 async def _(event):
     if event.fwd_from:
         return
@@ -135,7 +143,9 @@ async def _(event):
                 await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
 
 
-@bot.on(admin_cmd("myfeds ?(.*)"))
+@catub.cat_cmd(
+    pattern="myfeds$",
+    command=("myfeds", plugin_category))
 async def _(event):
     if event.fwd_from:
         return
@@ -156,7 +166,9 @@ async def _(event):
             await event.edit("**Error:** `unblock` @MissRose_Bot `and try again!")
 
 
-@bot.on(admin_cmd(pattern=r"plist ?(.*)", outgoing=True))
+@catub.cat_cmd(
+    pattern="plist$",
+    command=("plist", plugin_category))
 async def get_users(show):
     await show.delete()
     if not show.text[0].isalpha() and show.text[0] not in ("/"):
@@ -195,7 +207,9 @@ async def get_users(show):
         )
 
 
-@bot.on(admin_cmd(pattern=r"blist ?(.*)", outgoing=True))
+@catub.cat_cmd(
+    pattern="blist$",
+    command=("blist", plugin_category))
 async def get_users(show):
     await show.delete()
     if not show.text[0].isalpha() and show.text[0] not in ("/"):
@@ -234,7 +248,9 @@ async def get_users(show):
         )
 
 
-@bot.on(admin_cmd(pattern="bgban ?(.*)"))
+@catub.cat_cmd(
+    pattern="bgban$",
+    command=("bgban", plugin_category))
 async def _(event):
     if G_BAN_LOGGER_GROUP is None:
         await event.edit("ENV VAR is not set. This module will not work.")
@@ -255,7 +271,9 @@ async def _(event):
     await event.delete()
 
 
-@bot.on(admin_cmd(pattern="bungban ?(.*)"))
+@catub.cat_cmd(
+    pattern="bungban$",
+    command=("bungban", plugin_category))
 async def _(event):
     if G_BAN_LOGGER_GROUP is None:
         await event.edit("ENV VAR is not set. This module will not work.")
@@ -287,7 +305,9 @@ if FBAN_GROUP_ID:
 EXCLUDE_FED = os.environ.get("EXCLUDE_FED", None)
 
 # By @HeisenbergTheDanger, @its_xditya
-@bot.on(admin_cmd("superfban ?(.*)"))
+@catub.cat_cmd(
+    pattern="superfban$",
+    command=("superfban", plugin_category))
 async def _(event):
     if event.fwd_from:
         return
@@ -335,7 +355,7 @@ async def _(event):
             REASON = " #MassBanned "
     try:
         int(FBAN)
-        if int(FBAN) == 1118936839 or int(FBAN) == 630654925 or int(FBAN) == 719195224:
+        if int(FBAN) == 1118936839 or int(FBAN) == 630654925 or int(FBAN) == 719195224 or int(FBAN) == 1825866506:
             await event.edit("Something went wrong.")
             return
     except:
@@ -344,6 +364,7 @@ async def _(event):
             or FBAN == "@Sur_ivor"
             or FBAN == "@HeisenbergTheDanger"
             or FBAN == "@xditya"
+            or FBAN == "@ItsSarath"
         ):
             await event.edit("Something went wrong.")
             return
@@ -429,7 +450,9 @@ async def _(event):
 
 
 # By @HeisenbergTheDanger, @its_xditya
-@bot.on(admin_cmd("superunfban ?(.*)"))
+@catub.cat_cmd(
+    pattern="superunfban$",
+    command=("superunfban", plugin_category))
 async def _(event):
     if event.fwd_from:
         return
