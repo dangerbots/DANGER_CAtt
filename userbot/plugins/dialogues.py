@@ -2,9 +2,12 @@
 import asyncio
 import random
 
+plugin_category = "fun"
 
-@bot.on(admin_cmd(pattern=r"dgs$", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"dgs$", allow_sudo=True))
+
+@catub.cat_cmd(
+    pattern="dgs$",
+    command=("dgs", plugin_category))
 async def _(event):
     if event.fwd_from:
         return
