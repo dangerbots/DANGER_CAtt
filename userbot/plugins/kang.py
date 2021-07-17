@@ -21,7 +21,7 @@ from telethon.tl.types import (
     MessageMediaPhoto,
 )
 
-from ..utils import admin_cmd
+from userbot import catub
 from . import ALIVE_NAME
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "Cat"
