@@ -2,6 +2,8 @@
 import asyncio
 import random
 
+from userbot import catub
+
 plugin_category = "fun"
 
 
