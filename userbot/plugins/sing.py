@@ -2,8 +2,9 @@ import asyncio
 import random
 
 
-@bot.on(admin_cmd(pattern=r"msing$", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"msing$", allow_sudo=True))
+@catub.cat_cmd(
+    pattern="msing$",
+    command=("msing", plugin_category))
 async def _(event):
     if event.fwd_from:
         return
@@ -160,8 +161,9 @@ async def _(event):
         )
 
 
-@bot.on(admin_cmd(pattern=r"sing$", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"sing$", allow_sudo=True))
+@catub.cat_cmd(
+    pattern="sing$",
+    command=("sing", plugin_category))
 async def _(event):
     if event.fwd_from:
         return
