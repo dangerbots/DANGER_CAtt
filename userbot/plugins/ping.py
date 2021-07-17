@@ -1,7 +1,7 @@
 import asyncio
 from datetime import datetime
 
-from userbot import catub
+from userbot import catub, hmention
 
 from ..core.managers import edit_or_reply
 
@@ -35,7 +35,10 @@ async def _(event):
         catevent = await edit_or_reply(event, "Pong!")
         end = datetime.now()
         ms = (end - start).microseconds / 1000
-        await catevent.edit(f"Pong!\n`{ms} ms`")
+        await catevent.edit(f"<b><i>☞ Pong</b></i>\n➥ {ms} <b><i>ms\n➥ Bot of {hmention}</b></i>",
+            parse_mode="html",
+        )
+
 
 
 @catub.cat_cmd(
