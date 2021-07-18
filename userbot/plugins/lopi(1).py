@@ -1,5 +1,4 @@
 """ Userbot module for having some fun with people. """
-import asyncio
 import random
 
 from telethon.tl.functions.users import GetFullUserRequest
@@ -89,4 +88,3 @@ async def slap(replied_user, event):
     caption = temp.format(user1=DEFAULTUSER, victim=slapped, SURID=SURID)
 
     return caption
-
