@@ -24,8 +24,8 @@ plugin_category = "utils"
 
 
 @catub.cat_cmd(
-    pattern="alive$",
-    command=("alive", plugin_category),
+    pattern="ialive$",
+    command=("ialive", plugin_category),
     info={
         "header": "To check bot's alive status",
         "options": "To show media in this cmd you need to set ALIVE_PIC with media link, get this by replying the media by .tgm",
@@ -79,8 +79,8 @@ async def amireallyalive(event):
 
 
 @catub.cat_cmd(
-    pattern="ialive$",
-    command=("ialive", plugin_category),
+    pattern="alive$",
+    command=("alive", plugin_category),
     info={
         "header": "To check bot's alive status via inline mode",
         "options": "To show media in this cmd you need to set ALIVE_PIC with media link, get this by replying the media by .tgm",
@@ -92,7 +92,7 @@ async def amireallyalive(event):
 async def amireallyalive(event):
     "A kind of showing bot details by your inline bot"
     reply_to_id = await reply_id(event)
-    EMOJI = gvarstatus("ALIVE_EMOJI") or "  ✥ "
+    EMOJI = gvarstatus("ALIVE_EMOJI") or "  ❣️ "
     CUSTOM_ALIVE_TEXT = gvarstatus("ALIVE_TEXT") or "**Catuserbot is Up and Running**"
     cat_caption = f"{CUSTOM_ALIVE_TEXT}\n"
     cat_caption += f"**{EMOJI} Telethon version :** `{version.__version__}\n`"
